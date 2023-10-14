@@ -26,7 +26,7 @@ export default function HomePage() {
                 <span className="flex-1 text-2xl font-bold">We got your desire Candy</span>
                 {(candy && candy.length > 0) && <img className="rounded-md h-[130px] w-[150px]" src={candy[2].image} alt="" />}
             </div>
-            <div className="grid md:grid-cols-4 grid-cols-2 gap-4 md:px-[8%] px-[5%] mt-8 content">
+            <div className="grid md:grid-cols-4 grid-cols-2 gap-2 md:px-[8%] px-[3%] mt-8 content">
                 {candy.map(item => <ItemCart item={item} key={item.id} />)}
             </div>
         </div>
