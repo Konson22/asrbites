@@ -3,24 +3,44 @@
 @tailwind utilities;
 @tailwind variants;
 
+@font-face {
+  font-family: 'BrandierTrial';
+  font-style: normal;
+  font-weight: normal;
+  src: local('BrandierTrial'), url('./assets/fonts/Bestie.otf') format('woff');
+}
 
 body{
   scroll-behavior: smooth !important;
-  background-color: rgb(231, 231, 222);
+  background-color: rgb(243, 243, 238);
 }
 
 img{
   width: 100%;
   height: 100%;
-  color: rgb(231, 231, 222);
+  color: rgb(243, 243, 238);
 }
 
 .welcome-page{
-  /* height: 100vh; */
-  background-image: url('./assets/images/cake-pops-693645_1280.jpg');
+  background-image: url('./assets/images/strawberry-8214486_1280.jpg');
   background-size: cover;
 }
 
+.header-container{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.411), rgba(0, 0, 0, 0.411)), url('./assets/images/strawberry-8214486_1280.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.header-container h1{
+  font-family: BrandierTrial;
+}
+
+.promation{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.411), rgba(0, 0, 0, 0.411)), url('./assets/images/macaroons-2178371_1280.jpg');
+  background-size: cover;
+  background-position: center;
+}
 .content-wraper{
   padding-bottom: 4.5rem;
 }

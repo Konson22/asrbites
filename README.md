@@ -1,46 +1,80 @@
-# Getting Started with Create React App
+# ServiceFinder Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![ServiceFinder](public/images/project-image.jpeg)
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+ServiceFinder is a dynamic web application built using React.js, Tailwind CSS, and several other technologies. It provides a platform for connecting service providers with potential customers. The website includes features such as Google Maps integration, a responsive image carousel, and social media sharing capabilities.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Search for Services:** Users can search for various services using keywords or location.
+- **Google Maps Integration:** Service providers' locations are displayed on an interactive map.
+- **Service Details:** Detailed information about each service provider, including contact details and reviews.
+- **Responsive Image Carousel:** Users can view service provider images in a dynamic and responsive image carousel.
+- **Social Media Sharing:** Share service provider information with friends and family via social media.
+- **Real-time Updates:** Firebase is used for real-time updates to keep information current.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- React.js: A JavaScript library for building user interfaces.
+- Tailwind CSS: A utility-first CSS framework for rapid UI development.
+- Google Map React: A library for integrating Google Maps into React applications.
+- React Elastic Carousel: A responsive carousel component for React applications.
+- Framer Motion: A React animation library.
+- React Share: A library for adding social sharing functionality to React applications.
+- Axios: A promise-based HTTP client for making requests to external APIs.
+- Firebase: A cloud-based platform for building web and mobile applications.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+To get started with this project, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. #### Clone this repository to your local machine:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```
+    git clone [https://github.com/Konson22/skillfinder]
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. #### Navigate to the project directory:
+   ```
+       cd servicefinder-website
+   ```
+3. #### Install the project dependencies:
+   ```
+       npm install
+   ```
+4. #### Configure Firebase:
+   - Create a Firebase project on the Firebase Console.
+   - Obtain your Firebase configuration (apiKey, authDomain, projectId, etc.).
+   - Create a .env.local file in the project root and add your Firebase configuration:
+   ```
+   REACT_APP_FIREBASE_API_KEY=your_api_key
+   REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+   ```
+5. #### Start the development server:
+   ```
+   npm start
+   ```
+   Open your browser and visit http://localhost:3000 to see the application in action.
 
-### `npm run eject`
+## Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Search for services using keywords and location.
+- Explore service providers' details by clicking on their markers on the map.
+- Navigate through service provider images using the responsive image carousel.
+- Share service provider information with friends and family via social media.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contributing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Contributions are welcome! If you'd like to contribute to this project, please follow these guidelines:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Fork the repository.
+- Create a new branch for your feature or bug fix.
+- Make your changes and ensure the code is properly formatted.
+- Create a pull request explaining your changes and why they should be merged.
 
-## Learn More
+## License
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is licensed under the MIT License - see the LICENSE file for details.

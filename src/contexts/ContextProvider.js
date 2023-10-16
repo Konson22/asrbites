@@ -18,31 +18,36 @@ export default function GlobalContextProvider({ children }) {
     if(savedCartItem){
         setCartData(savedCartItem)
     }else{
-        console.log('you don\'t have items ')
+        console.log('you don\'t have items')
         
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
 
-// console.log(cartData)
 
+//  ADD NEW ITEM INTGO CART
   const addItemToCart = (item) => {
-
     if(cartData.length > 0){
         const result = cartData.find(i => i.id === item.id)
-
         if(result){
             alert(`${result.name} is Already Added to cart`)
         }else{
             const newCart = [...cartData, item]
             setCartData(newCart)
-            localStorage.setItem('candy-cart', JSON.stringify(newCart));
+            saveToLocalStorage(newCart)
         }
     }else{
+        setCartData([item])
         localStorage.setItem('candy-cart', JSON.stringify([item]));
     }
   }
 
+  // REMOVE ITEM FROM CART
+  const removeItem = id => {
+    const result = savedCartItem.filter(item => item.id !== id);
+    setCartData(result)
+    saveToLocalStorage(result)
+  }
 
   const values = { 
     cartData, 
@@ -50,6 +55,7 @@ export default function GlobalContextProvider({ children }) {
     candy, 
     setCartData, 
     setProfile, 
+    removeItem,
     addItemToCart 
 }
   return (
@@ -62,10 +68,9 @@ export default function GlobalContextProvider({ children }) {
 export const useGlobalApi = () => useContext(contextApi)
 
 
-
-// const saveToLocalStorage = data => {
-
-// }
+const saveToLocalStorage = data => {
+    localStorage.setItem('candy-cart', JSON.stringify(data));
+}
 export const data = [
   {
       id:1,
