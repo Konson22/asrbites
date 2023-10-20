@@ -21,7 +21,7 @@ export default function ItemCart({ item }) {
   return (
     <div className="shadowrounded-md">
         <div className="h-[200px]">
-            <img className="rounded-md" src={`http://localhost:3001/${item.product_image}`} alt="" />
+            <img className="rounded-md" src={`http://localhost:3001/${process.env.REACT_APP_PROD_URL+item.product_image}`} alt="" />
         </div>
         <div className="p-2">
             <p className="text-xl font-bold line-clamp-1">{item.name}</p>
