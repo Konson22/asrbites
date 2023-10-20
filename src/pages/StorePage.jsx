@@ -5,7 +5,7 @@ import { useGlobalApi } from "../contexts/ContextProvider"
 import ItemCart from "../components/ItemCart"
 
 
-export default function HomePage() {
+export default function StorePage() {
 
     const { candy } = useGlobalApi();
 
@@ -22,12 +22,12 @@ export default function HomePage() {
                     <FaSlidersH />
                 </span>
             </div>
-            <div className="flex items-center m-[5%] shadow-md p-4 rounded-lg bg-white mt-4">
+            {/* <div className="flex items-center m-[5%] shadow-md p-4 rounded-lg bg-white mt-4">
                 <span className="flex-1 text-2xl font-bold">We got your desire Candy</span>
-                {(candy && candy.length > 0) && <img className="rounded-md h-[130px] w-[150px]" src={candy[2].image} alt="" />}
-            </div>
-            <div className="grid md:grid-cols-4 grid-cols-2 gap-2 md:px-[8%] px-[3%] mt-8 content">
-                {candy.map(item => <ItemCart item={item} key={item.id} />)}
+                {(candy && candy.length > 0) && <img className="rounded-md h-[130px] w-[150px]" src={candy[2].product_image} alt="" />}
+            </div> */}
+            <div className="grid md:grid-cols-4 grid-cols-2 gap-5 md:px-[8%] px-[3%] mt-8 content">
+                {candy && candy.length > 0 && candy.map(item => <ItemCart item={item} key={item.id} />)}
             </div>
         </div>
         <BottomNavbar />

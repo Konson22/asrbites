@@ -14,18 +14,25 @@ export default function ItemCart({ item }) {
             id:item.id,
             name:item.name,
             price:item.price,
-            image:item.image,
+            image:item.product_image,
         }
         addItemToCart(obj)
     }
   return (
-    <div className="shadow bg-white rounded-md">
-        <div className="h-[140px]">
-            <img className="rounded-md" src={item.image} alt="" />
+    <div className="shadowrounded-md">
+        <div className="h-[200px]">
+            <img className="rounded-md" src={`http://localhost:3001/${item.product_image}`} alt="" />
         </div>
         <div className="p-2">
-            <p className="text-sm font-bold line-clamp-1">{item.name}</p>
-            <p className="text-sm line-clamp-1">{item.text}</p>
+            <p className="text-xl font-bold line-clamp-1">{item.name}</p>
+            <div className="flex text-sm">
+                <FaStar className="mr-2" />
+                <FaStar className="mr-2" />
+                <FaStar className="mr-2" />
+                <FaStar className="mr-2" />
+                <FaStar className="mr-2" />
+            </div>
+            <p className="text-sm line-clamp-1">{item.description}</p>
             <div className="flex justify-between">
                 <span className="flex items-center">
                     <FaStar />
@@ -36,7 +43,7 @@ export default function ItemCart({ item }) {
             <div className="grid grid-cols-2 gap-1 mt-3">
                 <Link 
                     className="w-full text-center bg-red-900 text-sm text-white py-1"
-                    to={`/product/details/${item.id}`} key={item.id}
+                    to={`/product/details/${item.productID}`} key={item.productID}
                 >
                     Detail
                 </Link>

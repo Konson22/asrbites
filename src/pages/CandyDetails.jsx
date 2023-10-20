@@ -4,61 +4,84 @@ import { useGlobalApi } from "../contexts/ContextProvider";
 import GoBackButton from "../components/GoBackButton";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { FiMinus, FiPlus } from "react-icons/fi";
+import ItemCart from "../components/ItemCart";
 
 
 export default function CandyDetails() {
 
-    const { candy } = useGlobalApi();
+    const { isLoading, candy } = useGlobalApi();
     const { itemID } = useParams();
-    const [message, setMessage] = useState('Not found')
+    const [message, setMessage] = useState('')
     const [item, setItem] = useState(null)
     const [count, setCount] = useState(1)
 
     useEffect(() => {
-        const result = candy.filter(c => c.id === parseInt(itemID))[0]
-        result ? setItem(result) : setMessage('Not found!');
+        const result = !isLoading && candy.filter(c => c.productID === parseInt(itemID))[0]
+        if(result){
+            setItem(result);
+            setMessage('');
+        }else{
+            setMessage('Not found!');
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [itemID]);
+    }, [itemID, candy]);
 
   return (
     <div>
         <Navbar icon={<GoBackButton />} text='Details' />
-        {item &&
-            <div className="bg-white m-[8%]">
-                <div className="h-[260px]">
-                    <img className="rounded-[5%]" src={item.image} alt="" />
-                </div>
-                <div className="p-3">
-                    <h3 className="text-xl font-bold my-2">{item.name}</h3>
-                    <div className="flex items-center justify-between">
-                        <div className="flex text-yellow-400 my-6">
-                            <FaStar className="mr-2" />
-                            <FaStar className="mr-2" />
-                            <FaStar className="mr-2" />
-                            <FaStar className="mr-2" />
-                            <FaStar className="mr-2" />
+        <div className="md:mx-[8%] mx-[3%] my-5">
+            <div className="flex-1">
+                {item &&
+                    <div className="md:flex bg-white">
+                        <div className="md:h-[320px] h-[260px] flex-1">
+                            <img className="rounded-[5%" src={`http://localhost:3001/${item.product_image}`} alt="" />
                         </div>
-                        <div className="flex items-center">
-                            <span className="h-7 w-7 text-3xl flex items-center justify-center rounded-full bg-red-200" onClick={() => count !== 1 && setCount(count - 1)}>-</span>
-                            <span className="text-2xl font-bold px-3">{count}</span>
-                            <span className="h-7 w-7 text-2xl flex items-center justify-center rounded-full bg-red-200" onClick={() => setCount(count + 1)}>+</span>
+                        <div className="flex-1 md:p-6">
+                            <h3 className="text-xl font-bold my-2">{item.name}</h3>
+                            <div className="flex items-center justify-between">
+                                <div className="flex text-yellow-400 my-6">
+                                    <FaStar className="mr-2" />
+                                    <FaStar className="mr-2" />
+                                    <FaStar className="mr-2" />
+                                    <FaStar className="mr-2" />
+                                    <FaStar className="mr-2" />
+                                </div>
+                            </div>
+                            <p>
+                                This is some description for this candy products
+                                This is some description for this candy products
+                            </p>
+                            <div className="flex items-center justify-between">
+                                <span className="text-2xl font-bold">{item.price}$</span>
+                                <div className="flex items-center mt-3">
+                                    <div className="flex items-center mr-3">
+                                        <span className="cursor-pointer text-xl flex items-center justify-center rounded-full bg-red-100 p-1" onClick={() => count !== 1 && setCount(count - 1)}>
+                                            <FiMinus />
+                                        </span>
+                                        <span className="text-xl font-bold px-3">{count}</span>
+                                        <span className="cursor-pointer text-xl flex items-center justify-center rounded-full bg-red-200 p-1" onClick={() => setCount(count + 1)}>
+                                            <FiPlus />
+                                        </span>
+                                    </div>
+                                    <button className="bg-red-900 text-white px-3 py-2 rounded-md flex items-center justify-center">
+                                        <FaCartPlus className="mr-2" />
+                                        Add to cart
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <p>
-                        This is some description for this candy products
-                        This is some description for this candy products
-                    </p>
-                    <div className="flex items-center justify-between">
-                        <span className="text-2xl font-bold">{item.price}$</span>
-                        <button className="bg-red-900 text-white px-3 py-2 mt-3 rounded-md flex items-center justify-center">
-                            <FaCartPlus className="mr-2" />
-                            Add to cart
-                        </button>
-                    </div>
+                }
+                {message && <div className="p-8 text-center">{message}</div>}
+            </div>
+            <div className="flex-">
+                <h3 className="text-2xl">Related Products</h3>
+                <div className="grid md:grid-cols-4 grid-cols-2 gap-5 bg-white mt-8 content">
+                    {candy && candy.length > 0 && candy.map(item => <ItemCart item={item} key={item.id} />)}
                 </div>
             </div>
-        }
-        {message && <div className="p-8 text-center">{message}</div>}
+        </div>
         <BottomNavbar />
     </div>
   )

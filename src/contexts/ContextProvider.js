@@ -1,11 +1,14 @@
 import { useState, useContext, createContext, useEffect } from 'react'
+import axiosInstance from '../hooks/useAxios';
 
 const contextApi = createContext()
 
 export default function GlobalContextProvider({ children }) {
 
   const [cartData, setCartData] = useState([]);
-  const [profile, setProfile] = useState(null)
+  const [profile, setProfile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState('')
   const [candy, setCandy] = useState([])
 
 
@@ -13,13 +16,35 @@ export default function GlobalContextProvider({ children }) {
 
   useEffect(() => {
     setProfile(null)
-    setCandy(data)
 
     if(savedCartItem){
         setCartData(savedCartItem)
     }else{
         console.log('you don\'t have items')
-        
+    }
+    const controller = new AbortController();
+    let isMuted = true
+    async function fetchResumies(){
+      setIsLoading(true)
+      try{
+        const results = await axiosInstance('/products').then(res => res)
+        if(isMuted){
+            setCandy(results.data)
+        }
+      }catch(error){
+        if(error.status === 404 || error.status === 403 || error.status === 500){
+          return setMessage(error?.response?.data)
+        }
+        setMessage('Error Occures!')
+      }finally{
+        setIsLoading(false)
+      }
+    }
+    fetchResumies()
+
+    return () => {
+      controller.abort()
+      isMuted = false
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
@@ -53,6 +78,8 @@ export default function GlobalContextProvider({ children }) {
     cartData, 
     profile, 
     candy, 
+    isLoading,
+    message,
     setCartData, 
     setProfile, 
     removeItem,

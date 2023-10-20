@@ -12,7 +12,11 @@
 
 body{
   scroll-behavior: smooth !important;
-  background-color: rgb(243, 243, 238);
+  /* background-color: rgb(243, 243, 238); */
+}
+
+.logo-text{
+  font-family: BrandierTrial;
 }
 
 img{
@@ -33,7 +37,7 @@ img{
 }
 
 .header-container h1{
-  font-family: BrandierTrial;
+  /* font-family: BrandierTrial; */
 }
 
 .promation{
