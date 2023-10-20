@@ -31,7 +31,7 @@ export default function UploadProduct() {
   return (
     <div>
       <Navbar />
-      <div className="w-[45%] mx-auto my-6 bg-white shadow-sm p-14">
+      <div className="md:w-[45%] md:mx-auto mx-3 my-6 bg-white shadow-sm md:p-14 p-5">
         {isLoading && 'LOading....'}
         {message && message}
         <form onSubmit={handleSubmit} encType="multipart/form-data">
