@@ -1,4 +1,4 @@
-import { FaCartPlus, FaStar } from "react-icons/fa"
+import { FaCartPlus } from "react-icons/fa"
 import Navbar, { BottomNavbar } from "../components/Navbar";
 import { useGlobalApi } from "../contexts/ContextProvider";
 import GoBackButton from "../components/GoBackButton";
@@ -10,7 +10,7 @@ import ItemCart from "../components/ItemCart";
 
 export default function CandyDetails() {
 
-    const { isLoading, candy } = useGlobalApi();
+    const { isLoading, candy, addItemToCart } = useGlobalApi();
     const { itemID } = useParams();
     const [message, setMessage] = useState('')
     const [item, setItem] = useState(null)
@@ -27,6 +27,19 @@ export default function CandyDetails() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [itemID, candy]);
 
+
+    const handleAddItem = () => {
+        if(item){
+            const obj = {
+                productID:item.productID,
+                name:item.name,
+                price:item.price,
+                qty:count,
+                product_image:item.product_image,
+            }
+            addItemToCart(obj)
+        }
+    }
   return (
     <div>
         <Navbar icon={<GoBackButton />} text='Details' />
@@ -35,19 +48,10 @@ export default function CandyDetails() {
                 {item &&
                     <div className="md:flex bg-white">
                         <div className="md:h-[320px] h-[260px] flex-1">
-                            <img className="rounded-[5%" src={`http://localhost:3001/${item.product_image}`} alt="" />
+                            <img className="rounded-[5%" src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
                         </div>
-                        <div className="flex-1 md:p-6">
+                        <div className="flex-1 md:p-6 p-4">
                             <h3 className="text-xl font-bold my-2">{item.name}</h3>
-                            <div className="flex items-center justify-between">
-                                <div className="flex text-yellow-400 my-6">
-                                    <FaStar className="mr-2" />
-                                    <FaStar className="mr-2" />
-                                    <FaStar className="mr-2" />
-                                    <FaStar className="mr-2" />
-                                    <FaStar className="mr-2" />
-                                </div>
-                            </div>
                             <p>
                                 This is some description for this candy products
                                 This is some description for this candy products
@@ -64,7 +68,12 @@ export default function CandyDetails() {
                                             <FiPlus />
                                         </span>
                                     </div>
-                                    <button className="bg-red-900 text-white px-3 py-2 rounded-md flex items-center justify-center">
+                                    <button 
+                                        className="
+                                            bg-red-900 text-white px-3 py-2 rounded-md flex items-center justify-center
+                                        "
+                                        onClick={() => handleAddItem()}
+                                    >
                                         <FaCartPlus className="mr-2" />
                                         Add to cart
                                     </button>
@@ -75,9 +84,9 @@ export default function CandyDetails() {
                 }
                 {message && <div className="p-8 text-center">{message}</div>}
             </div>
-            <div className="flex-">
-                <h3 className="text-2xl">Related Products</h3>
-                <div className="grid md:grid-cols-4 grid-cols-2 gap-5 bg-white mt-8 content">
+            <div className="md:mt-0 mt-8">
+                <h3 className="text-3xl font-bold">Related Products</h3>
+                <div className="grid md:grid-cols-4 grid-cols-2 gap-5 mt-5 content">
                     {candy && candy.length > 0 && candy.map(item => <ItemCart item={item} key={item.id} />)}
                 </div>
             </div>

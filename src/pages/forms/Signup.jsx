@@ -41,7 +41,7 @@ export default function Signup() {
   return (
     <div>
       <Navbar />
-      <div className="md:mx-[35%] mx-4 shadow-md p-5 rounded mt-6">
+      <div className="md:mx-[35%] bg-gray-50 mx-4 shadow-md p-5 rounded mt-6">
         {isLoading && 'Loading...'}
         <h4 className="text-4xl text-center">Sign up</h4>
         {message && <div className="p-2 text-red-500">{message.msg}</div>}

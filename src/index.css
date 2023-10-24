@@ -12,7 +12,7 @@
 
 body{
   scroll-behavior: smooth !important;
-  /* background-color: rgb(243, 243, 238); */
+  background-color: rgb(247, 243, 240);
 }
 
 .logo-text{
@@ -31,9 +31,10 @@ img{
 }
 
 .header-container{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.411), rgba(0, 0, 0, 0.411)), url('./assets/images/strawberry-8214486_1280.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+  url('./assets/images/products/pistachio.jpeg');
   background-size: cover;
-  background-position: center;
+  background-position: right;
 }
 
 .header-container h1{

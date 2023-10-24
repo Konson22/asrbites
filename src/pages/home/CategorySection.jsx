@@ -1,6 +1,8 @@
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
 import Carousel from "react-elastic-carousel";
 import { useRef } from "react";
+import { useGlobalApi } from "../../contexts/ContextProvider";
+import { Link } from "react-router-dom";
 
 
 const breakPoints = [
@@ -18,64 +20,38 @@ const breakPoints = [
 
 export default function CategorySection() {
 
+  const { candy } = useGlobalApi();
+
   const carouselRef = useRef()
 
   return (
-    <div className="relative flex items-center md:mx-[8%] mx-[3%] py-14">
-    <button className="absolute left-[-0.5rem] z-30 text-3xl bg-white/50 p-2 rounded-full" onClick={() => carouselRef.current.slideNext()}>
-      <FiChevronLeft />
-    </button>
-    <Carousel className="z-20" breakPoints={breakPoints} ref={carouselRef} showArrows={false} outerSpacing={0} pagination={false}>
-      {data.map(category => (
-        <div className="w-full" key={category.name}>
-          <div className="h-[200px]">
-            <img src={`http://localhost:3001/${category.product_image}`} alt="" />
-          </div>
-          <div className="p-3">
-            <h3 className="text-xl">{category.name}</h3>
-            {/* <p className="text-xl">{category.text}</p> */}
-          </div>
-        </div>
-      ))}
-    </Carousel>
-    <button className="absolute right-[-0.5rem] z-30 text-3xl bg-white/50 p-2 rounded-full" onClick={() => carouselRef.current.slidePrev()}>
-      <FiChevronRight />
-    </button>
-  </div>
+    <main className="md:mx-[8%] mx-[3%] py-14">
+      <h2 className="text-4xl font-bold mb-7 text-center text-rose-700">أفضل المنتجات</h2>
+      <div className="relative flex items-center">
+        <button className="absolute md:left-[-1.5rem] left-0 z-30 text-3xl text-rose-500 p-2 rounded-full" onClick={() => carouselRef.current.slidePrev()}>
+          <FiChevronLeft />
+        </button>
+        <Carousel className="z-20" breakPoints={breakPoints} ref={carouselRef} showArrows={false} outerSpacing={0} pagination={false}>
+          {(candy && candy.length > 0) && candy.map(item => (
+            <Link className="bg-white block shadow-md w-full border" key={item.name} to={`/product/details/${item.productID}`}>
+              <div className="h-[220px]">
+                <img src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
+              </div>
+              <div className="p-3">
+                <h3 className="text-xl font-bold">{item.name}</h3>
+                <p className="line-clamp-2 text-xl">{item.description}</p>
+              </div>
+            </Link>
+          ))}
+        </Carousel>
+        <button className="absolute md:right-[-1.5rem] right-0 z-30 text-3xl text-rose-500 p-2 rounded-full" onClick={() => carouselRef.current.slideNext()}>
+          <FiChevronRight />
+        </button>
+      </div>
+      <button className="text-rose-600 border border-rose-600 px-6 py-2 rounded mx-auto mt-8 block">View All</button>
+    </main>
   )
 }
 
 
 
-const data = [
-    {
-      name:'Chocolate',
-      text:`:
-      made from sugar, corn syrup, and flavorings.
-      with lollipops, peppermint candies, and butterscotch candies.`,
-      image:process.env.PUBLIC_URL+'/images/chocolates-1737503_1280.jpg'
-    },
-    {
-      name:'Caramels',
-      text:`
-        Soft candies have a chewy or gummy texture. with gummy bears, fruit chews, and licorice.
-     `,
-      image:process.env.PUBLIC_URL+'/images/dessert-352475_1280.jpg'
-    },
-    {
-      name:'Cookie',
-      text:`
-        Jelly candies are soft and gel-like, often made from fruit juice or puree.
-        Examples include jellybeans and gumdrops.
-     `,
-      image:process.env.PUBLIC_URL+'/images/chocolate-183543_1280.jpg'
-    },
-    {
-      name:'Bakery',
-      text:`
-        These candies contain various types of nuts, often coated in sugar or chocolate.
-        Examples include almond clusters and peanut butter cups.
-     `,
-      image:process.env.PUBLIC_URL+'/images/chocolate-183543_1280.jpg'
-    },
-  ]
