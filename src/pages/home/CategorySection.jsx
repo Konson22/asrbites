@@ -32,15 +32,15 @@ export default function CategorySection() {
           <FiChevronLeft />
         </button>
         <Carousel className="z-20" breakPoints={breakPoints} ref={carouselRef} showArrows={false} outerSpacing={0} pagination={false}>
-          {(candy && candy.length > 0) && candy.map(item => (
-            <Link className="bg-white block shadow-md w-full border" key={item.name} to={`/product/details/${item.productID}`}>
-              <div className="h-[220px]">
+          {(candy && candy.length > 0) && candy.map((item, index) => (
+            <Link className="bg-white block shadow-md w-full border" key={index} to={`/product/details/${item.productID}`}>
+              <div className="h-[230px]">
                 <img src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
               </div>
-              <div className="p-3">
+              {/* <div className="p-3">
                 <h3 className="text-xl font-bold">{item.name}</h3>
                 <p className="line-clamp-2 text-xl">{item.description}</p>
-              </div>
+              </div> */}
             </Link>
           ))}
         </Carousel>
@@ -48,7 +48,7 @@ export default function CategorySection() {
           <FiChevronRight />
         </button>
       </div>
-      <button className="text-rose-600 border border-rose-600 px-6 py-2 rounded mx-auto mt-8 block">View All</button>
+      {/* <button className="text-rose-600 border border-rose-600 px-6 py-2 rounded mx-auto mt-8 block">View All</button> */}
     </main>
   )
 }

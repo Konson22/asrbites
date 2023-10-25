@@ -1,7 +1,6 @@
 import { useState } from "react"
 import Input from "./Input"
 import axiosInstance from "../../hooks/useAxios"
-import Navbar from "../../components/Navbar"
 
 
 export default function UploadProduct() {
@@ -29,17 +28,14 @@ export default function UploadProduct() {
   }
  
   return (
-    <div>
-      <Navbar />
-      <div className="md:w-[45%] md:mx-auto mx-3 my-6 bg-white shadow-sm md:p-14 p-5">
-        {isLoading && 'LOading....'}
-        {message && message}
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          {inputData.map(field => <Input field={field} />)}
-          <input type="file" name="image" />
-          <button className="w-full bg-green-500 text-white py-2" type="submit">Submir</button>
-        </form>
-      </div>
+    <div className="md:w-[45%] md:mx-auto mx-3 my-6 bg-white shadow-sm md:p-14 p-5">
+      {isLoading && 'LOading....'}
+      {message && message}
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        {inputData.map(field => <Input field={field} />)}
+        <input type="file" name="image" />
+        <button className="w-full bg-green-500 text-white py-2" type="submit">Submir</button>
+      </form>
     </div>
   )
 }

@@ -18,21 +18,8 @@ export default function Navbar({ text, icon }) {
       <p className="logo-text text-2xl font-bold w-full">لي ثري</p>
     </div>
   )
+  
 
-  const authUserContent = (user) => {
-    return(
-      <div className="flex items-center">
-        <span className="text-2xl">
-          <FiUser />
-        </span>
-        {user.name}
-      </div>
-    )
-  }
-
-  const guestUserContent = (
-    <Link className="bg-red-900 text-white px-5 py-2 rounded ml-4" to='/login'>Login | Sign up</Link>
-  )
   return (
     <nav className="
       flex items-center justify-between text-rose-700 md:px-[5%] px-[5%] 
@@ -55,8 +42,11 @@ export default function Navbar({ text, icon }) {
           ))}
         </ul>
       </div>
-      <Link className="flex items-center relative mr-7" to='/cart'>
-        <FiShoppingCart className="text-2xl" />
+      {profile &&
+        <Link className="block bg-rose-700 text-white px-5 py-1 rounded mr-6" to='/upload'>Upload</Link>
+      }
+      <Link className="flex items-center relative" to='/cart'>
+        <img className="md:h-7 md:w-7 h-7 w-7" src={process.env.PUBLIC_URL+'/images/shopping-cart.png'} alt="" />
         {cartData.length > 0 &&
           <span 
             className="h-4 w-4 flex items-center justify-center bg-red-500 text-[.6rem]
@@ -66,11 +56,11 @@ export default function Navbar({ text, icon }) {
           </span>
         }
       </Link>
+      <div className="text-2xl mx-5">
+        <img className="md:h-8 w-8 h-9" src={process.env.PUBLIC_URL+'/images/account.png'} alt="" />
+      </div>
       <div className="md:hidden block" onClick={toggleMenu}>
         <FaBars className="text-xl" />
-      </div>
-      <div className="md:flex items-center hidden">
-        {profile ? authUserContent(profile) : guestUserContent}
       </div>
     </nav>
   )

@@ -90,6 +90,11 @@ const verifyAuth = async () => {
     setCartData(result)
     saveToLocalStorage(result)
   }
+  
+  const clearSavedCartItem = () => {
+    localStorage.clear('candy-cart')
+    setCartData([])
+  }
 
   const values = { 
     cartData, 
@@ -100,7 +105,8 @@ const verifyAuth = async () => {
     setCartData, 
     setProfile, 
     removeItem,
-    addItemToCart 
+    addItemToCart,
+    clearSavedCartItem
 }
   return (
     <contextApi.Provider value={values}>
