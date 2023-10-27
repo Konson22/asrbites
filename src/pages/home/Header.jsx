@@ -2,11 +2,12 @@ import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import AnimatedCard from "../../components/AnimateCard";
 import { motion } from 'framer-motion';
+import { categories } from "../../assets/data";
 
 
 export default function Header() {
 
-  const variants = { visible:{ opacity: 1, y: 0}, hidden:{ opacity: 0, y: 50 }}
+  const variants = { visible:{ opacity: 1, y: 0}, hidden:{ opacity: 0, y: 20 }}
 
  
   return (
@@ -20,7 +21,7 @@ export default function Header() {
         transition={{duration:1, staggerChildren:.3}}
       >
         <motion.h1 variants={variants} className="md:text-6xl text-3xl text-white font-bold text-center">تذوق لذة الحلا مع تشكيلتنا الرائعة من الكيك والشوكولاتة</motion.h1>
-        <motion.div variants={variants} className="flex justify-end">
+        <motion.div variants={variants} transition={{delay:2}} className="flex justify-end">
           <Link className="bg-rose-700 flex font-bold items-center text-white rounded px-5 py-3 mt-12" to='/store'>
           <FaArrowLeft className="mr-2" />
           <span className="text-base">الدخول</span>
@@ -28,16 +29,16 @@ export default function Header() {
         </motion.div>
       </motion.div>
     </header>
-    <div className="bg-white py-[2rem] md:mx-[15%] mx-3 md:mt-[-5rem] mt-[-3rem] rounded-2xl">
-      <div className="text-center text-4xl font-bold mb-7">الأصناف</div>
-      <div className="text-center grid md:grid-cols-4 grid-cols-2 gap-5">
+    <div className="header-card bg-white md:p-[2rem] p-[1rem] md:mx-[10%] mx-3 md:mt-[-7rem] mt-[-3rem] rounded-2xl">
+      <div className="text-center md:text-2xl text-2xl md:font-bold mb-7">الأصناف</div>
+      <div className="text-center grid md:grid-cols-6 grid-cols-3 gap-5">
         {categories.map(category => (
           <AnimatedCard>
             <div className="" key={category.name}>
-              <div className="h-[110px] w-[110px] rounded-full overflow-hidden bg-lightpink/50 mx-auto mb-4">
+              <div className="md:h-[110px] h-[70px] md:w-[110px] w-[70px] rounded-full overflow-hidden bg-lightpink/50 mx-auto mb-4">
                 <img src={category.image} alt="" />
               </div>
-              <span className="md:text-2xl text-2xl">{category.name}</span>
+              <span className="md:text-2xl text-xl">{category.name}</span>
             </div>
           </AnimatedCard>
         ))}
@@ -47,10 +48,3 @@ export default function Header() {
   )
 }
 
-
-export const categories = [
-  {name:'معجنات', text:'', image:process.env.PUBLIC_URL+'/images/cookies-8082386_1280.jpg'},
-  {name:'حلا', text:'', image:process.env.PUBLIC_URL+'/images/cube3.jpeg'},
-  {name:'كيك', text:'', image:process.env.PUBLIC_URL+'/images/cube3.jpeg'},
-  {name:'أسر منتجة', text:'', image:process.env.PUBLIC_URL+'/images/green.jpeg'},
-]

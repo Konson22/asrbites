@@ -6,7 +6,7 @@ import { useState } from "react";
 
 
 
-export default function Navbar({ text, icon }) {
+export default function Navbar() {
 
   const { cartData, profile } = useGlobalApi();
   const [openMenu, setOpenMenu] = useState(false)
@@ -23,7 +23,7 @@ export default function Navbar({ text, icon }) {
   return (
     <nav className="
       flex items-center justify-between text-rose-700 md:px-[5%] px-[5%] 
-      bg-white shadow-md sticky left-0 top-0 w-full md:py-3 py-4 z-50
+      bg-white shadow-mdd sticky left-0 top-0 w-full md:py-3 py-3 z-50
     ">
       {logo}
       <div className={`

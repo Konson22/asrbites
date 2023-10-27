@@ -14,6 +14,9 @@ body{
   scroll-behavior: smooth !important;
   background-color: rgb(247, 243, 240);
 }
+#upload-image{
+  visibility: hidden;
+}
 
 .logo-text{
   font-family: BrandierTrial;
@@ -25,9 +28,10 @@ img{
   color: rgb(243, 243, 238);
 }
 
-.welcome-page{
-  background-image: url('./assets/images/products/green.jpeg');
+.header-card{
+  /* background-image: url('./assets/images/pattern.svg'); */
   background-size: cover;
+  background-position: center;
 }
 
 .header-container{
@@ -38,7 +42,7 @@ img{
 }
 
 .header-container h1{
-  /* font-family: BrandierTrial; */
+  font-family: BrandierTrial;
 }
 
 .promation{

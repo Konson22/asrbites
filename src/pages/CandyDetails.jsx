@@ -43,10 +43,10 @@ export default function CandyDetails() {
         <div className="flex-1">
             {item &&
                 <div className="md:flex bg-white">
-                    <div className="md:h-[320px] h-[260px] flex-1">
+                    <div className="md:h-[420px] h-[260px] flex-1">
                         <img className="rounded-[5%" src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
                     </div>
-                    <div className="flex-1 md:p-6 p-4">
+                    <div className="w-[35%] md:p-6 p-4">
                         <h3 className="text-xl font-bold my-2">{item.name}</h3>
                         <p>
                             This is some description for this candy products

@@ -31,7 +31,7 @@ export default function CategorySection() {
         <button className="absolute md:left-[-1.5rem] left-0 z-30 text-3xl text-rose-500 p-2 rounded-full" onClick={() => carouselRef.current.slidePrev()}>
           <FiChevronLeft />
         </button>
-        <Carousel className="z-20" breakPoints={breakPoints} ref={carouselRef} showArrows={false} outerSpacing={0} pagination={false}>
+        <Carousel className="z-20" enableAutoPlay breakPoints={breakPoints} ref={carouselRef} showArrows={false} outerSpacing={0} pagination={false}>
           {(candy && candy.length > 0) && candy.map((item, index) => (
             <Link className="bg-white block shadow-md w-full border" key={index} to={`/product/details/${item.productID}`}>
               <div className="h-[230px]">
@@ -48,7 +48,6 @@ export default function CategorySection() {
           <FiChevronRight />
         </button>
       </div>
-      {/* <button className="text-rose-600 border border-rose-600 px-6 py-2 rounded mx-auto mt-8 block">View All</button> */}
     </main>
   )
 }
