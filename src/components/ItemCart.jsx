@@ -58,7 +58,7 @@ export default function ItemCart({ item }) {
             <p className="text-xl font-bold text-slate-500 line-clamp-1">{item.name}</p>
             <div className="md:flex items-center justify-between mt-2">
                 <div className="flex justify-between items-center w-full">
-                    <h4 className="font-bold text-rose-600">{item.price} ريال</h4>
+                    <h4 className="font-bold text-rose-600">{item.price} ر.س</h4>
                     <button className="
                             flex items-center justify-center bg-rose-800 text-white py-1 px-3 
                             rounded ml-4
