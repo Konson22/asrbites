@@ -35,7 +35,7 @@ export default function Header() {
         {categories.map(category => (
           <AnimatedCard>
             <div className="" key={category.name}>
-              <div className="md:h-[110px] h-[70px] md:w-[110px] w-[70px] rounded-full overflow-hidden bg-lightpink/50 mx-auto mb-4">
+              <div className="md:h-[110px] h-[70px] md:w-[110px] w-[70px] hover:scale-110 border-2 hover:border-rose-700 rounded-full overflow-hidden bg-lightpink/50 mx-auto mb-4">
                 <img src={category.image} alt="" />
               </div>
               <span className="md:text-2xl text-xl">{category.name}</span>

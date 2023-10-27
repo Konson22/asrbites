@@ -48,12 +48,9 @@ export default function CandyDetails() {
                     </div>
                     <div className="w-[35%] md:p-6 p-4">
                         <h3 className="text-xl font-bold my-2">{item.name}</h3>
-                        <p>
-                            This is some description for this candy products
-                            This is some description for this candy products
-                        </p>
+                        <p className="text-right">{item.description}</p>
                         <div className="flex items-center justify-between">
-                            <span className="text-2xl font-bold">{item.price}$</span>
+                            <span className="text-2xl font-bold">{item.price} ريال</span>
                             <div className="flex items-center mt-3">
                                 <div className="flex items-center mr-3">
                                     <span className="cursor-pointer text-xl flex items-center justify-center rounded-full bg-red-100 p-1" onClick={() => count !== 1 && setCount(count - 1)}>

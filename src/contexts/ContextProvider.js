@@ -69,10 +69,11 @@ const verifyAuth = async () => {
 
   //  ADD NEW ITEM INTGO CART
   const addItemToCart = (item) => {
+    let respose = null
     if(cartData.length > 0){
       const result = cartData.find(i => i.productID === item.productID)
       if(result){
-        alert(`${result.name} is Already Added to cart`)
+        respose = 'Already Added to cart';
       }else{
         const newCart = [...cartData, item]
         setCartData(newCart)
@@ -82,6 +83,7 @@ const verifyAuth = async () => {
       setCartData([item])
       localStorage.setItem('candy-cart', JSON.stringify([item]));
     }
+    return respose
   }
 
   // REMOVE ITEM FROM CART
@@ -102,6 +104,7 @@ const verifyAuth = async () => {
     candy, 
     isLoading,
     message,
+    setCandy,
     setCartData, 
     setProfile, 
     removeItem,

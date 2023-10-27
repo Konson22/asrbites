@@ -33,7 +33,7 @@ export function AnimatedCard({ children }){
         variants={variants}
         initial='hidden'
         animate={mainControlls} 
-        transition={{ duration: 0.75 }}
+        transition={{ duration: 1.5 }}
         ref={el}
     >
       {children}

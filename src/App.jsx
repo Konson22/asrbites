@@ -42,7 +42,7 @@ function App() {
 
 function Loader(){
   return(
-    <div className="bg-gradient-to-tr from-rose-300 to-rose-500 text-xl flex items-center justify-center h-screen">
+    <div className="bg-white text-xl flex items-center justify-center h-screen">
       Loading...
     </div>
   )

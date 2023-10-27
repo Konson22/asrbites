@@ -1,7 +1,8 @@
-import { FiTrash } from "react-icons/fi";
+import { FiShoppingBag, FiShoppingCart, FiX } from "react-icons/fi";
 import { useGlobalApi } from "../contexts/ContextProvider";
 import { useEffect, useState } from "react";
 import axiosInstance from "../hooks/useAxios";
+import { Link } from "react-router-dom";
 
 
 export default function CartPage() {
@@ -38,42 +39,53 @@ export default function CartPage() {
   };
 
   return (
-    <div>
-      {cartData.length > 0 &&
-        <div className="md:flex md:px-[8%] px-3 md:mt-8 mt-4">
-          <div className="flex-1 bg-white md:p-5">
-            <h3 className="text-2xl text-right m-2">المنتجات</h3>
+    <div className="md:flex md:px-[8%] px-3 md:mt-8 my-4">
+      {cartData.length > 0 ?
+        <>
+          <div className="flex-1 bg-white rounded-md overflow-hidden">
+            <div className="bg-gray-200 flex items-center justify-end p-3">
+              <h3 className="md:text-2xl text-xl text-right">المنتجات</h3>
+              <FiShoppingCart className="md:text-4xl text-3xl ml-3" />
+            </div>
             <table className="w-full bg-white">
               <thead className="">
                 <tr className="text-right border-y">
-                  <th className="p-2"></th>
-                  <th className="p-2">السعر</th>
-                  {/* <th className="p-2">السعر الكلي</th> */}
-                  <th className="md:block hidden p-2">السعر</th>
-                  <th className="p-2">الكمية</th>
-                  <th className="p-2">الإسم</th>
+                  <th className="px-2 py-4"></th>
+                  <th className="px-2 py-4">السعر الكلي</th>
+                  <th className="md:block hidden px-2 py-4">السعر</th>
+                  <th className="px-2 py-4">الكمية</th>
+                  <th className="px-2 py-4">الإسم</th>
                 </tr>
               </thead>
               <tbody>
                 {cartData.map((item, index) => (
-                  <tr key={index} className="border-y rounded-md overflow-hidden border-4 border-white mb-[1rem]">
+                  <tr key={index} className="text-right rounded-md overflow-hidden border-t mb-[1rem]">
                     <td className="p-2">
-                      <FiTrash className="text-red-500 text-xl" onClick={() => removeItem(item.productID)} />
+                      <button 
+                        className="flex items-center bg-red-700 hover:bg-red-500 text-white rounded px-2 py-1"
+                        onClick={() => removeItem(item.productID)}
+                      >
+                        <span className="md:block hidden">إزالة</span>
+                        <FiX className="md:ml-2" />
+                      </button>
                     </td>
-                    <td className="md:block hidden p-2">{item.price}</td>
-                    <td className="p-2">{item.qty * item.price}</td>
+                    <td className="p-2">{Math.round(item.qty * item.price)} ر.س</td>
+                    <td className="md:block hidden p-2">{item.price} ر.س</td>
                     <td className="p-2">{item.qty}</td>
                     <td className="flex items-center text-right p-2">
                       <div className="flex-1">{item.name}</div>
-                      <img className="h-11 w-11 mr-2 rounded" src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
+                      <img className="h-11 w-11 ml-2 rounded" src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <div className="md:w-[30%] bg-white md:ml-6 p-5 md:mt-0 mt-4">
-            <h3 className="text-2xl text-right">تفاصيل الدفع</h3>
+          <div className="md:w-[30%] bg-white md:ml-6 md:mt-0 mt-4">
+            <div className="bg-gray-200 flex items-center justify-end p-3">
+              <h3 className="md:text-2xl text-xl text-right">تفاصيل الدفع</h3>
+              <FiShoppingCart className="md:text-4xl text-3xl ml-3" />
+            </div>
             <table className="w-full">
               <thead>
                 <tr>
@@ -81,30 +93,56 @@ export default function CartPage() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="pr-10 py-3">{cartData.length}</td>
-                  <td className="pl-14 py-3 text-right">عدد المنتجات</td>
+                <tr className="border-b">
+                  <td className="pl-3 pr-10 py-3">{cartData.length}</td>
+                  <td className="pr-3 pl-14 py-3 text-right">عدد المنتجات</td>
                 </tr>
-                <tr>
-                  <td className="pr-10 py-3">{totlaPrice} ريال</td>
-                  <td className="pl-14 py-3 text-right">السعر</td>
+                <tr className="border-b">
+                  <td className="pl-3 pr-10 py-3">{totlaPrice} ر.س</td>
+                  <td className="pr-3 pl-14 py-3 text-right">السعر</td>
                 </tr>
-                <tr>
-                  <td className="pr-10 py-3">{totlaPrice * 0.5} ريال</td>
-                  <td className="pl-14 py-3 text-right">التخفيض</td>
+                <tr className="border-b">
+                  <td className="pl-3 pr-10 py-3">{Math.floor(totlaPrice * 0.05)} ر.س</td>
+                  <td className="pr-3 pl-14 py-3 text-right">التخفيض</td>
                 </tr>
-                <tr>
-                  <td className="pr-10 py-3">{totlaPrice - (totlaPrice * 0.5)} ريال</td>
-                  <td className="pl-14 py-3 text-right">السعر الكلي</td>
+                <tr className="border-b">
+                  <td className="pl-3 pr-10 py-3">{Math.floor(totlaPrice - (totlaPrice * 0.05))} ر.س</td>
+                  <td className="pr-3 pl-14 py-3 text-right">السعر الكلي</td>
                 </tr>
               </tbody>
             </table>
-            <div className="flex mt-4">
-              <button className="bg-rose-700 text-white rounded px-4 py-2 mr-3">إزالة كل المنتجات</button>
+            <div className="flex justify-end m-4">
+              <button className="bg-rose-700 text-white rounded px-4 py-2 mr-3" onClick={clearSavedCartItem}>إزالة كل المنتجات</button>
               <button className="bg-green-700 text-white rounded px-4 py-2" onClick={handleReserve}>تأكيد الطلب</button>
             </div>
           </div>
+        </>:
+        <>
+        <div className="flex-1 bg-white rounded-md mt-4">
+          <div className="bg-gray-200 flex items-center justify-end p-3">
+            <h3 className="md:text-2xl text-xl text-right">المنتجات</h3>
+            <FiShoppingCart className="md:text-4xl text-3xl ml-3" />
+          </div>
+          <div className="px-6 py-10">
+            <p className="text-xl">you have not items in your cart start adding</p>
+            <Link to='/store'>
+              <button className="flex items-center bg-rose-700 text-white rounded mt-4 md:px-4 px-3 md:py-3 py-2">
+                <FiShoppingCart className="md:text-2xl mr-3" />
+                Start buying
+              </button>
+            </Link>
+          </div>
         </div>
+        <div className="md:w-[33%] bg-white md:ml-6 mt-4">
+          <div className="bg-gray-200 flex items-center justify-end p-3">
+            <h3 className="md:text-2xl text-xl text-right">تفاصيل الدفع</h3>
+            <FiShoppingBag className="md:text-4xl text-3xl ml-3" />
+          </div>
+          <div className="text-xl px-6 py-10">
+            <p>Nothing in cart</p>
+          </div>
+        </div>
+        </>
       }
     </div>
   )

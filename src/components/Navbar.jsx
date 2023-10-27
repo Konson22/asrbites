@@ -43,7 +43,7 @@ export default function Navbar() {
         </ul>
       </div>
       {profile &&
-        <Link className="block bg-rose-700 text-white px-5 py-1 rounded mr-6" to='/upload'>Upload</Link>
+        <Link className="block bg-rose-700 text-white px-5 py-1 rounded mr-6" to='/upload'>تحميل</Link>
       }
       <Link className="flex items-center relative" to='/cart'>
         <img className="md:h-7 md:w-7 h-7 w-7" src={process.env.PUBLIC_URL+'/images/shopping-cart.png'} alt="" />
