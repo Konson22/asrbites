@@ -23,7 +23,7 @@ export default function ItemCart({ item }) {
                 <span className="absolute right-[-.7rem] top-[-.7rem] bg-gray-200 hover:bg-rose-700 border border-rose-700 text-rose-700 hover:text-white text-2xl hover:text-xl rounded-full p-1" onClick={() => setIsOpen(false)}>
                     <FiX />
                 </span>
-                <div className="flex-1 rounded-md overflow-hidden">
+                <div className="md:h-[350px] h-[200px] flex-1 rounded-md overflow-hidden">
                     <img className="rounded-md" src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
                 </div>
                 <div className="md:w-[40%] md:flex flex-col justify-evenly p-4">
