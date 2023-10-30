@@ -23,13 +23,13 @@ export default function ItemCart({ item }) {
                 <span className="absolute right-[-.7rem] top-[-.7rem] bg-gray-200 hover:bg-rose-700 border border-rose-700 text-rose-700 hover:text-white text-2xl hover:text-xl rounded-full p-1" onClick={() => setIsOpen(false)}>
                     <FiX />
                 </span>
-                <div className="md:h-[350px] h-[200px] flex-1 rounded-md overflow-hidden">
+                <div className="md:h-[350px] h-[250px] flex-1 rounded-md overflow-hidden">
                     <img className="rounded-md" src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
                 </div>
                 <div className="md:w-[40%] md:flex flex-col justify-evenly p-4">
                     <h3 className="md:text-2xl font-bold mb-3">{item.name}</h3>
                     <p>{item.description}</p>
-                    <h4 className="font-bold text-rose-600 my-4">{item.price} ر.س</h4>
+                    <h4 className="font-bold text-rose-600 my-4">ر.س {item.price}</h4>
                     <div className="flex">
                         <div className="flex items-center mr-3">
                             <span className="cursor-pointer flex items-center justify-center rounded-full bg-gray-100 p-1" onClick={() => qty !== 1 && setQty(qty - 1)}>
@@ -49,16 +49,20 @@ export default function ItemCart({ item }) {
     );
 
   return (
-    <div className="bg-white shadow-md mb-4">
+    <div className="bg-white rounded-md overflow-hidden shadow-md mb-4">
         {isOpen && displayItemDetails()}
-        <div className="block md:h-[200px] h-[160px] rounded-md overflow-hidden">
-            <img className="rounded-md" src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
+        <div className="block md:h-[200px] h-[160px]">
+            <img src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
         </div>
         <div className="p-3">
-            <p className="text-xl font-bold text-slate-500 line-clamp-1">{item.name}</p>
+            <p className="text-xl text-right font-bold text-slate-500 line-clamp-1">{item.name}</p>
+            <p className="text-right line-clamp-2">{item.description}</p>
             <div className="md:flex items-center justify-between mt-2">
                 <div className="flex justify-between items-center w-full">
-                    <h4 className="font-bold text-rose-600">{item.price} ر.س</h4>
+                    <div className="md:fontbold flex items-center">
+                        <span>ر.س</span>
+                        <h4 className="md:text-2xl text-xl text-rose-600">{item.price}</h4>
+                    </div>
                     <button className="
                             flex items-center justify-center bg-rose-800 text-white py-1 px-3 
                             rounded ml-4

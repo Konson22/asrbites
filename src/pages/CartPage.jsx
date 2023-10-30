@@ -21,23 +21,18 @@ export default function CartPage() {
 
 
   const handleReserve = async () => {
-    const code = generateCode();
     try {
-      const results = await axiosInstance.post('/products/reservation', {code, cartData}).then(res => res);
+      const results = await axiosInstance.post('/products/reservation', cartData).then(res => res);
       if(results.data.done){
-        clearSavedCartItem()
+        localStorage.setItem('code', JSON.stringify([results.data.code]))
+        // clearSavedCartItem()
       }
+      // console.log(results.data.done)
     } catch (error) {
       console.log(error)
     }
   }
   
-  const generateCode = () => {
-    let code = '';
-    [...new Array(4)].forEach(c => code += Math.round(Math.random() * 5));
-    return code
-  };
-
   return (
     <div className="md:flex md:px-[8%] px-3 md:mt-8 my-4">
       {cartData.length > 0 ?
@@ -124,11 +119,11 @@ export default function CartPage() {
             <FiShoppingCart className="md:text-4xl text-3xl ml-3" />
           </div>
           <div className="px-6 py-10">
-            <p className="text-xl">you have not items in your cart start adding</p>
-            <Link to='/store'>
+            <p className="text-xl text-right">سلة التسوق فارغة! استمتع بتصفح تشكيلتنا الرائعة من الكيك والحلويات. انقر على الزر لبدء التسوق الآن."</p>
+            <Link className="flex justify-end" to='/store'>
               <button className="flex items-center bg-rose-700 text-white rounded mt-4 md:px-4 px-3 md:py-3 py-2">
-                <FiShoppingCart className="md:text-2xl mr-3" />
-                Start buying
+                إبدأ التسوق
+                <FiShoppingCart className="md:text-2xl ml-3" />
               </button>
             </Link>
           </div>

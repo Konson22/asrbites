@@ -22,28 +22,28 @@ export default function Navbar() {
 
   return (
     <nav className="
-      flex items-center justify-between text-rose-700 md:px-[5%] px-[5%] 
-      bg-white shadow-mdd sticky left-0 top-0 w-full md:py-3 py-3 z-50
+      flex items-center justify-between text-white md:px-[5%] px-[5%] 
+      bg-lightteal shadow-mdd sticky left-0 top-0 w-full md:py-2 py-3 z-50
     ">
       {logo}
       <div className={`
         md:static fixed md:h-auto h-screen inset-0 md:bg-transparent bg-white z-50 md:mr-14
         md:translate-x-[0%] duration-300 ${openMenu ? 'translate-x-[0%]' : 'translate-x-[100%]'}
       `}>
-        <div className="md:hidden bg-gray-50 mb-3 flex items-center justify-between px-4 py-3">
+        <div className="md:hidden bg-lightteal mb-3 flex items-center justify-between px-4 py-3">
           {logo}
           <span onClick={toggleMenu} className="p-1"><FiX /></span>
         </div>
-        <ul className={`md:flex font-bold`}>
+        <ul className={`md:flex font-bold md:text-inherit text-gray-700`}>
           {links.map(link => (
-            <li className="">
+            <li className="" key={link.text}>
               <Link className="block px-4 md:py-0 py-2" to={link.path} onClick={toggleMenu}>{link.text}</Link>
             </li>
           ))}
         </ul>
       </div>
       {profile &&
-        <Link className="block bg-rose-700 text-white px-5 py-1 rounded mr-6" to='/upload'>تحميل</Link>
+        <Link className="block bg-pink-600 text-white px-5 py-1 rounded mr-6" to='/upload'>تحميل</Link>
       }
       <Link className="flex items-center relative" to='/cart'>
         <img className="md:h-7 md:w-7 h-7 w-7" src={process.env.PUBLIC_URL+'/images/shopping-cart.png'} alt="" />

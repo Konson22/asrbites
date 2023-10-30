@@ -28,15 +28,20 @@ img{
   color: rgb(243, 243, 238);
 }
 
-.header-card{
-  /* background-image: url('./assets/images/pattern.svg'); */
+.media{
+  background-image: url('./assets/images/bg.svg');
+}
+.socila-media{
+  background-color: rgb(189, 28, 98);
+  background-color: rgb(47, 187, 161);
+  background-image: linear-gradient(45deg, rgba(194, 10, 90, 0.719), rgba(118, 12, 160, 0.8)),  url('./assets/images/about.jpg');
   background-size: cover;
   background-position: center;
 }
 
 .header-container{
   background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
-  url('./assets/images/products/pistachio.jpeg');
+  url('./assets/images/hero.jpg');
   background-size: cover;
   background-position: right;
 }

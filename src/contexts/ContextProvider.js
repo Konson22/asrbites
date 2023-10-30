@@ -94,7 +94,7 @@ const verifyAuth = async () => {
   }
   
   const clearSavedCartItem = () => {
-    localStorage.clear('candy-cart')
+    localStorage.removeItem('candy-cart')
     setCartData([])
   }
 

@@ -8,8 +8,8 @@ export default function PromitionSection() {
         </div>
         <div className="flex-1 md:ml-[-20%] md:py-9">
             <div className="bg-white md:p-[4rem] p-[1rem] text-center">
-                <h2 className="text-5xl font-bold text-rose-700">أكثر من 10 آلاف عميل سعيد! استمتع بخصم يصل إلى 50٪ على منتجاتنا الرائعة</h2>
-                <h2 className="text-4xl ont-bold text-darkpink my-4">GET UPTO 50%</h2>
+                {/* <h2 className="text-5xl font-bold text-rose-700">أكثر من 10 آلاف عميل سعيد! استمتع بخصم يصل إلى 50٪ على منتجاتنا الرائعة</h2> */}
+                <h2 className="text-4xl ont-bold text-darkpink my-4"> استمتع بخصم يصل إلى 50٪ على منتجاتنا الرائعة</h2>
                 <p className="text-right">
                     استعرض تشكيلتنا واحجز منتجك المفضل بالمدة التي تختارها. يمكنك طلب منتجك عبر تطبيق WhatsApp وسنقوم بالتوصيل مباشرة إلى باب منزلك!مميزات خدمتنا:جودة عالية وطعم لا يقاوم.تشكيلة واسعة تناسب جميع الأذواق.إمكانية تخصيص الكيك حسب رغبتك.توصيل سريع وموثوق.انضم إلينا اليوم وكن جزءًا من تجربة الكيك الاستثنائية!"
                 </p>

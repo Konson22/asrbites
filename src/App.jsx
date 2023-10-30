@@ -10,8 +10,8 @@ import StorePage from "./pages/StorePage";
 import ScrollToTop from "./hooks/ScrollToTop";
 import LoginPage from "./pages/forms/Login";
 import Signup from "./pages/forms/Signup";
-import Dashboard from "./pages/Dashboard";
 import Navbar from "./components/Navbar";
+import Dashboard from "./pages/dashboard";
 
 const HomePage = lazy(() => import("./pages/home"));
 

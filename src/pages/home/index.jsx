@@ -1,8 +1,8 @@
 import CategorySection from "./CategorySection";
+import ContactSection from "./ContactSection";
 import Header from "./Header";
-import ProductSection from "./ProductSection";
 import PromitionSection from "./PromitionSection";
-import SocialMediaSection from "./SocialMediaSection";
+import Testimonials from "./Testimonials";
 
 
 export default function HomePage() {
@@ -11,9 +11,11 @@ export default function HomePage() {
    <div className="">
     <Header />
     <CategorySection />
-    <ProductSection />
+    {/* <ProductSection /> */}
     <PromitionSection />
-    <SocialMediaSection />
+    <Testimonials />
+    <ContactSection />
+    {/* <SocialMediaSection /> */}
    </div>
   )
 }

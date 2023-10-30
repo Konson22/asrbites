@@ -1,4 +1,4 @@
-import { FiSearch } from "react-icons/fi"
+import { FiChevronDown, FiSearch } from "react-icons/fi"
 import { useGlobalApi } from "../contexts/ContextProvider"
 import ItemCart from "../components/ItemCart"
 import { categories } from "../assets/data";
@@ -36,20 +36,23 @@ export default function StorePage() {
         }
     }
   return (
-    <div className="">
-        <div className="md:flex items-center justify-between md:mx-[5%] mx-[3%] md:my-6 my-3">
-            <h3 className="md:text-2xl text-xl font-bold text-right md:mb-0 mb-2">المنتجات</h3>
-            <div className="md:w-[400px] flex items-center bg-white p-1 shadow-md shadow-black/10 rounded-md border  px-3">
-                <input className="h-[2.5rem] bg-transparent text-right w-full px-2" type="search" placeholder="...البحث" />
-                <span className="">
-                    <FiSearch />
-                </span>
+    <div className="md:px-[5%] px-2 md:mt-6 mt-3">
+        <div className="md:flex items-center justify-between">
+            <div className="flex">
+                <div className="flex-1 flex items-center bg-white rounded-md border">
+                    <button className="flex items-center md:bg-rose-700 md:text-white text-rose-700 h-full md:px-5 px-3">
+                        <span className="md:block hidden">البحث</span>
+                        <FiSearch />
+                    </button>
+                    <input className="md:h-[3rem] h-[2.5rem] bg-transparent text-right w-full px-3 mr-2" type="search" placeholder="...البحث" />
+                </div>
+                <CategoriesLinks handleAction={filterByCategory} />
+                <DropdownCategories />
             </div>
         </div>
-        <div className="content md:px-[5%] px-[3%] md:mt-8">
-            <CategoriesLinks handleAction={filterByCategory} />
+        <div className="md:mt-8">
             {message && <div className="">{message}</div>}
-            <div className="flex-1 grid md:grid-cols-4 grid-cols-2 md:gap-5 gap-2 mt-6">
+            <div className="flex-1 grid md:grid-cols-4 grid-cols-2 md:gap-5 gap-1 mt-6">
                 {isLoading && <div className="">Loading...</div>}
                 {(!isLoading && data.length > 0) && data.map(item => <ItemCart item={item} key={item.id} />)}
             </div>
@@ -60,20 +63,40 @@ export default function StorePage() {
 
 export function CategoriesLinks({ handleAction }){
     return(
-        <div className='flex flex-wrap justify-end'>
+        <div className='md:flex hidden flex-wrap justify-end'>
             {categories.map(category => (
                 <span 
-                    className="bg-white rounded cursor-pointer ml-2 mt-4 px-2 py-1"
+                    className="md:h-[3rem] h-auto bg-white rounded cursor-pointer flex items-center ml-2 px-4 border"
                     onClick={() => handleAction(category.name)}
                 >
                     {category.name}
                 </span>
             ))}
-            <span className="bg-white rounded cursor-pointer ml-2 mt-4 px-2 py-1"
+            <span className="bg-white rounded cursor-pointer flex items-center ml-2 px-4 border"
                 onClick={() => handleAction('all')}
             >
                 All
             </span>
+        </div>
+    )
+}
+
+function DropdownCategories(){
+    const [isOpen, setIsOpen] = useState(false);
+
+    return(
+        <div className="h-[3rem] md:hidden relative flex items-center border bg-white rounded md:px-5 px-3"
+            onClick={() => setIsOpen(!isOpen)}
+        >
+            <FiChevronDown className={`mr-1 duration-200 ${isOpen ? 'rotate-[180deg]':''}`} />
+            الأصناف
+            {isOpen && 
+                <div className="absolute duration-700 top-[103%] right-0 bg-white border w-[140%] py-2">
+                    {categories.map(category => (
+                        <div className="text-right px-6 py-1" key={category.name}>{category.name}</div>
+                    ))}
+                </div>
+            }
         </div>
     )
 }

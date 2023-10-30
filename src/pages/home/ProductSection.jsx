@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ItemCart from "../../components/ItemCart";
 import { useGlobalApi } from "../../contexts/ContextProvider";
 import { CategoriesLinks } from "../StorePage";
@@ -22,7 +23,9 @@ export default function ProductSection() {
         <div className="flex-1 grid md:grid-cols-4 grid-cols-2 gap-5 mt-6">
             {candy && candy.length > 0 && candy.slice(0,8).map(item => <ItemCart item={item} key={item.id} />)}
         </div>
-        <button className="text-rose-600 border border-rose-600 px-6 py-2 rounded mx-auto mt-8 block">عرض الكل</button>
+        <Link to='/store'>
+            <button className="text-rose-600 border border-rose-600 px-6 py-2 rounded mx-auto mt-8 block">عرض الكل</button>
+        </Link>
     </div>
   )
 }
