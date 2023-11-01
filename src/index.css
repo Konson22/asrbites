@@ -10,9 +10,14 @@
   src: local('BrandierTrial'), url('./assets/fonts/Bestie.otf') format('woff');
 }
 
+
+.btn{
+  -webkit-clip-path: polygon(0 0, 100% 0, 95% 50%, 100% 100%, 0 100%, 5% 50%);
+  clip-path: polygon(0 0, 100% 0, 95% 50%, 100% 100%, 0 100%, 5% 50%);
+}
 body{
   scroll-behavior: smooth !important;
-  background-color: rgb(247, 243, 240);
+  background-color: #f8e8d8;
 }
 #upload-image{
   visibility: hidden;
@@ -32,7 +37,7 @@ img{
   background-image: url('./assets/images/bg.svg');
 }
 .socila-media{
-  background-color: rgb(189, 28, 98);
+  background-color: rgb(124, 89, 80);
   background-color: rgb(47, 187, 161);
   background-image: linear-gradient(45deg, rgba(194, 10, 90, 0.719), rgba(118, 12, 160, 0.8)),  url('./assets/images/about.jpg');
   background-size: cover;
@@ -40,8 +45,8 @@ img{
 }
 
 .header-container{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
-  url('./assets/images/hero.jpg');
+  background-image: linear-gradient(rgba(124, 89, 80, 0.62), rgba(124, 89, 80, 0.62)), 
+  url('./assets/images/products/bg2.jpeg');
   background-size: cover;
   background-position: right;
 }

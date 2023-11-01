@@ -2,8 +2,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
 import Carousel from "react-elastic-carousel";
 import { useRef } from "react";
 import { useGlobalApi } from "../../contexts/ContextProvider";
-// import { Link } from "react-router-dom";
-import ItemCart from "../../components/ItemCart";
+import ProductCart from "../../components/ProductCard";
 
 
 const breakPoints = [
@@ -33,14 +32,7 @@ export default function CategorySection() {
           <FiChevronLeft />
         </button>
         <Carousel className="z-20" enableAutoPlay breakPoints={breakPoints} ref={carouselRef} showArrows={false} outerSpacing={0} pagination={false}>
-          {/* {(candy && candy.length > 0) && candy.map((item, index) => (
-            <Link className="bg-white block shadow-md w-full border" key={index} to={`/product/details/${item.productID}`}>
-              <div className="h-[230px]">
-                <img src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
-              </div>
-            </Link>
-          ))} */}
-            {(!isLoading && candy.length > 0) && candy.map(item => <ItemCart item={item} key={item.productID} />)}
+            {(!isLoading && candy.length > 0) && candy.map(item => <ProductCart item={item} key={item.productID} />)}
         </Carousel>
         <button className="absolute md:right-[-1.5rem] right-0 z-30 text-3xl text-rose-500 p-2 rounded-full" onClick={() => carouselRef.current.slideNext()}>
           <FiChevronRight />

@@ -23,14 +23,14 @@ export default function Navbar() {
   return (
     <nav className="
       flex items-center justify-between text-white md:px-[5%] px-[5%] 
-      bg-lightteal shadow-mdd sticky left-0 top-0 w-full md:py-2 py-3 z-50
+      bg-darkcl shadow-mdd sticky left-0 top-0 w-full md:py-2 py-3 z-50
     ">
       {logo}
       <div className={`
         md:static fixed md:h-auto h-screen inset-0 md:bg-transparent bg-white z-50 md:mr-14
         md:translate-x-[0%] duration-300 ${openMenu ? 'translate-x-[0%]' : 'translate-x-[100%]'}
       `}>
-        <div className="md:hidden bg-lightteal mb-3 flex items-center justify-between px-4 py-3">
+        <div className="md:hidden bg-secondary mb-3 flex items-center justify-between px-4 py-3">
           {logo}
           <span onClick={toggleMenu} className="p-1"><FiX /></span>
         </div>
@@ -43,10 +43,10 @@ export default function Navbar() {
         </ul>
       </div>
       {profile &&
-        <Link className="block bg-pink-600 text-white px-5 py-1 rounded mr-6" to='/upload'>تحميل</Link>
+        <Link className="block bg-primary border text-white px-5 py-1 rounded mr-6" to='/upload'>تحميل</Link>
       }
-      <Link className="flex items-center relative" to='/cart'>
-        <img className="md:h-7 md:w-7 h-7 w-7" src={process.env.PUBLIC_URL+'/images/shopping-cart.png'} alt="" />
+      <Link className="flex items-center relative" to='/shopping-cart'>
+        <img className="md:h-7 md:w-7 h-7 w-7" src={process.env.PUBLIC_URL+'/images/icons8-line-24.png'} alt="" />
         {cartData.length > 0 &&
           <span 
             className="h-4 w-4 flex items-center justify-center bg-red-500 text-[.6rem]
@@ -57,7 +57,8 @@ export default function Navbar() {
         }
       </Link>
       <div className="text-2xl mx-5">
-        <img className="md:h-8 w-8 h-9" src={process.env.PUBLIC_URL+'/images/account.png'} alt="" />
+        <FiUser />
+        {/* <img className="md:h-8 w-8 h-9" src={process.env.PUBLIC_URL+'/images/user.png'} alt="" /> */}
       </div>
       <div className="md:hidden block" onClick={toggleMenu}>
         <FaBars className="text-xl" />
@@ -66,32 +67,6 @@ export default function Navbar() {
   )
 }
 
-// function NavigationLinks({ logo }){
-
-//   const [openMenu, setOpenMenu] = useState(false)
-
-//   const toggleMenu = () => setOpenMenu(!openMenu);
-
-
-//   return(
-//     <div className={`
-//       md:static fixed md:h-auto h-screen inset-0 bg-transparent bg-white z-50
-//       md:translate-x-[0%] duration-300 ${openMenu ? 'translate-x-[0%]' : 'translate-x-[100%]'}
-//     `}>
-//         <div className="md:hidden bg-gray-50 mb-3 flex items-center justify-between px-4 py-3">
-//           {logo}
-//           <span onClick={toggleMenu} className="p-1"><FiX /></span>
-//         </div>
-//         <ul className={`md:flex`}>
-//           {links.map(link => (
-//             <li className="">
-//               <Link className="block px-5 md:py-0 py-2" to={link.path} onClick={toggleMenu}>{link.text}</Link>
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-//   )
-// }
 
 export function BottomNavbar(){
 

@@ -3,7 +3,7 @@ import { FiMinus, FiPlus, FiShoppingCart, FiX } from "react-icons/fi";
 import { useState } from "react";
 
 
-export default function ItemCart({ item }) {
+export default function ProductCart({ item }) {
 
     const { addItemToCart } = useGlobalApi()
     const [isOpen, setIsOpen] = useState(false)
@@ -40,7 +40,7 @@ export default function ItemCart({ item }) {
                                 <FiPlus />
                             </span>
                         </div>
-                        <button className="bg-green-500 text-white rounded px-3 py-1" onClick={handleAddItem}>Add to cart</button>
+                        <button className="bg-darkcl text-white rounded px-3 py-1" onClick={handleAddItem}>Add to cart</button>
                     </div>
                     {message && <div className="text-rose-600 mt-3">{message}</div>}
                 </div>
@@ -49,12 +49,12 @@ export default function ItemCart({ item }) {
     );
 
   return (
-    <div className="bg-white rounded-md overflow-hidden shadow-md mb-4">
+    <div className="bg-white rounded-md overflow-hidden shadow-md mb-1 p-4">
         {isOpen && displayItemDetails()}
-        <div className="block md:h-[200px] h-[160px]">
+        <div className="block md:h-[200px] md:w-full">
             <img src={`${process.env.REACT_APP_API}/${item.product_image}`} alt="" />
         </div>
-        <div className="p-3">
+        <div className="md:p-3 py-3">
             <p className="text-xl text-right font-bold text-slate-500 line-clamp-1">{item.name}</p>
             <p className="text-right line-clamp-2">{item.description}</p>
             <div className="md:flex items-center justify-between mt-2">
@@ -64,7 +64,7 @@ export default function ItemCart({ item }) {
                         <h4 className="md:text-2xl text-xl text-rose-600">{item.price}</h4>
                     </div>
                     <button className="
-                            flex items-center justify-center bg-rose-800 text-white py-1 px-3 
+                            flex items-center justify-center bg-darkcl text-white py-1 px-3 
                             rounded ml-4
                         "
                         onClick={() => setIsOpen(true)}

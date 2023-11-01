@@ -6,11 +6,9 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        lightgray:'rgb(247, 243, 240)',
-        darkbrown:'rgb(94, 15, 21)',
-        darkpink:'rgb(170, 74, 102)',
-        lightpink:'rgb(189, 28, 98)',
-        lightteal:'rgb(47, 187, 161)',
+        darkcl:'#7D5A50',
+        primary:'#B4846C',
+        secondary:'#E5B299',
       }
     },
   },
