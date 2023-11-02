@@ -55,8 +55,8 @@ img{
   font-family: BrandierTrial;
 }
 
-.promation{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.411), rgba(0, 0, 0, 0.411)), url('./assets/images/macaroons-2178371_1280.jpg');
+.checkout-card{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.411), rgba(0, 0, 0, 0.411)), url('./assets/images/products/lizzie.jpeg');
   background-size: cover;
   background-position: center;
 }

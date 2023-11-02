@@ -39,7 +39,7 @@ export default function HomePage() {
             <p className="text-right md:text-xl text-sm md:my-5 my-3">
               استعرض تشكيلتنا واحجز منتجك المفضل بالمدة التي تختارها. يمكنك طلب منتجك عبر تطبيق WhatsApp وسنقوم بالتوصيل مباشرة إلى باب منزلك!مميزات خدمتنا:جودة عالية وطعم لا يقاوم.تشكيلة واسعة تناسب جميع الأذواق.إمكانية
             </p>
-            <button className="bg-primary text-xl border rounded px-5 py-2">Order now</button>
+            <button className="bg-primary text-xl rounded px-5 py-2">Order now</button>
           </AnimateLeft>
           <AnimateRight cName="flex-1 md:block hidden">
             <img className="rounded-md" src={process.env.PUBLIC_URL+'/images/offer.jpg'} alt="" />

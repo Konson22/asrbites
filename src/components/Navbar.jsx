@@ -42,9 +42,9 @@ export default function Navbar() {
           ))}
         </ul>
       </div>
-      {profile &&
+      {/* {profile &&
         <Link className="block bg-primary border text-white px-5 py-1 rounded mr-6" to='/upload'>تحميل</Link>
-      }
+      } */}
       <Link className="flex items-center relative" to='/shopping-cart'>
         <img className="md:h-7 md:w-7 h-7 w-7" src={process.env.PUBLIC_URL+'/images/icons8-line-24.png'} alt="" />
         {cartData.length > 0 &&

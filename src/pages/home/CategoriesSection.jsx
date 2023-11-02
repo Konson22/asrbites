@@ -23,9 +23,9 @@ export default function CategoriesSection() {
 
   return (
     <>
-    <div className="flex justify-center mt- bg-secondary">
+    {/* <div className="flex justify-center mt- bg-secondary">
       <span className="btn bg-darkcl text-white md:text-3xl px-[3rem] md:py-4 py-2">استعرض تشكيلتنا</span>
-    </div>
+    </div> */}
     <div className="flex items-center relative md:mx-[5%] md:py-[3rem] py-[1rem] overflow-hiddn">
       <button className="md:h-10 md:w-10 flex items-center justify-center absolute md:left-[-2.2rem] left-[-.3rem] z-30 text-3xl md:bg-primary/30 hover:bg-primary rounded-full" onClick={() => carouselRef.current.slidePrev()}>
         <FiChevronLeft />

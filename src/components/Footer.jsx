@@ -2,6 +2,11 @@
 
 export default function Footer() {
   return (
-    <div className="bg-darkcl">Footer</div>
+    <footer>
+      <div className="media md:h-[10rem] h-[5rem]"></div>
+      <div className="bg-darkcl">
+
+      </div>
+    </footer>
   )
 }

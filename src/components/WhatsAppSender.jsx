@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function WhatsAppSender() {
+export default function WhatsAppSender() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [message, setMessage] = useState('');
 
@@ -41,4 +41,35 @@ function WhatsAppSender() {
   );
 }
 
-export default WhatsAppSender;
+
+
+
+export function CheckoutButton(){
+  const [products, setProducts] = useState([]);  // Assuming products is an array of selected products
+
+  const generateWhatsAppLink = () => {
+    const baseWhatsAppURL = "https://wa.me/";
+    const phoneNumber = "+249919913063";  // Replace with your number
+
+    let message = "أود طلب:\n";
+    products.forEach(product => {
+      message += "- " + product.name + "\n";  // Assuming product has a 'name' property
+    });
+
+    const encodedMessage = encodeURIComponent(message);
+    return baseWhatsAppURL + phoneNumber + "?text=" + encodedMessage;
+  }
+  setProducts([])
+
+  const handleCheckoutClick = () => {
+    const confirmationMessage = "سيتم توجيهك إلى واتساب. يرجى مشاركة موقعك للتوصيل. هل ترغب في المتابعة؟";
+    if (window.confirm(confirmationMessage)) {
+      window.location.href = generateWhatsAppLink();
+    }
+  }
+
+  return (
+    <button onClick={handleCheckoutClick}>الدفع</button>
+  );
+}
+
