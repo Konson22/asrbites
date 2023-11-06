@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export default function Navbar() {
 
-  const { cartData, profile } = useGlobalApi();
+  const { cartData } = useGlobalApi();
   const [openMenu, setOpenMenu] = useState(false)
 
   const toggleMenu = () => setOpenMenu(!openMenu);
@@ -23,7 +23,7 @@ export default function Navbar() {
   return (
     <nav className="
       flex items-center justify-between text-white md:px-[5%] px-[5%] 
-      bg-darkcl shadow-mdd sticky left-0 top-0 w-full md:py-2 py-3 z-50
+      bg-dakrpink shadow-mdd sticky left-0 top-0 w-full md:py-2 py-3 z-50
     ">
       {logo}
       <div className={`

@@ -2,10 +2,11 @@ import { useRef } from 'react';
 import { categories } from '../../assets/data'
 import Carousel from "react-elastic-carousel";
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 
 const breakPoints = [
-  { width: 1, itemsToShow: 2, itemPadding:[5, 5] },
+  { width: 1, itemsToShow: 1, itemPadding:[5, 5] },
   { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
   { 
     width: 850, 
@@ -23,30 +24,35 @@ export default function CategoriesSection() {
 
   return (
     <>
-    {/* <div className="flex justify-center mt- bg-secondary">
-      <span className="btn bg-darkcl text-white md:text-3xl px-[3rem] md:py-4 py-2">استعرض تشكيلتنا</span>
-    </div> */}
-    <div className="flex items-center relative md:mx-[5%] md:py-[3rem] py-[1rem] overflow-hiddn">
-      <button className="md:h-10 md:w-10 flex items-center justify-center absolute md:left-[-2.2rem] left-[-.3rem] z-30 text-3xl md:bg-primary/30 hover:bg-primary rounded-full" onClick={() => carouselRef.current.slidePrev()}>
+    <div className={` bg-cl22 flex justify-center mt-5`}>
+      <span className="title md:text-5xl text-3xl font-bold text-dakrpink">استعرض تشكيلتنا</span>
+    </div>
+    <div className="flex items-center relative md:mx-[5%] mx-4 md:py-[2rem] py-[.5rem] overflow-hiddn">
+      <button className="md:h-10 md:w-10 flex items-center justify-center absolute md:left-[-2.2rem] left-[-.6rem] z-30 md:text-3xl text-4xl md:opacity-100 opacity-50 md:bg-lightred/30 hover:bg-lightred rounded-full" onClick={() => carouselRef.current.slidePrev()}>
         <FiChevronLeft />
       </button>
-      <Carousel className="overflow-hidde z-20" enableAutoPlay breakPoints={breakPoints} ref={carouselRef} showArrows={false} outerSpacing={0} pagination={false}>
+      <Carousel className="overflow-hidde z-20" breakPoints={breakPoints} ref={carouselRef} showArrows={false} outerSpacing={0} pagination={false}>
         {categories.map((category, index) => (
-          <div className="bg-white hover:bg-secondary hover:text-white px-2 md:mx-2" key={index}>
-            <div className="text-center md:text-2xl text-xl md:py-2 py-1">
-              {category.name}
-            </div>
-            <div className="md:h-[200px] h-[130px]">
+          <Link className="bg-white rounded-md overflow-hidden md:mx-2 p-2" key={index} to={`/store?category=${category.category}`}>
+            <div className="md:h-[200px] h-[220px]">
               <img src={category.image} alt="" />
             </div>
             <div className="md:p-4 p-2">
+              <h3 className="text-2xl text-right">{category.name}</h3>
               <p className="line-clamp-3 text-right">{category.text}</p>
-              <button className="btn bg-primary text-white rounded w-full py-1 md:text-xl mt-3">start</button>
+              <p className="line-clamp-3 text-right">{category.price}</p>
+              <div className="flex items-center justify-between mt-6">
+                <div className="flex items-end">
+                  <span className='text-3xl font-bold'>15</span>
+                  <span>ر.س</span>
+                </div>
+                <button className="bg-dakrpink text-white rounded px-5 py-1 md: text-xl">start</button>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </Carousel>
-      <button className="md:h-10 md:w-10 flex items-center justify-center absolute md:right-[-2.2rem] right-[-.3rem] z-30 text-3xl md:bg-primary/30 hover:bg-primary rounded-full" onClick={() => carouselRef.current.slideNext()}>
+      <button className="md:h-10 md:w-10 flex items-center justify-center absolute md:right-[-2.2rem] right-[-.6rem] z-30 md:text-3xl text-4xl md:opacity-100 opacity-50 md:bg-primary/30 hover:bg-primary rounded-full" onClick={() => carouselRef.current.slideNext()}>
         <FiChevronRight />
       </button>
     </div>

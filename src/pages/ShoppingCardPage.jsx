@@ -218,8 +218,8 @@ function WhatsAppDilog({ data, setOpenCard }){
             </button> 
           </div>
         </div>
-        <div className="md:block hidden w-[60%]">
-          <img src={process.env.PUBLIC_URL+'/images/lizzie.jpeg'} alt="" />
+        <div className="md:block hidden w-[55%] h-[450px]">
+          <img src={process.env.PUBLIC_URL+'/images/cornflakes-4907490_1280.jpg'} alt="" />
         </div>
       </div>
     </div>

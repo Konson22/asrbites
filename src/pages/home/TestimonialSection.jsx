@@ -21,7 +21,7 @@ export default function TestimonialSection() {
   const carouselRef = useRef()
 
   return (
-    <div className="md:mx-[8%] px-8 mt-[3rem] relative flex items-center">
+    <div className="md:mx-[8%] px-12 mt-[3rem] relative flex items-center">
         <button className="absolute md:left-[-1.5rem] left-[-.2rem] z-30 text-3xl text-rose-500 p-2 rounded-full" onClick={() => carouselRef.current.slidePrev()}>
           <FiChevronLeft />
         </button>
@@ -33,12 +33,12 @@ export default function TestimonialSection() {
             showArrows={false} outerSpacing={0} pagination={false}
         >
             {data.map((d, index) => (
-                <div className=" bg-white p-4" key={index}>
-                    <div className="md:h-[160px] h-[120px] md:w-[160px] w-[120px] mx-auto">
-                        <img className="rounded-full" src={d.image} alt="" />
+                <div className="bg-primary p-1" key={index}>
+                    <div className="image md:h-[160px] h-[120px] md:w-[160px] w-[120px] mx-auto mt-3">
+                        <img className="rrounded-full" src={d.image} alt="" />
                     </div>
-                    <div className="flex-1 md:text-center text-center">
-                        <p>{d.text}</p>
+                    <div className="message bg-white rounded-md flex-1 md:text-center text-center p-4 pt-[12%]">
+                        <p className="line-clamp-3">{d.text}</p>
                     </div>
                 </div>
             ))}
