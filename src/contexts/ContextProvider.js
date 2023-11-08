@@ -47,8 +47,12 @@ export default function GlobalContextProvider({ children }) {
       isMuted = false
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [])
+  }, [])
 
+
+  const fetchReservationData = () => {
+
+  }
 
 const verifyAuth = async () => {
   try {
