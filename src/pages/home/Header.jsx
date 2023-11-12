@@ -10,7 +10,7 @@ export default function Header() {
  
   return (
     <>
-    <header className="heading-card header-container md:py-[18vh] py-[7vh] flex items-center justify-center px-[12%]">
+    <header className="header-container md:py-[18vh] py-[7vh] flex items-center justify-center px-[12%]">
       <motion.div 
         className="md:w-[78%]"
         variants={variants} 

@@ -6,7 +6,8 @@ const contextApi = createContext()
 export default function GlobalContextProvider({ children }) {
 
   const [cartData, setCartData] = useState([]);
-  const [profile, setProfile] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
+  const [openSidebar, setOpenSidebar] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [candy, setCandy] = useState([])
@@ -28,7 +29,7 @@ export default function GlobalContextProvider({ children }) {
       try{
         const results = await axiosInstance('/products').then(res => res)
         if(isMuted){
-            setCandy(results.data)
+          setCandy(results.data)
         }
       }catch(error){
         if(error.status === 404 || error.status === 403 || error.status === 500){
@@ -50,16 +51,25 @@ export default function GlobalContextProvider({ children }) {
   }, [])
 
 
-  const fetchReservationData = () => {
-
+  const deleteProduct = async id => {
+    try{
+      const results = await axiosInstance.post('/products/delete', {id}).then(res => res)
+      setCandy(() => {
+        return candy.filter(c => c.productID !== results.data.id)
+      })
+     console.log(results.data.id)
+    }catch(error){
+      if(error.status === 404 || error.status === 403 || error.status === 500){
+        return setMessage(error?.response?.data)
+      }
+      setMessage('Error Occures!')
+    }
   }
 
 const verifyAuth = async () => {
   try {
     const results = await axiosInstance.post('/auth').then(async res => res)
-    if(results.status === 200){
-      setProfile(results.data)
-    }
+    setIsAdmin(results.data)
   } catch (error) {
     if(error.response){
       console.log(error.response?.data)
@@ -104,15 +114,18 @@ const verifyAuth = async () => {
 
   const values = { 
     cartData, 
-    profile, 
+    isAdmin, 
     candy, 
     isLoading,
     message,
+    openSidebar, 
+    setOpenSidebar,
     setCandy,
     setCartData, 
-    setProfile, 
+    setIsAdmin, 
     removeItem,
     addItemToCart,
+    deleteProduct,
     clearSavedCartItem
 }
   return (

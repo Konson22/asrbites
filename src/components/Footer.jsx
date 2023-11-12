@@ -5,8 +5,8 @@ import { FiMail } from "react-icons/fi";
 export default function Footer() {
   return (
     <footer className="">
-      <div className="redsvg md:h-[12rem] h-[5rem]"></div>
-      <div className="bg-lightred text-white px-[8%] pb-4">
+      {/* <div className="redsvg md:h-[12rem] h-[5rem]"></div> */}
+      <div className="bg-lightred text-white px-[8%] py-4">
         <div className="md:flex items-center justify-between py-5">
           <div className="flex items-center justify-center md:mb-0 mb-6">
             <img className="md:h-14 md:w-14 h-9 w-9" src={process.env.PUBLIC_URL+'/images/logo.png'} alt="" />

@@ -40,7 +40,7 @@ export default function ProductCart({ item }) {
                                 <FiPlus />
                             </span>
                         </div>
-                        <button className="bg-darkcl text-white rounded px-3 py-1" onClick={handleAddItem}>Add to cart</button>
+                        <button className="bg-cl5 text-white rounded px-3 py-1" onClick={handleAddItem}>Add to cart</button>
                     </div>
                     {message && <div className="text-rose-600 mt-3">{message}</div>}
                 </div>
@@ -64,7 +64,7 @@ export default function ProductCart({ item }) {
                         <h4 className="md:text-2xl text-xl text-rose-600">{item.price}</h4>
                     </div>
                     <button className="
-                            flex items-center justify-center bg-darkcl text-white py-1 px-3 
+                            flex items-center justify-center bg-cl4 text-white py-1 px-3 
                             rounded ml-4
                         "
                         onClick={() => setIsOpen(true)}

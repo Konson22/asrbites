@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../../hooks/useAxios";
+import axiosInstance from "../hooks/useAxios";
 import { useParams } from "react-router-dom";
 
 
@@ -35,7 +35,7 @@ export function CheckoutPage(){
     const totalPrice = orders.length > 0 && orders.map(o => parseInt(o.price) * parseInt(o.qty)).reduce((i, t) => i + t)
 
     return(
-        <div className="md:flex mx-[10%] mt-7">
+        <div className="md:flex">
             <div className="flex-1 bg-white md:mr-3">
                 <div className="border-b-2 flex items-center justify-between px-4 py-2">
                     <div className="text-2xl">

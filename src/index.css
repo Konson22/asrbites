@@ -30,12 +30,14 @@ body{
   background-color: rgb(244, 243, 239);
 }
 
+.dashboard-wraper{
+  height: calc(100vh - 4rem);
+  max-height: calc(100vh - 4rem);
+}
 .heading-card{
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 94%, 0 90%);
   clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 94%, 0 90%);
 }
-
-
 
 #image{
   visibility: hidden;
@@ -48,8 +50,6 @@ body{
 img{
   width: 100%;
   height: 100%;
-  /* color: rgb(243, 243, 238); */
-  color: rgb(244, 243, 239);
 }
 
 .pinksvg{
@@ -68,7 +68,8 @@ img{
   background-position: right;
 }
 
-.promo-container{
+
+.login-container{
   background-image: linear-gradient(rgba(124, 89, 80, 0.2), rgba(124, 89, 80, 0.62)), 
   url('./assets/images/offer.jpg');
   background-size: cover;

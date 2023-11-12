@@ -1,7 +1,7 @@
 import { FiBell, FiShoppingCart, FiHome, FiSearch, FiUser, FiX } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import { useGlobalApi } from "../contexts/ContextProvider"
-import { FaBars } from "react-icons/fa"
+import { FaBars, FaTicketAlt } from "react-icons/fa"
 import { useState } from "react";
 
 
@@ -46,7 +46,6 @@ export default function Navbar() {
         <Link className="block bg-primary border text-white px-5 py-1 rounded mr-6" to='/upload'>تحميل</Link>
       } */}
       <Link className="flex items-center relative" to='/shopping-cart'>
-        <img className="md:h-7 md:w-7 h-7 w-7" src={process.env.PUBLIC_URL+'/images/icons8-line-24.png'} alt="" />
         {cartData.length > 0 &&
           <span 
             className="h-4 w-4 flex items-center justify-center bg-red-500 text-[.6rem]
@@ -55,10 +54,11 @@ export default function Navbar() {
             {cartData.length}
           </span>
         }
+        <FiShoppingCart className="text-3xl md:mr-2" />
       </Link>
-      <div className="text-2xl mx-5">
-        <FiUser />
-        {/* <img className="md:h-8 w-8 h-9" src={process.env.PUBLIC_URL+'/images/user.png'} alt="" /> */}
+      <div className="flex items-center mx-5">
+        <FaTicketAlt className="text-3xl md:mr-2" />
+        <span className="md:block hidden">My reservation</span>
       </div>
       <div className="md:hidden block" onClick={toggleMenu}>
         <FaBars className="text-xl" />
