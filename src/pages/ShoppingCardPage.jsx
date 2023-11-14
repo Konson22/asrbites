@@ -151,6 +151,7 @@ function ReserveDilog({ handleReserve, setOpenCard, setSelectedTime }){
   const handleInput = e => {
     const date = new Date()
     const time = new Date(date.setMinutes(date.getMinutes() + parseInt(e)))
+    console.log(time)
     setSelectedTime(time)
   }
 

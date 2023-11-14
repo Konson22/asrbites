@@ -62,9 +62,9 @@ export default function Sidebar() {
 const links = [
     {text:'Dashboard', path:'/admin', icon:<FiHome />},
     {text:'Products', path:'/admin/products', icon:<FaUber />},
-    {text:'Orders', path:'/admin/orders', icon:<FaTruckMoving />},
+    {text:'الطلبات', path:'/admin/orders', icon:<FaTruckMoving />},
     {text:'Messages', path:'/', icon:<FiMail />},
     {text:'Stuff', path:'/', icon:<FaUsers />},
     {text:'Report', path:'/', icon:<FaUber />},
-    {text:'Stuff', path:'/', icon:<FaUber />},
+    {text:'الزبائن', path:'/', icon:<FaUber />},
 ]

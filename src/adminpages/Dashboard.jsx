@@ -49,10 +49,10 @@ export default function Dashboard() {
     }
    
     const headingData = [
-        {title:'All Orders', bg:'bg-cl2/50',  bg2:'text-cl2', count:pendingOrders.length+servedOrders.length, icon:<FaAffiliatetheme />},
-        {title:'Pending Orders', bg:'bg-cl5/50', bg2:'text-cl5', count:pendingOrders.length, icon:<FaBusinessTime />},
+        {title:'جميع الطلبات', bg:'bg-cl2/50',  bg2:'text-cl2', count:pendingOrders.length+servedOrders.length, icon:<FaAffiliatetheme />},
+        {title:'المعلقة الطلبات ', bg:'bg-cl5/50', bg2:'text-cl5', count:pendingOrders.length, icon:<FaBusinessTime />},
         {title:'Served Orders', bg:'bg-cl1/50', bg2:'text-cl1', count:servedOrders.length, icon:<FaAffiliatetheme />},
-        {title:'Clients', bg:'bg-cl3/50', bg2:'text-cl3', count:25, icon:<FaUsers />}
+        {title:'الزبائن', bg:'bg-cl3/50', bg2:'text-cl3', count:25, icon:<FaUsers />}
     ]
 
   return (
@@ -75,15 +75,15 @@ export default function Dashboard() {
         <div className="md:flex mt-5">
             <div className="flex-1 bg-white shadow p-5 md:mr-5">
                 <h3 className="bg- flex text-2xl font-bold">
-                    Orders List
+                    قائمة الطلبات
                 </h3>
                 {!isLoading ? <div className="">
-                    <table className="w-full text-left">
+                    <table className="w-full text-right">
                         <thead>
                             <tr>
-                                <th>Reserve Code</th>
-                                <th>Time Left</th>
-                                <th className="text-right">End Time</th>
+                                <th className="text-left">الاجراء</th>
+                                <th>الوقت المتبقي</th>
+                                <th>رمز الحجز</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,12 +91,11 @@ export default function Dashboard() {
                                 console.log(item)
                                 return(
                                     <tr className="">
-                                        <td className="border-y py-1">{item}</td>
-                                        <td className="border-y py-1">30 minutes</td>
-                                        <td className="border-y text-right py-2">
-                                            <Link className="bg-cl3 text-white rounded py-1 px-3 mr-2" to={`/admin/checkout/${item}`}>Serve</Link>
-                                            <button className="bg-lightred text-white rounded py-1 px-3">cancel</button>
+                                        <td className="border-y text-left py-2">
+                                            <Link className="bg-cl3 text-white rounded py-1 px-3 mr-2" to={`/admin/checkout/${item}`}>حفظ</Link>
                                         </td>
+                                        <td className="border-y py-1">30 minutes</td>
+                                        <td className="border-y py-1">{item}</td>
                                     </tr>
                                 )
                             })}

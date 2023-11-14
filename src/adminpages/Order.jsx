@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../hooks/useAxios";
+import diffDates from 'diff-dates'
 
 
 export default function Orders() {
@@ -32,7 +33,6 @@ export default function Orders() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const formatter = new Intl.RelativeTimeFormat('ar')
 
 
   return (
@@ -49,33 +49,36 @@ export default function Orders() {
           <table className="w-full text-right">
             <thead className="bg-lightgray">
               <tr>
-                <td className="md:block hidden px-3 py-4 text-left">Actions</td>
-                <td className="md:block hidden px-3 py-4">Status</td>
-                <td className="px-3 py-4">Date</td>
+                <td className="px-3 py-4 text-left">Actions</td>
+                <td className="px-3 py-4">الوقت المتبقي</td>
                 <td className="px-3 py-4">السعر الكلي</td>
-                <td className="md:block hidden px-3 py-4">السعر</td>
+                <td className="px-3 py-4">السعر</td>
                 <td className="px-3 py-4">عدد المنتجات</td>
                 <td className="px-3 py-4">المنتج</td>
-                <td className="px-3 py-4">Reserve Code</td>
+                <td className="px-3 py-4">رمز الحجز</td>
               </tr>
             </thead>
             <tbody>
               {orders.map((order, index) => {
-                const time = new Date() - new Date(order.collectionTime);
-                const dif = formatter.format(time / (60*60), 'minutes')
-                console.log(dif, new Date().getMinutes(), new Date(order.collectionTime).getMinutes())
+                // const time = new Date() - new Date();
+                const present = Date.now()
+                const romanianRevolution = new Date(order.collectionTime)
+                // console.log(diffDates(romanianRevolution, present, "minutes"));
                 return(
                   <tr className={index % 2 ? 'bg-lightgray':''} key={order.id}>
-                    <td className="md:block hidden text-left px-3 py-2">
-                      <button className="bg-red-500 text-white px-3 py-1 mr-2">remove</button>
+                    <td className="text-left px-3 py-2">
+                      <button className="bg-red-500 text-white px-3 py-1 mr-2">ازاله</button>
                     </td>
-                    <td className="md:block hidden px-3 py-2">{order.served ? 'Served': 'Pending'}</td>
-                    <td className="px-3 py-2">{dif}</td>
-                    <td className="flex items-center justify-end px-3 py-2">
+                    <td className="flex justify-end px-3 py-2">
+                      <p>دقيقة</p>
+                      <span>{diffDates(romanianRevolution, present, "minutes")}</span>
+                      {/* <span>بعد</span> */}
+                    </td>
+                    <td className="justify-end px-3 py-2">
                       <span>ر.س</span>
                       <span className="font-bold">{order.price * order.qty}</span>
                     </td>
-                    <td className="md:block hidden px-3 py-2 font-bold">{order.price}</td>
+                    <td className="px-3 py-2 font-bold">{order.price}</td>
                     <td className="px-3 py-2">{order.qty}</td>
                     <td className="px-3 py-2">{order.product_name}</td>
                     <td className="px-3 py-2">{order.code}</td>
