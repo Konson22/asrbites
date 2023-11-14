@@ -10,22 +10,22 @@ export function AdminRoutes() {
     const { isAdmin } = useGlobalApi()
 
     return isAdmin ? 
-    <div className="h-screen">
-        <DashNav />
-        <div className="flex">
+        <div className="h-screen flex">
             <Sidebar />
-            <div className="dashboard-wraper flex-1 overflow-y-scroll p-5">
-                <Outlet />
+            <div className="flex flex-col flex-1">
+                <DashNav />
+                <div className="flex-1 overflow-y-scroll md:p-5 p-3">
+                    <Outlet />
+                </div>
             </div>
-        </div>
-    </div> : <Navigate to='/admin/login' />
+        </div> : <Navigate to='/admin/login' />
 }
 
 
 export function LoginRoutes() {
     const { isAdmin } = useGlobalApi()
 
-    return isAdmin ? <Navigate to='/admin/dashboard' /> : <Outlet />
+    return isAdmin ? <Navigate to='/admin' /> : <Outlet />
 }
 
 

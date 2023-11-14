@@ -48,21 +48,7 @@ const data = [
     title:'Make Cake one',
     text:'Cookie apple pie donut gingerbread sweet roll pudding topping marshmallow.',
     image:process.env.PUBLIC_URL+'/images/cream-forest-white-background-red.jpg',
-    border:'border-dakrpink',
-    color:'text-dakrpink',
+    border:'border-cl5',
+    color:'text-cl5',
   },
-  // {
-  //   title:'Make Cake one',
-  //   text:'Cookie apple pie donut gingerbread sweet roll pudding topping marshmallow.',
-  //   image:process.env.PUBLIC_URL+'/images/cream-forest-white-background-red.jpg',
-  //   color:'text-cl2',
-  //   border:'border-cl2',
-  // },
-  // {
-  //   title:'Make Cake one',
-  //   text:'Cookie apple pie donut gingerbread sweet roll pudding topping marshmallow.',
-  //   image:process.env.PUBLIC_URL+'/images/cream-forest-white-background-red.jpg',
-  //   border:'border-dakrpink',
-  //   color:'text-dakrpink',
-  // },
 ]

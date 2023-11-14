@@ -1,5 +1,5 @@
 import { FaTruckMoving, FaUber, FaUsers } from "react-icons/fa"
-import { FiChevronDown, FiHome, FiMail } from "react-icons/fi"
+import { FiChevronDown, FiHome, FiMail, FiX } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import { useGlobalApi } from "../contexts/ContextProvider"
 
@@ -11,37 +11,48 @@ export default function Sidebar() {
   return (
     <div 
         className={`
-            dashboard-wraper md:flex md:static fixed flex-col md:w-[17%] 
-            w-full bg-cl5/80 text-white md:translate-x-0 duration-300
+            md:static fixed  md:w-auto w-full
+            md:bg-cl5 bg-cl5/50 md:text-white md:translate-x-0 duration-300
             ${openSidebar ? 'translate-x-0':'translate-x-[-100%]'}
         `}
     >
-        <div className="flex-1 h-full my-5">
-            <ul>
-                {links.map(link => (
-                    <li>
-                        <Link 
-                            className="flex items-center hover:bg-white hover:text-cl5 px-5 py-2" 
-                            to={link.path}
-                            onClick={() => setOpenSidebar(false)}
-                        >
-                            <span className="text-4xl mr-3">{link.icon}</span>
-                            {link.text}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-        </div>
-        <div className="flex items-center bg-cl5 px-5 py-2">
-            <img 
-                className="h-[40px] w-[40px] rounded-full mr-2" 
-                src={isAdmin.profile_image} 
-                alt="" 
-            />
-            <span className="flex-1">{isAdmin.name}</span>
-            <span className="text-2xl">
-                <FiChevronDown />
-            </span>
+        <div className="h-screen flex flex-col md:w-full w-[75%] md:bg-transparent bg-white">
+            <div className="flex items-center justify-between px-3">
+                <div className="h-[4rem] flex items-center">
+                    <img className="md:h-14 w-14 h-9" src={process.env.PUBLIC_URL+'/images/logo.png'} alt="" />
+                    <p className="logo-text text-2xl font-bold w-full">لي ثري</p>
+                </div>
+                <span className="md:hidden border p-1 block  text-3xl" onClick={() => setOpenSidebar(false)}>
+                    <FiX />
+                </span>
+            </div>
+            <div className="flex-1 my-5">
+                <ul>
+                    {links.map(link => (
+                        <li>
+                            <Link 
+                                className="flex items-center hover:bg-white hover:text-cl5 px-5 py-2" 
+                                to={link.path}
+                                onClick={() => setOpenSidebar(false)}
+                            >
+                                <span className="text-4xl mr-3">{link.icon}</span>
+                                <span className="md:block hiddenn">{link.text}</span>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div className="flex items-center px-5 py-2">
+                <img 
+                    className="h-[40px] w-[40px] rounded-full mr-2" 
+                    src={isAdmin.profile_image} 
+                    alt="" 
+                />
+                <span className="md:block hiddenn flex-1">{isAdmin.name}</span>
+                <span className="text-2xl">
+                    <FiChevronDown />
+                </span>
+            </div>
         </div>
     </div>
   )
@@ -49,7 +60,7 @@ export default function Sidebar() {
 
 
 const links = [
-    {text:'Dashboard', path:'/admin/dashboard', icon:<FiHome />},
+    {text:'Dashboard', path:'/admin', icon:<FiHome />},
     {text:'Products', path:'/admin/products', icon:<FaUber />},
     {text:'Orders', path:'/admin/orders', icon:<FaTruckMoving />},
     {text:'Messages', path:'/', icon:<FiMail />},

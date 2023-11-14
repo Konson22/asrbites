@@ -22,8 +22,8 @@ export default function Navbar() {
 
   return (
     <nav className="
-      flex items-center justify-between text-white md:px-[5%] px-[5%] 
-      bg-dakrpink shadow-mdd sticky left-0 top-0 w-full md:py-2 py-3 z-50
+      flex items-center justify-between text-cl5 md:px-[5%] px-[5%] 
+      bg-white shadow-mdd sticky left-0 top-0 w-full md:py-2 py-3 z-50
     ">
       {logo}
       <div className={`
