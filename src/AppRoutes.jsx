@@ -1,15 +1,15 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { useGlobalApi } from './contexts/ContextProvider';
 import DashNav from './adminpages/DashNav';
 import Sidebar from './adminpages/Sidebar';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { useAdminContaxtApi } from './contexts/AdminContext';
 
 
 export function AdminRoutes() {
-    const { isAdmin } = useGlobalApi()
+    const { profile } = useAdminContaxtApi()
 
-    return isAdmin ? 
+    return profile ? 
         <div className="h-screen flex">
             <Sidebar />
             <div className="flex flex-col flex-1">
@@ -23,9 +23,9 @@ export function AdminRoutes() {
 
 
 export function LoginRoutes() {
-    const { isAdmin } = useGlobalApi()
+    const { profile } = useAdminContaxtApi()
 
-    return isAdmin ? <Navigate to='/admin' /> : <Outlet />
+    return profile ? <Navigate to='/admin' /> : <Outlet />
 }
 
 

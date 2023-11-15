@@ -1,12 +1,12 @@
 import { FaTruckMoving, FaUber, FaUsers } from "react-icons/fa"
 import { FiChevronDown, FiHome, FiMail, FiX } from "react-icons/fi"
 import { Link } from "react-router-dom"
-import { useGlobalApi } from "../contexts/ContextProvider"
+import { useAdminContaxtApi } from "../contexts/AdminContext"
 
 
 export default function Sidebar() {
 
-    const { isAdmin, openSidebar, setOpenSidebar } = useGlobalApi()
+    const { profile, openSidebar, setOpenSidebar } = useAdminContaxtApi()
 
   return (
     <div 
@@ -19,7 +19,7 @@ export default function Sidebar() {
         <div className="h-screen flex flex-col md:w-full w-[75%] md:bg-transparent bg-white">
             <div className="flex items-center justify-between px-3">
                 <div className="h-[4rem] flex items-center">
-                    <img className="md:h-14 w-14 h-9" src={process.env.PUBLIC_URL+'/images/logo.png'} alt="" />
+                    <img className="md:h-14 w-14 h-9" src={process.env.PUBLIC_URL+'/images/cupcake.png'} alt="" />
                     <p className="logo-text text-2xl font-bold w-full">لي ثري</p>
                 </div>
                 <span className="md:hidden border p-1 block  text-3xl" onClick={() => setOpenSidebar(false)}>
@@ -45,10 +45,10 @@ export default function Sidebar() {
             <div className="flex items-center px-5 py-2">
                 <img 
                     className="h-[40px] w-[40px] rounded-full mr-2" 
-                    src={isAdmin.profile_image} 
+                    src={profile.profile_image} 
                     alt="" 
                 />
-                <span className="md:block hiddenn flex-1">{isAdmin.name}</span>
+                <span className="md:block hiddenn flex-1">{profile.name}</span>
                 <span className="text-2xl">
                     <FiChevronDown />
                 </span>

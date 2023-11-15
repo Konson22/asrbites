@@ -41,20 +41,20 @@ export default function Upload() {
   return (
     <>
     {loading && <Loader uploadPercentage={uploadPercentage} setUploadPercentage={setUploadPercentage} />}
-    <div className="md:w-[40%] mx-auto">
+    <div className="md:w-[40%] mx-auto p-5">
         <h2 className="text-4xl mb-5">Upload</h2>
         {message && message}
         <form onSubmit={handleSubmit}>
             <div className="mb-5">
                 <input 
-                    className="h-[3rem] w-full border rounded border-lightred focus:border-none px-3"
+                    className="h-[3rem] w-full border rounded text-right border-lightred focus:border-none px-3"
                     name="name"
-                    placeholder="Product name"
+                    placeholder="إسم المنتج"
                 />
             </div>
             <div className="mb-5">
                 <input 
-                    className="h-[3rem] w-full border rounded border-lightred focus:border-none px-3"
+                    className="h-[3rem] w-full border rounded text-right border-lightred focus:border-none px-3"
                     name="category"
                     placeholder="category"
                 />
@@ -62,16 +62,16 @@ export default function Upload() {
             <div className="flex mb-6">
                 <div className="flex-1 mr-2">
                     <input 
-                        className="h-[3rem] w-full border rounded border-lightred focus:border-none px-3"
+                        className="h-[3rem] w-full border rounded text-right border-lightred focus:border-none px-3"
                         name="qty"
-                        placeholder="Qunatity"
+                        placeholder="الكمية"
                     />
                 </div>
                 <div className="flex-1 ml-2">
                     <input 
-                        className="h-[3rem] w-full border rounded border-lightred focus:border-none px-3"
+                        className="h-[3rem] w-full border rounded text-right border-lightred focus:border-none px-3"
                         name="price"
-                        placeholder="Set price"
+                        placeholder="السعر"
                     />
                 </div>
             </div>

@@ -26,7 +26,7 @@ export function CheckoutPage(){
         try {
             const results = await axiosInstance.post(`/products/reservation/checkout`, {code}).then(res => res)
             if(results.status === 200){
-                window.location = '../dashboard'
+                window.location = '../'
             }
         } catch (error) {
             console.log(error)
@@ -36,59 +36,63 @@ export function CheckoutPage(){
 
     return(
         <div className="md:flex">
-            <div className="flex-1 bg-white md:mr-3">
-                <div className="border-b-2 flex items-center justify-between px-4 py-2">
-                    <div className="text-2xl">
-                        {code} code
-                    </div>
-                </div>
-                <table className="w-full">
-                    <thead className="">
-                        <tr className="text-right border-b">
-                            <th className="px-2 py-3">السعر الكلي</th>
-                            <th className="px-2 py-3">السعر</th>
-                            <th className="px-2 py-3">الكمية</th>
-                            <th className="px-2 py-3">الإسم</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {orders.length > 0 && orders.map(order => (
-                            <tr className="border-t">
-                                <td className="py-2 text-right">{order.price * order.qty}</td>
-                                <td className="py-2 text-right">{order.price}</td>
-                                <td className="py-2 text-right">{order.qty}</td>
-                                <td className="py-2 flex items-center justify-end">
-                                    <span>{order.product_name}</span>
-                                    <img 
-                                        className="h-11 w-11 ml-2 rounded" 
-                                        src={`${process.env.REACT_APP_API}/${order.product_image}`} alt="" 
-                                    />
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-            <div className="bg-white h-[max-content]">
-                <div className="border-b-2 text-2xl px-5 py-2">
-                    Check out details
+            <div className="flex-1 bg-white shadow border rounded md:mr-3">
+                <div className="border-b-2 flex items-center justify-end px-5 py-3">
+                    <span className="text-2xl">
+                        {code} رمز الحجز
+                    </span>
                 </div>
                 <div className="p-5">
-                    <div className="flex justify-end pb-6">
-                        <span className="font-bold text-xl">{orders.length}</span>
-                        <span className="w-[150px] text-right font-bold">عدد المنتجات</span>
-                    </div>
-                    <div className="flex justify-end pb-6">
-                        <div className="flex">
-                            <span>ر.س</span>
-                            <span className="font-bold text-xl">{totalPrice}</span>
+                    <table className="w-full">
+                        <thead className="">
+                            <tr className="text-right border-b">
+                                <th className="px-2 py-3">السعر الكلي</th>
+                                <th className="px-2 py-3">السعر</th>
+                                <th className="px-2 py-3">الكمية</th>
+                                <th className="px-2 py-3">إسم المنتج</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {orders.length > 0 && orders.map(order => (
+                                <tr className="border-t">
+                                    <td className="py-2 text-right">{order.price * order.qty}</td>
+                                    <td className="py-2 text-right">{order.price}</td>
+                                    <td className="py-2 text-right">{order.qty}</td>
+                                    <td className="py-2 flex items-center justify-end">
+                                        <span>{order.product_name}</span>
+                                        <img 
+                                            className="h-11 w-11 ml-2 rounded" 
+                                            src={`${process.env.REACT_APP_API}/${order.product_image}`} alt="" 
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div className="flex justify-end mt-7 border-t">
+                        <div className="w-[250px]">
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="font-bold text-xl ">{orders.length}</span>
+                                <span>عدد المنتجات</span>
+                            </div>
+                            <div className="flex items-center justify-between mb-2">
+                                <div className="flex">
+                                    <span>ر.س</span>
+                                    <span className="font-bold text-xl">{totalPrice}</span>
+                                </div>
+                                <span>السعر الكلي</span>
+                            </div>
+                            <div className="flex justify-end mt-6">
+                                <button className="bg-red-500 text-white px-5 py-1 rounded mr-1">Cancel</button>
+                                <button className="bg-green-500 text-white px-5 py-2 rounded" onClick={handleCheckout}>Checkout</button>
+                            </div>
                         </div>
-                        <span className="w-[150px] text-right font-bold">السعر الكلي</span>
                     </div>
-                    <div className="flex justify-end">
-                        <button className="bg-red-500 text-white px-5 py-2 rounded mr-2">Cancel Reservation</button>
-                        <button className="bg-green-500 text-white px-5 py-2 rounded" onClick={handleCheckout}>Checkout</button>
-                    </div>
+                </div>
+            </div>
+            <div className="bg-white shadow border h-[max-content] md:w-[40%] p-5 md:mt-0 mt-4">
+                <div className="">
+                    Map
                 </div>
             </div>
         </div>

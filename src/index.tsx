@@ -5,15 +5,18 @@ import "./fonts/line-awesome-1.3.0/css/line-awesome.css";
 import App from './App';
 import "./index.css";
 import GlobalContextProvider from './contexts/ContextProvider';
+import AdminContextProvider from './contexts/AdminContext';
 
 const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <GlobalContextProvider>
-        <App />
-      </GlobalContextProvider>
+      <AdminContextProvider>
+        <GlobalContextProvider>
+          <App />
+        </GlobalContextProvider>
+      </AdminContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

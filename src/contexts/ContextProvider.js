@@ -7,7 +7,6 @@ export default function GlobalContextProvider({ children }) {
 
   const [cartData, setCartData] = useState([]);
   const [isAdmin, setIsAdmin] = useState(null);
-  const [openSidebar, setOpenSidebar] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [candy, setCandy] = useState([])
@@ -41,7 +40,6 @@ export default function GlobalContextProvider({ children }) {
       }
     }
     fetchResumies()
-    verifyAuth()
 
     return () => {
       controller.abort()
@@ -65,21 +63,6 @@ export default function GlobalContextProvider({ children }) {
       setMessage('Error Occures!')
     }
   }
-
-const verifyAuth = async () => {
-  try {
-    const results = await axiosInstance.post('/auth').then(async res => res)
-    setIsAdmin(results.data)
-  } catch (error) {
-    if(error.response){
-      console.log(error.response?.data)
-    }else{
-      console.log(error.message)
-    }
-  }finally{
-    setIsLoading(false)
-  }
-}
 
   //  ADD NEW ITEM INTGO CART
   const addItemToCart = (item) => {
@@ -118,8 +101,6 @@ const verifyAuth = async () => {
     candy, 
     isLoading,
     message,
-    openSidebar, 
-    setOpenSidebar,
     setCandy,
     setCartData, 
     setIsAdmin, 

@@ -1,80 +1,37 @@
-import { FaAffiliatetheme, FaBusinessTime, FaUsers } from "react-icons/fa"
-import { useEffect, useState } from "react";
-import axiosInstance from "../hooks/useAxios";
 import { Link } from "react-router-dom";
+import diffDates from 'diff-dates'
+import { useAdminContaxtApi } from "../contexts/AdminContext";
 
 
 export default function Dashboard() {
 
-    const [ isLoading, setIsLoading] = useState(false)
-    const [servedOrders, setServedOrders] = useState([])
-    const [pendingOrders, setPendingOrders] = useState([])
+   const { isLoading, orders, pendingOrders } = useAdminContaxtApi()
 
-    useEffect(() => {
-        const controller = new AbortController();
-        let isMuted = true
-        async function fetchData(){
-            setIsLoading(true)
-            try{
-                const results = await axiosInstance('/products/reservation').then(res => res)
-                if(results.data.length > 0){
-                    const servedOrders = getUniqueData(results.data, 1)
-                    const pendingOrders = getUniqueData(results.data, 0)
-
-                    if(isMuted){
-                        setServedOrders(servedOrders)
-                        setPendingOrders(pendingOrders)
-                    }
-                }
-            }catch(error){
-                console.log(error)
-            }finally{
-                setIsLoading(false)
-            }
-        }
-        fetchData()
-
-        return () => {
-            controller.abort()
-            isMuted = false
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-
-    const getUniqueData = (data, status) => {
-        const filteredData = data.filter(o => o.served === status)
-        const rawData = filteredData.map(item => item.code);
-        return [...new Set(rawData)]
-    }
-   
     const headingData = [
-        {title:'جميع الطلبات', bg:'bg-cl2/50',  bg2:'text-cl2', count:pendingOrders.length+servedOrders.length, icon:<FaAffiliatetheme />},
-        {title:'المعلقة الطلبات ', bg:'bg-cl5/50', bg2:'text-cl5', count:pendingOrders.length, icon:<FaBusinessTime />},
-        {title:'Served Orders', bg:'bg-cl1/50', bg2:'text-cl1', count:servedOrders.length, icon:<FaAffiliatetheme />},
-        {title:'الزبائن', bg:'bg-cl3/50', bg2:'text-cl3', count:25, icon:<FaUsers />}
+        {title:'جميع الطلبات', bg:'bg-cl2/50',  text:'grad grad1', count:orders.length, iconImage:'/images/complete.png', path:'/admin/orders'},
+        {title:'المعلقة الطلبات ', bg:'bg-cl5/50', text:'grad grad2', count:pendingOrders.length, iconImage:'/images/test.png', path:'/admin'},
+        {title:'Served Orders', bg:'bg-cl1/50', text:'grad grad3', count:0, iconImage:'/images/confirm.png', path:'/admin'},
+        {title:'الزبائن', bg:'bg-cl3/50', text:'grad grad4', count:25, iconImage:'/images/target.png', path:'/admin'}
     ]
 
   return (
     <>
         <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
-            {headingData.map(c => (
-                <div className={`bg-white rounded md:p-5 shadow p-4`}>
-                    <div className={` md:text-xl font-bold mb-2`}>
-                        <span className="">{c.title}</span>
-                    </div>
+            {headingData.map((c, index) => (
+                <Link className={`bg-white rounded md:p-5 shadow p-4`} key={index} to={c.path}>
+                    <div className={`${c.text} md:text-xl font-bold mb-2 text-center`}>{c.title}</div>
                     <div className="flex items-center justify-between">
-                        <span className={`${c.bg2} md:text-6xl text-5xl`}>
-                            {c.icon}
+                        <span className='h-[75px]'>
+                            <img src={process.env.PUBLIC_URL+c.iconImage} alt="" />
                         </span>
-                        <span className="md:text-5xl text-3xl font-bold">{c.count}</span>
+                        <span className={`${c.text} md:text-6xl text-4xl font-bold`}>{c.count}</span>
                     </div>
-                </div>
+                </Link>
             ))}
         </div>
         <div className="md:flex mt-5">
             <div className="flex-1 bg-white shadow p-5 md:mr-5">
-                <h3 className="bg- flex text-2xl font-bold">
+                <h3 className="text-2xl font-bold mb-5 text-right">
                     قائمة الطلبات
                 </h3>
                 {!isLoading ? <div className="">
@@ -88,14 +45,28 @@ export default function Dashboard() {
                         </thead>
                         <tbody>
                             {pendingOrders.length > 0 && pendingOrders.map(item => {
-                                console.log(item)
+                                const present = Date.now()
+                                const romanianRevolution = new Date(item.collectionTime)
                                 return(
-                                    <tr className="">
-                                        <td className="border-y text-left py-2">
-                                            <Link className="bg-cl3 text-white rounded py-1 px-3 mr-2" to={`/admin/checkout/${item}`}>حفظ</Link>
+                                    <tr className="border-y" id={item.id}>
+                                        <td className="text-left">
+                                            <Link className="bg-cl5 text-white rounded px-3 py-2 mr-2" to={`/admin/checkout/${item.code}`}>حفظ</Link>
                                         </td>
-                                        <td className="border-y py-1">30 minutes</td>
-                                        <td className="border-y py-1">{item}</td>
+                                        {diffDates(romanianRevolution, present, "minutes") < 0 ?
+                                            <td className="flex items-center justify-end py-2">
+                                                <span className="text-sm">دقيقة</span>
+                                                {diffDates(present, romanianRevolution, "minutes")}
+                                            </td>:
+                                            <td className="flex items-center justify-end py-2">
+                                                <span className="text-sm">{diffDates(romanianRevolution, present, "minutes") <= 59 ? 'دقيقة':'Hours'}</span>
+                                                {diffDates(romanianRevolution, present, "minutes") <= 59 ? 
+                                                    diffDates(romanianRevolution, present, "minutes") : 
+                                                    diffDates(romanianRevolution, present, "hours")
+                                                }
+                                            </td>
+                                        }
+                                        {/* <td className="py-1">{diffDates(romanianRevolution, present, "minutes")}</td> */}
+                                        <td className="py-1">{item.code}</td>
                                     </tr>
                                 )
                             })}
@@ -103,11 +74,11 @@ export default function Dashboard() {
                     </table>
                 </div>: 'Loading...'}
             </div>
-            <div className="flex-1 bg-white p-5 md:mt-0 mt-6">
-                <h3 className="flex text-2xl font-bold">
-                    products
+            <div className="flex-1 bg-white p-4 md:mt-0 mt-6">
+                <h3 className="flex text-2xl font-bold mb-3">
+                    Map
                 </h3>
-                
+                <img className="md:h-[300px]" src={process.env.PUBLIC_URL+'/images/map.png'} alt="" />
             </div>
         </div>
     </>
