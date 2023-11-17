@@ -4,11 +4,15 @@ import { categories } from "../assets/data";
 import { Link } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
+import { LoadingButton } from "../components/Buttons";
+import axiosInstance from "../hooks/useAxios";
 
 
 export default function Products() {
 
-  const { isLoading, candy, deleteProduct } = useGlobalApi();
+  const { isLoading, candy } = useGlobalApi();
+  const [loading, setLoading] = useState(false)
+
   const [data, setData] = useState([]);
   const [message, setMessage] = useState('');
 
@@ -21,6 +25,20 @@ export default function Products() {
     }
   }, [candy, isLoading]);
     
+  const deleteProduct = async id => {
+    setLoading(true)
+    try{
+      const results = await axiosInstance.post('/products/delete', {id}).then(res => res)
+      setData(() => candy.filter(c => c.productID !== results.data.id))
+      setLoading(false)
+    }catch(error){
+      if(error.status === 404 || error.status === 403 || error.status === 500){
+        return setMessage(error?.response?.data)
+      }
+      setMessage('Error Occures!')
+    }
+  }
+
   return (
     <div className="md:mt-8">
       {message && <div className="">{message}</div>}
@@ -38,7 +56,7 @@ export default function Products() {
                 <div className="flex justify-between items-center w-full">
                   <div className="md:fontbold flex items-center justify-end md:w-auto w-full">
                     <span>ر.س</span>
-                    <h4 className="md:text-3xl text-xl text-cl4">{item.price}</h4>
+                    <h4 className="md:text-2xl text-xl text-cl4">{item.price}</h4>
                   </div>
                 </div>
                 <div className="flex justify-end">
@@ -48,15 +66,19 @@ export default function Products() {
                     </span>
                     Edit
                   </Link>
-                  <button 
-                    className="flex items-center bg-cl4 text-white px-2 py-1 rounded text-sm"
-                    onClick={() => deleteProduct(item.productID)}
-                  >
-                    <span className="">
+                  {loading ? <LoadingButton /> :
+                    <button 
+                      className="
+                        py-1 px-3 flex justify-center items-center  bg-cl4 hover:bg-cl4/80 focus:ring-blue-500 
+                        focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-sm 
+                        font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded
+                      "
+                      onClick={() => deleteProduct(item.productID)}
+                    >
                       <FiTrash />
-                    </span>
-                    remove
-                  </button>
+                      ازاله
+                    </button>
+                  }
                 </div>
               </div>
             </div>

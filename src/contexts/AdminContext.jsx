@@ -25,7 +25,6 @@ export default function AdminContextProvider({ children }) {
         }
       }catch(error){
         setMessage('Message')
-        console.log(error)
       }finally{
         setIsLoading(false)
       }
@@ -43,10 +42,10 @@ export default function AdminContextProvider({ children }) {
   useEffect(() => {
     const getUniqueData = () => {
       if(orders.length > 0){
-        const rawData = orders.filter(o => o.served === 0).map(item => item.code);
+        const rawData = orders.map(item => item.code);
         const ids = [...new Set(rawData)]
         const dt = ids.map(id => {
-          const res = orders.find(order => order.code)
+          const res = orders.find(order => order.code === id)
           return {
             code:id, 
             served:res.served,
@@ -54,7 +53,6 @@ export default function AdminContextProvider({ children }) {
             collectionMethod:res.collectionMethod,
           }
         })
-
         setPendingOrders(dt)
       }
     }
