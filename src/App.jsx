@@ -1,55 +1,46 @@
 import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import ScrollToTop from "./hooks/ScrollToTop";
-import StorePage from "./pages/store";
 import ShoppingCardPage from "./pages/ShoppingCardPage";
-import Login from "./pages/forms/Login";
-import Dashboard from "./adminpages/Dashboard";
-import Products from "./adminpages/Products";
-import Upload from "./adminpages/Upload";
-import Orders from "./adminpages/Order";
-import { AdminRoutes, LoginRoutes, UsersRoutes } from "./AppRoutes";
-import { CheckoutPage } from "./adminpages/Checkout";
-import Notfound from "./pages/_404";
-import EditProduct from "./adminpages/EditProduct";
+import ReservationPage from "./pages/ReservationPage";
+import StorePage from "./pages/StorePage";
+import Notfound from "./pages/Notfound";
+import Navbar from "./components/Navbar";
+import { FaWhatsapp } from "react-icons/fa";
+import { useGlobalApi } from "./manager/ContextProvider";
 
 const HomePage = lazy(() => import("./pages/home"));
 
 function App() {
+  const { sendMessage } = useGlobalApi();
   return (
     <Suspense fallback={<Loader />}>
       <div className="text-gray-500">
         <ScrollToTop />
+        <Navbar />
         <Routes>
-          <Route path='/' element={<UsersRoutes />}>
-            <Route path='' element={<HomePage />} />
-            <Route path='store' element={<StorePage />} />
-            <Route path='shopping-cart' element={<ShoppingCardPage />} />
-            <Route path='admin/login' element={<LoginRoutes />}>
-              <Route path="" element={<Login />} />
-            </Route>
-          </Route>
-          <Route path="/admin" element={<AdminRoutes />}>
-            <Route path='' element={<Dashboard />} />
-            <Route path='orders' element={<Orders />} />
-            <Route path='edit/:id' element={<EditProduct />} />
-            <Route path='checkout/:code' element={<CheckoutPage />} />
-            <Route path='products' element={<Products />} />
-            <Route path='upload' element={<Upload />} />
-          </Route>
-          <Route path='*' element={<Notfound />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/store" element={<StorePage />} />
+          <Route path="/my-reservation" element={<ReservationPage />} />
+          <Route path="/shopping-cart" element={<ShoppingCardPage />} />
+          <Route path="*" element={<Notfound />} />
         </Routes>
+        <div
+          className="bg-green-400 p-3 fixed right-2 bottom-5 rounded-full text-white text-3xl z-50"
+          onClick={sendMessage}
+        >
+          <FaWhatsapp />
+        </div>
       </div>
     </Suspense>
   );
 }
 
-
-function Loader(){
-  return(
+function Loader() {
+  return (
     <div className="bg-white text-xl flex items-center justify-center h-screen">
       Loading...
     </div>
-  )
+  );
 }
 export default App;
