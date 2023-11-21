@@ -17,11 +17,6 @@ export default function GlobalContextProvider({ children }) {
   );
 
   useEffect(() => {
-    if (savedCartItem) {
-      setCartData(savedCartItem);
-    } else {
-      console.log("you don't have items");
-    }
     const controller = new AbortController();
     let isMuted = true;
     async function fetchResumies() {
@@ -44,35 +39,15 @@ export default function GlobalContextProvider({ children }) {
         setIsLoading(false);
       }
     }
-    fetchResumies();
+    savedCartItem && setCartData(savedCartItem);
     savedBookingCodesJson && setBookingCodes(savedBookingCodesJson);
+    fetchResumies();
     return () => {
       controller.abort();
       isMuted = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const deleteProduct = async (id) => {
-    try {
-      const results = await axiosInstance
-        .post("/products/delete", { id })
-        .then((res) => res);
-      setCandy(() => {
-        return candy.filter((c) => c.productID !== results.data.id);
-      });
-      console.log(results.data.id);
-    } catch (error) {
-      if (
-        error.status === 404 ||
-        error.status === 403 ||
-        error.status === 500
-      ) {
-        return setMessage(error?.response?.data);
-      }
-      setMessage("Error Occures!");
-    }
-  };
 
   //  ADD NEW ITEM INTGO CART
   const addItemToCart = (item) => {
@@ -109,7 +84,14 @@ export default function GlobalContextProvider({ children }) {
   const removeItem = (id) => {
     const result = savedCartItem.filter((item) => item.productID !== id);
     setCartData(result);
-    saveToLocalStorage(result);
+    saveToLocalStorage("candy-cart", result);
+  };
+
+  // REMOVE ITEM FROM CART
+  const removeReservation = (code) => {
+    const result = savedBookingCodesJson.filter((item) => item.code !== code);
+    setBookingCodes(result);
+    saveToLocalStorage("booking-codes", result);
   };
 
   const clearSavedCartItem = () => {
@@ -134,6 +116,7 @@ export default function GlobalContextProvider({ children }) {
     isLoading,
     message,
     bookingCodes,
+    removeReservation,
     sendMessage,
     setBookingCodes,
     addBookingCode,
@@ -142,7 +125,6 @@ export default function GlobalContextProvider({ children }) {
     setIsAdmin,
     removeItem,
     addItemToCart,
-    deleteProduct,
     clearSavedCartItem,
   };
   return <contextApi.Provider value={values}>{children}</contextApi.Provider>;
@@ -150,6 +132,10 @@ export default function GlobalContextProvider({ children }) {
 
 export const useGlobalApi = () => useContext(contextApi);
 
-const saveToLocalStorage = (data) => {
-  localStorage.setItem("candy-cart", JSON.stringify(data));
+const saveToLocalStorage = (name, data) => {
+  localStorage.setItem(name, JSON.stringify(data));
 };
+
+// const saveReservationToLocalStorage = (data) => {
+//   localStorage.setItem("candy-cart", JSON.stringify(data));
+// };

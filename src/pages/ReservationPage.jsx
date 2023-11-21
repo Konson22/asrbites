@@ -2,10 +2,10 @@ import { formateTime } from "../components/formateTime";
 import { useGlobalApi } from "../manager/ContextProvider";
 
 export default function ReservationPage() {
-  const { bookingCodes } = useGlobalApi();
+  const { bookingCodes, removeReservation } = useGlobalApi();
 
   return (
-    <div className="px-[10%] py-6">
+    <div className="md:px-[10%] px-4 py-6">
       {bookingCodes.length > 0 ? (
         <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
           {bookingCodes.map((reservation) => {
@@ -42,7 +42,10 @@ export default function ReservationPage() {
                     <button className="bg-green-500 text-white px-4 py-1 rounded mr-2">
                       edit
                     </button>
-                    <button className="bg-rose-500 text-white px-4 py-1 rounded">
+                    <button
+                      className="bg-rose-500 text-white px-4 py-1 rounded"
+                      onClick={() => removeReservation(reservation.code)}
+                    >
                       cancel
                     </button>
                   </div>

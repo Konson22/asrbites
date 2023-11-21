@@ -18,7 +18,7 @@ export default function Navbar() {
 
   const toggleMenu = () => setOpenMenu(!openMenu);
   const logo = (
-    <div className="flex items-center">
+    <div className="flex items-center justify-end">
       <p className="logo-text text-2xl font-bold w-full">لي ثري</p>
       <img
         className="md:h-14 w-14 h-9"
@@ -66,23 +66,29 @@ export default function Navbar() {
       </div>
       <div
         className={`
-        md:static fixed md:h-auto h-screen inset-0 md:bg-transparent bg-white z-50 md:mr-14
+        md:static fixed md:h-auto h-screen inset-0 right-0 md:bg-transparent bg-cl1/50 z-50 md:mr-14
         md:translate-x-[0%] duration-300 ${
           openMenu ? "translate-x-[0%]" : "translate-x-[100%]"
         }
+        md:pl-0 pl-24
       `}
       >
-        <div className="md:hidden bg-secondary mb-3 flex items-center justify-between px-4 py-3">
-          {logo}
-          <span onClick={toggleMenu} className="p-1">
-            <FiX />
-          </span>
-        </div>
-        <ul className={`md:flex font-bold md:text-inherit text-gray-700`}>
+        <ul
+          className={`md:flex md:bg-transparent bg-white h-full font-bold md:text-inherit text-gray-700`}
+        >
+          <div className="md:hidden border border-b flex items-center md:justify-between justify-end  px-4 py-3">
+            {logo}
+            <span
+              onClick={toggleMenu}
+              className="border border-cl1 text-xl p-1 ml-3 rounded text-cl1"
+            >
+              <FiX />
+            </span>
+          </div>
           {navigationLinks.map((link) => (
             <li className="" key={link.text}>
               <Link
-                className="block px-4 md:py-0 py-2"
+                className="block text-right px-4 md:py-0 py-2"
                 to={link.path}
                 onClick={toggleMenu}
               >
