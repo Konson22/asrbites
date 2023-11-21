@@ -38,7 +38,7 @@ export default function Sidebar() {
                 <Link
                   className="flex items-center hover:bg-white hover:text-cl5 px-5 py-2"
                   to={link.path}
-                  onClick={() => {}}
+                  onClick={() => setOpenSidebar(false)}
                 >
                   <span className="text-4xl mr-3">{link.icon}</span>
                   <span className="md:block hiddenn">{link.text}</span>
