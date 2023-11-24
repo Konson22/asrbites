@@ -56,7 +56,7 @@ img {
 }
 
 .grad1 {
-  background-image: linear-gradient(rgb(237, 32, 119), rgb(229, 160, 1));
+  background-image: linear-gradient(rgb(120, 5, 53), rgb(229, 160, 1));
 }
 
 .grad2 {
@@ -64,7 +64,7 @@ img {
 }
 
 .grad3 {
-  background-image: linear-gradient(170deg, rgb(243, 42, 227), rgb(124, 6, 238));
+  background-image: linear-gradient(170deg, rgb(123, 9, 113), rgb(124, 6, 238));
 }
 
 .grad4 {
