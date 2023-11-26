@@ -1,4 +1,4 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { useGlobalApi } from "./manager/ContextProvider";
@@ -7,10 +7,14 @@ import DashNav from "./admin/DashNav";
 import AdminCotextProvider from "./manager/AdminCotextProvider";
 import { FaWhatsapp } from "react-icons/fa";
 
+/***********************************************************************
+ THIS IS PROTECTED ROUTE ONLY AUTHENTICATED USER WHO CAN ACCESS IT 
+***********************************************************************/
 export function AdminRoutes() {
   const { profile } = useGlobalApi();
+  const location = useLocation();
 
-  return !profile ? (
+  return profile ? (
     <AdminCotextProvider>
       <div className="h-screen flex">
         <Sidebar />
@@ -23,16 +27,31 @@ export function AdminRoutes() {
       </div>
     </AdminCotextProvider>
   ) : (
-    <Navigate to="/admin/login" />
+    <Navigate to="/admin/login" state={{ from: location }} replace />
   );
 }
 
-// export function LoginRoutes() {
-//   const { profile } = useAdminContaxtApi();
+/***********************************************************************
+  THIS WILL REDIRECT USER BACK TO WHERE HE CAME FROM 
+  IF THE USER IS ALREADY LOGGED IN
+***********************************************************************/
+export function LoginRoutes() {
+  const { profile } = useGlobalApi();
+  const location = useLocation();
+  return profile ? (
+    <Navigate
+      to={location.state.from.pathname}
+      state={{ from: location }}
+      replace
+    />
+  ) : (
+    <Outlet />
+  );
+}
 
-//   return profile ? <Navigate to="/admin" /> : <Outlet />;
-// }
-
+/***********************************************************************
+  THIS ROUTES ARE PUBLIC ANY ONCE CAN ACCESS
+***********************************************************************/
 export function UsersRoutes() {
   const { sendMessage } = useGlobalApi();
   return (

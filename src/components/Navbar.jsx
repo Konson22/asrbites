@@ -32,7 +32,7 @@ export default function Navbar() {
     <nav
       className="
       flex items-center justify-between md:px-[5%] px-[5%] 
-      bg-cl1 text-white shadow-mdd sticky left-0 top-0 w-full md:py-2 py-3 z-50
+      bg-cl1 text-white shadow-mdd sticky left-0 top-0 w-full md:py-2 py-2 z-50
     "
     >
       <div className="flex flex-1">

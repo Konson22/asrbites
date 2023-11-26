@@ -18,21 +18,21 @@ export default function AdminCotextProvider({ children }) {
         const results = await axiosInstance("/products/reservation").then(
           (res) => res
         );
-        if (results.data.length > 0) {
-          const rawData = results.data.map((item) => item.code);
-          const ids = [...new Set(rawData)];
-          const dt = ids.map((id) => {
-            const res = results.data.find((order) => order.code === id);
-            return {
-              code: id,
-              served: res.served,
-              collectionTime: res.collectionTime,
-              collectionMethod: res.collectionMethod,
-            };
-          });
-          setOrders(dt);
-        }
         if (isMuted) {
+          if (results.data.length > 0) {
+            const rawData = results.data.map((item) => item.code);
+            const ids = [...new Set(rawData)];
+            const dt = ids.map((id) => {
+              const res = results.data.find((order) => order.code === id);
+              return {
+                code: id,
+                served: res.served,
+                collectionTime: res.collectionTime,
+                collectionMethod: res.collectionMethod,
+              };
+            });
+            setOrders(dt);
+          }
         }
       } catch (error) {
         setMessage("Message");

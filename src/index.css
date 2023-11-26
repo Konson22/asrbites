@@ -49,6 +49,13 @@ img {
   background-position: right;
 }
 
+.login-container {
+  background-image: linear-gradient(rgba(124, 89, 80, 0.2), rgba(124, 89, 80, 0.1)),
+    url('./assets/images/offer.jpg');
+  background-size: cover;
+  background-position: right;
+}
+
 
 .grad {
   -webkit-text-fill-color: transparent;
@@ -69,4 +76,33 @@ img {
 
 .grad4 {
   background-image: linear-gradient(rgb(3, 177, 239), rgb(5, 245, 160));
+}
+
+.loader {
+  height: 30px;
+  width: 30px;
+}
+
+.l1 {
+  animation: animate 1s 0.1s infinite alternate-reverse;
+}
+
+.l2 {
+  animation: animate 1s 0.4s infinite alternate-reverse;
+}
+
+.l3 {
+  animation: animate 1s 0.5s infinite alternate-reverse;
+}
+
+.l4 {
+  animation: animate 1s 0.6s infinite alternate-reverse;
+}
+
+@keyframes animate {
+  0% {
+    width: 5px;
+    height: 5px;
+    background-color: rgb(155, 112, 191);
+  }
 }

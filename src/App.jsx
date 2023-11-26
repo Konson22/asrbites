@@ -5,7 +5,7 @@ import ShoppingCardPage from "./pages/ShoppingCardPage";
 import ReservationPage from "./pages/ReservationPage";
 import StorePage from "./pages/StorePage";
 import Notfound from "./pages/Notfound";
-import { AdminRoutes, UsersRoutes } from "./AppRoutes";
+import { AdminRoutes, LoginRoutes, UsersRoutes } from "./AppRoutes";
 import Dashboard from "./admin/Dashboard";
 import Login from "./pages/Login";
 import Orders from "./admin/Order";
@@ -39,7 +39,10 @@ function App() {
             <Route path="my-reservation" element={<ReservationPage />} />
             <Route path="shopping-cart" element={<ShoppingCardPage />} />
           </Route>
-          <Route path="/admin/login" element={<Login />} />
+          <Route path="admin/login" element={<LoginRoutes />}>
+            <Route path="" element={<Login />} />
+          </Route>
+          {/* <Route path="/admin/login" element={<Login />} /> */}
           <Route path="*" element={<Notfound />} />
         </Routes>
       </div>
@@ -49,8 +52,13 @@ function App() {
 
 function Loader() {
   return (
-    <div className="bg-white text-xl flex items-center justify-center h-screen">
-      Loading...
+    <div className="bg-white text-xl flex items-center justify-center h-[100dvh]">
+      <div className="flex">
+        <div className="rounded-full mx-2 loader l1 border border-cl1"></div>
+        <div className="rounded-full mx-2 loader l2 border border-cl1"></div>
+        <div className="rounded-full mx-2 loader l3 border border-cl1"></div>
+        <div className="rounded-full mx-2 loader l4 border border-cl1"></div>
+      </div>
     </div>
   );
 }
