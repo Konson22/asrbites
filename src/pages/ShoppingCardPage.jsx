@@ -271,6 +271,7 @@ function ReserveDilog({
 }
 
 function LoginUser() {
+  const { GoogleAuthHandler } = useGlobalApi();
   return (
     <div className="h-screen fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
       <div className="bg-white md:w-[35%] w-[90%] p-10">
@@ -304,7 +305,10 @@ function LoginUser() {
               <FaFacebook className="text-xl" />
               Facebook
             </span>
-            <span className="w-[48%] flex items-center px-4 py-2 border bg-red-600 text-white">
+            <span
+              className="w-[48%] flex items-center px-4 py-2 border bg-red-600 text-white"
+              onClick={GoogleAuthHandler}
+            >
               <FaGoogle className="text-2xl" />
               Google
             </span>

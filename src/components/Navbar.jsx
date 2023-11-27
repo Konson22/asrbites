@@ -13,18 +13,19 @@ import { useState } from "react";
 import { navigationLinks } from "../assets/staticData";
 
 export default function Navbar() {
-  const { cartData, bookingCodes } = useGlobalApi();
+  const { cartData, bookingCodes, GoogleAuthHandler, signOutUser, profile } =
+    useGlobalApi();
   const [openMenu, setOpenMenu] = useState(false);
 
   const toggleMenu = () => setOpenMenu(!openMenu);
   const logo = (
-    <div className="flex items-center justify-end">
-      <p className="logo-text text-2xl font-bold w-full">لي ثري</p>
+    <div className="flex items-center justify-end flex-1">
       <img
         className="md:h-14 w-14 h-9"
         src={process.env.PUBLIC_URL + "/images/logo.png"}
         alt=""
       />
+      <p className="logo-text text-2xl font-bold w-full">لي ثري</p>
     </div>
   );
 
@@ -35,35 +36,10 @@ export default function Navbar() {
       bg-cl1 text-white shadow-mdd sticky left-0 top-0 w-full md:py-2 py-2 z-50
     "
     >
-      <div className="flex flex-1">
-        <Link className="flex items-center relative" to="/shopping-cart">
-          {cartData.length > 0 && (
-            <span
-              className="h-4 w-4 flex items-center justify-center bg-red-500 text-[.6rem]
-              text-white rounded-full absolute top-[-.4rem] right-[-.5rem]
-            "
-            >
-              {cartData.length}
-            </span>
-          )}
-          <FiShoppingCart className="text-3xl md:mr-2" />
-        </Link>
-        <Link className="flex items-center mx-5" to="/my-reservation">
-          <div className="relative">
-            <FaTicketAlt className="text-3xl md:mr-2" />
-            {bookingCodes.length > 0 && (
-              <span
-                className="h-4 w-4 flex items-center justify-center bg-red-500 text-[.6rem]
-                text-white rounded-full absolute top-[-.2rem] md:right-0 right-[-.4rem]
-              "
-              >
-                {bookingCodes.length}
-              </span>
-            )}
-          </div>
-          <span className="md:block hidden text-sm">My reservation</span>
-        </Link>
+      <div className="md:hidden block mr-3" onClick={toggleMenu}>
+        <FaBars className="text-xl" />
       </div>
+      {logo}
       <div
         className={`
         md:static fixed md:h-auto h-screen inset-0 right-0 md:bg-transparent bg-cl1/50 z-50 md:mr-14
@@ -98,9 +74,48 @@ export default function Navbar() {
           ))}
         </ul>
       </div>
-      {logo}
-      <div className="md:hidden block ml-2" onClick={toggleMenu}>
-        <FaBars className="text-xl" />
+      <div className="flex items-center">
+        <Link className="flex items-center relative" to="/shopping-cart">
+          {cartData.length > 0 && (
+            <span
+              className="h-4 w-4 flex items-center justify-center bg-red-500 text-[.6rem]
+              text-white rounded-full absolute top-[-.4rem] right-[-.5rem]
+            "
+            >
+              {cartData.length}
+            </span>
+          )}
+          <FiShoppingCart className="text-3xl md:mr-2" />
+        </Link>
+        <Link className="flex items-center mx-5" to="/my-reservation">
+          <div className="relative">
+            <FaTicketAlt className="text-3xl md:mr-2" />
+            {bookingCodes.length > 0 && (
+              <span
+                className="h-4 w-4 flex items-center justify-center bg-red-500 text-[.6rem]
+                text-white rounded-full absolute top-[-.2rem] md:right-0 right-[-.4rem]
+              "
+              >
+                {bookingCodes.length}
+              </span>
+            )}
+          </div>
+          {/* <span className="md:block hidden text-sm">My reservation</span> */}
+        </Link>
+        {profile ? (
+          <div className="flex items-center" onClick={signOutUser}>
+            <img
+              className="h-9 w-9 rounded-full"
+              src={`${profile.avatar}`}
+              alt=""
+            />
+            <span className="md:block hidden text-sm ml-2">{profile.name}</span>
+          </div>
+        ) : (
+          <button className="px-4 py-1 bg-rose-500" onClick={GoogleAuthHandler}>
+            Login
+          </button>
+        )}
       </div>
     </nav>
   );
