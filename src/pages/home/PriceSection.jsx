@@ -10,8 +10,8 @@ export default function PriceSection() {
           OUR PRICING
         </h3>
         <div className="grid md:grid-cols-4 grid-cols-1 gap-10">
-          {prices.map((item) => (
-            <PriceCard item={item} key={item.title} />
+          {prices.map((item, index) => (
+            <PriceCard item={item} key={index} />
           ))}
         </div>
       </div>

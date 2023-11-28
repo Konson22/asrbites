@@ -1,14 +1,14 @@
-export function LoadingButton() {
+export function LoadingButton({ bg = "bg-cl1 text-white" }) {
   return (
     <button
       type="button"
-      className="py-1 px-3 flex justify-center items-center  bg-cl4 hover:bg-cl4/50 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-sm font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded"
+      className={`${bg} px-3 flex justify-center items-center  w-full hover:bg-cl4/50 focus:ring-blue-500 focus:ring-offset-blue-200 transition ease-in duration-200 text-center text-sm font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 py-2 rounded`}
     >
       <svg
         width="20"
         height="20"
         fill="currentColor"
-        class="mr-2 animate-spin"
+        className="mr-2 animate-spin"
         viewBox="0 0 1792 1792"
         xmlns="http://www.w3.org/2000/svg"
       >

@@ -56,6 +56,13 @@ img {
   background-position: right;
 }
 
+.form-sidebar {
+  background-image: linear-gradient(rgba(124, 89, 80, 0.2), rgba(124, 89, 80, 0.1)),
+    url('./assets/images/offer.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
 
 .grad {
   -webkit-text-fill-color: transparent;
@@ -79,8 +86,8 @@ img {
 }
 
 .loader {
-  height: 30px;
-  width: 30px;
+  background-color: aqua;
+  transition: all;
 }
 
 .l1 {
@@ -101,8 +108,11 @@ img {
 
 @keyframes animate {
   0% {
-    width: 5px;
-    height: 5px;
     background-color: rgb(155, 112, 191);
+  }
+
+  100% {
+    background-color: rgb(212, 190, 230);
+    transform: translateY(5px);
   }
 }

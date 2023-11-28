@@ -5,8 +5,8 @@ export default function WhatWeCanDo() {
         What We Can Do
       </h2>
       <div className="grid md:grid-cols-4 grid-cols-1 gap-5">
-        {data.map((cake) => (
-          <div className="md:mb-5">
+        {data.map((cake, index) => (
+          <div className="md:mb-5" key={index}>
             <div
               className={`md:border-[10px] border-8 bg-white p-2 ${cake.border} rounded-full overflow-hidden md:h-[200px] h-[180px] md:w-[200px] w-[180px] mx-auto`}
             >

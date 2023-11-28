@@ -1,35 +1,32 @@
-import {
-  FiMapPin,
-  FiShoppingBag,
-  FiShoppingCart,
-  FiUser,
-  // FiTruck,
-  FiX,
-} from "react-icons/fi";
+import { FiMapPin, FiShoppingBag, FiShoppingCart, FiX } from "react-icons/fi";
 import { useGlobalApi } from "../manager/ContextProvider";
 import { useEffect, useState } from "react";
 import axiosInstance from "../hooks/useAxios";
 import { Link } from "react-router-dom";
-import { FaFacebook, FaGoogle } from "react-icons/fa";
+import LoaderContent from "../components/Loaders";
 
 export default function ShoppingCardPage() {
   const {
     cartData,
+    profile,
+    setShowForm,
     removeItem,
     clearSavedCartItem,
-    // bookingCodes,
     setBookingCodes,
   } = useGlobalApi();
   const [selectedTime, setSelectedTime] = useState(null);
   const [openCard, setOpenCard] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState("picking");
   const [totlaPrice, setPrice] = useState(0);
-  const [isLogedIn, setIsLogedIn] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleReserve = async () => {
-    setIsLogedIn(false);
+    if (!profile) {
+      setShowForm("login");
+    }
     if (selectedTime) {
       try {
+        setIsLoading(true);
         const data = {
           cartData,
           collectionTime: selectedTime,
@@ -51,6 +48,8 @@ export default function ShoppingCardPage() {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -64,7 +63,6 @@ export default function ShoppingCardPage() {
 
   return (
     <div className="md:px-[15%] px-3 md:mt-8 my-4">
-      {!isLogedIn && <LoginUser />}
       {openCard && (
         <ReserveDilog
           handleReserve={handleReserve}
@@ -76,6 +74,7 @@ export default function ShoppingCardPage() {
       )}
       {cartData.length > 0 ? (
         <div className="md:flex">
+          {isLoading && <LoaderContent />}
           <div className="flex-1 shadow bg-white rounded-md md:px-5 px-3">
             <div className="flex items-center justify-end py-3">
               <h3 className="md:text-xl text-xl text-right">المنتجات</h3>
@@ -264,55 +263,6 @@ function ReserveDilog({
           >
             Reserve
           </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function LoginUser() {
-  const { GoogleAuthHandler } = useGlobalApi();
-  return (
-    <div className="h-screen fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-      <div className="bg-white md:w-[35%] w-[90%] p-10">
-        <form>
-          <div className="flex mb-6 rounded">
-            <span className="flex items-center text-white text-xl bg-cl1/50 px-3">
-              <FiUser />
-            </span>
-            <input
-              className="h-[2.8rem] bg-gray-50 w-full focus:border-none px-3"
-              type="text"
-              placeholder="User name"
-            />
-          </div>
-          <div className="flex border border-cl1 mb-6">
-            <span className="flex items-center text-cl4 text-xl bg-gray-200 px-3">
-              <FiUser />
-            </span>
-            <input
-              className="h-[2.8rem] bg-gray-50 w-full focus:border-none px-3"
-              type="text"
-              placeholder="User name"
-            />
-          </div>
-          <button className="w-full bg-cl1 text-white py-2">Login</button>
-        </form>
-        <div className="mt-6">
-          <span className="block text-xl text-center mb-3">Login with</span>
-          <div className="flex justify-between">
-            <span className="w-[48%] flex items-center justify-center py-2 border bg-sky-600 text-white">
-              <FaFacebook className="text-xl" />
-              Facebook
-            </span>
-            <span
-              className="w-[48%] flex items-center px-4 py-2 border bg-red-600 text-white"
-              onClick={GoogleAuthHandler}
-            >
-              <FaGoogle className="text-2xl" />
-              Google
-            </span>
-          </div>
         </div>
       </div>
     </div>

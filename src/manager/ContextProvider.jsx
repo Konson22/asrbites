@@ -1,12 +1,6 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import axiosInstance from "../hooks/useAxios";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  // signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../config";
 
 const contextApi = createContext();
@@ -15,6 +9,7 @@ export default function GlobalContextProvider({ children }) {
   const [cartData, setCartData] = useState([]);
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showForm, setShowForm] = useState(null);
   const [message, setMessage] = useState("");
   const [candy, setCandy] = useState([]);
   const [bookingCodes, setBookingCodes] = useState([]);
@@ -23,24 +18,6 @@ export default function GlobalContextProvider({ children }) {
   const savedBookingCodesJson = JSON.parse(
     localStorage.getItem("booking-codes")
   );
-
-  const GoogleAuthHandler = () => {
-    signInWithPopup(auth, new GoogleAuthProvider()).then(
-      (credential) => {
-        const user = {
-          name: credential.user.displayName,
-          email: credential.user.email,
-          uid: credential.user.uid,
-          avatar: credential.user.photoURL,
-        };
-        setProfile(user);
-      },
-      (err) => {
-        console.dir(err);
-        setMessage(err?.code?.split("/")[1]);
-      }
-    );
-  };
 
   const signOutUser = () => {
     signOut(auth)
@@ -76,12 +53,13 @@ export default function GlobalContextProvider({ children }) {
     savedBookingCodesJson && setBookingCodes(savedBookingCodesJson);
     fetchResumies();
     const listen = onAuthStateChanged(auth, (user) => {
-      setProfile({
-        name: user.displayName,
-        email: user.email,
-        uid: user.uid,
-        avatar: user.photoURL,
-      });
+      user &&
+        setProfile({
+          name: user.displayName,
+          email: user.email,
+          uid: user.uid,
+          avatar: user.photoURL,
+        });
     });
     return () => {
       listen();
@@ -162,8 +140,9 @@ export default function GlobalContextProvider({ children }) {
     isLoading,
     message,
     bookingCodes,
+    showForm,
+    setShowForm,
     signOutUser,
-    GoogleAuthHandler,
     removeReservation,
     sendMessage,
     setBookingCodes,

@@ -6,11 +6,17 @@ import { categories } from "../../assets/staticData";
 
 const breakPoints = [
   { width: 0, itemsToShow: 2, itemPadding: [0, 2] },
-  { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
+  {
+    width: 550,
+    itemsToShow: 2,
+    itemsToScroll: 2,
+    itemPadding: [5, 5],
+    pagination: false,
+  },
   {
     width: 850,
     itemsToShow: 4,
-    itemPadding: [7, 7],
+    itemPadding: [5, 5],
   },
   { width: 1150, itemsToShow: 4, itemsToScroll: 2 },
   { width: 1450, itemsToShow: 5 },
@@ -60,7 +66,7 @@ export default function CategoriesSection() {
         >
           {categories.map((category, index) => (
             <Link
-              className="bg-white rounded-md overflow-hidden border border-cl1/50"
+              className="bg-white w-full rounded-md overflow-hidden border border-cl1/50"
               key={index}
               to={`/store?category=${category.category}`}
             >

@@ -13,10 +13,12 @@ import { useState } from "react";
 import { navigationLinks } from "../assets/staticData";
 
 export default function Navbar() {
-  const { cartData, bookingCodes, GoogleAuthHandler, signOutUser, profile } =
+  const { cartData, bookingCodes, setShowForm, signOutUser, profile } =
     useGlobalApi();
   const [openMenu, setOpenMenu] = useState(false);
 
+  const staticProfileImage =
+    "https://th.bing.com/th?id=OIP.Gfp0lwE6h7139625a-r3aAHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2";
   const toggleMenu = () => setOpenMenu(!openMenu);
   const logo = (
     <div className="flex items-center justify-end flex-1">
@@ -33,7 +35,7 @@ export default function Navbar() {
     <nav
       className="
       flex items-center justify-between md:px-[5%] px-[5%] 
-      bg-cl1 text-white shadow-mdd sticky left-0 top-0 w-full md:py-2 py-2 z-50
+      bg-cl1 text-white shadow-mdd sticky left-0 top-0 w-full md:py-2 py-2 z-40
     "
     >
       <div className="md:hidden block mr-3" onClick={toggleMenu}>
@@ -106,13 +108,18 @@ export default function Navbar() {
           <div className="flex items-center" onClick={signOutUser}>
             <img
               className="h-9 w-9 rounded-full"
-              src={`${profile.avatar}`}
+              src={`${profile.avatar ? profile.avatar : staticProfileImage}`}
               alt=""
             />
-            <span className="md:block hidden text-sm ml-2">{profile.name}</span>
+            <span className="md:block hidden text-sm ml-2">
+              {profile.name ? profile.name : "Profile"}
+            </span>
           </div>
         ) : (
-          <button className="px-4 py-1 bg-rose-500" onClick={GoogleAuthHandler}>
+          <button
+            className="px-4 py-1 bg-rose-500"
+            onClick={() => setShowForm("login")}
+          >
             Login
           </button>
         )}

@@ -55,40 +55,6 @@ export default function StorePage() {
           </div>
         ))}
       </div>
-      {/* <div className="flex items-center justify-between">
-        <div className="flex-1 flex items-center">
-          <div
-            className="
-              h-[3rem] flex items-center rounded relative bg-white
-              bg-transparent border cursor-pointer border-cl1 text-right px-3 mr-2
-            "
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            categories
-            <FiChevronDown className="" />
-            {isOpen && (
-              <div className="bg-white w-[130px] border border-cl1 rounded py-2 absolute top-full left-0 right-0">
-                {categories.map((category, index) => (
-                  <div
-                    className="px-3 py-1 border-b"
-                    key={index}
-                    onClick={() => handleCategory(category.name)}
-                  >
-                    {category.name}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="border bg-white border-cl1 rounded flex-1">
-            <input
-              className="h-[3rem] bg-transparent border-none focus:border-none focus:outline-none text-right w-full px-4"
-              type="search"
-              placeholder="...البحث"
-            />
-          </div>
-        </div>
-      </div> */}
       <div className="flex justify-between items-center mt-4">
         <span className="flex items-center border px-4 py-2 rounded">
           <span>filter</span>
@@ -110,7 +76,9 @@ export default function StorePage() {
           {isLoading && <div className="">Loading...</div>}
           {data.length > 0 &&
             !message &&
-            data.map((item) => <ProductCart item={item} key={item.id} />)}
+            data.map((item) => (
+              <ProductCart item={item} key={item.productID} />
+            ))}
         </div>
       </div>
     </div>

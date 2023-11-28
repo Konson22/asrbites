@@ -6,6 +6,8 @@ import Sidebar from "./admin/Sidebar";
 import DashNav from "./admin/DashNav";
 import AdminCotextProvider from "./manager/AdminCotextProvider";
 import { FaWhatsapp } from "react-icons/fa";
+import Forms from "./pages/forms";
+import Appbar from "./components/appbar";
 
 /***********************************************************************
  THIS IS PROTECTED ROUTE ONLY AUTHENTICATED USER WHO CAN ACCESS IT 
@@ -53,10 +55,12 @@ export function LoginRoutes() {
   THIS ROUTES ARE PUBLIC ANY ONCE CAN ACCESS
 ***********************************************************************/
 export function UsersRoutes() {
-  const { sendMessage } = useGlobalApi();
+  const { sendMessage, showForm } = useGlobalApi();
   return (
     <div className="">
-      <Navbar />
+      {showForm !== null && <Forms />}
+      {/* <Navbar /> */}
+      <Appbar />
       <Outlet />
       <Footer />
       <div
