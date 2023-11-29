@@ -55,9 +55,9 @@ const Dropdown = ({ isOpen, toggle, signOutUser }) => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="flex items-center justify-end px-4 py-2"
+            className="flex items-center justify-end px-4 py-2 cursor-pointer"
           >
-            Profile
+            ملفي الشخصي
             <FiUser className="ml-3" />
           </motion.div>
           <motion.div
@@ -65,9 +65,9 @@ const Dropdown = ({ isOpen, toggle, signOutUser }) => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="flex items-center justify-end px-4 py-2"
+            className="flex items-center justify-end px-4 py-2 cursor-pointer"
           >
-            my reservations
+            تسجيل الخروج
             <FiShoppingCart className="ml-3" />
           </motion.div>
           <motion.div
@@ -78,7 +78,7 @@ const Dropdown = ({ isOpen, toggle, signOutUser }) => {
             className="flex items-center px-4 py-2"
             onClick={signOutUser}
           >
-            my reservations
+            حجزي
             <FaSignOutAlt className="ml-3" />
           </motion.div>
         </motion.div>
