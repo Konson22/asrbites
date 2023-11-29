@@ -67,13 +67,13 @@ export default function Footer() {
         <div className="border-y-2 border-white py-2 my-6"></div>
         <div className="md:flex justify-between mt-4">
           <div className="">
-            <h3 className="text-3xl">Contacts & Address</h3>
+            <h3 className="text-3xl">الاتصال والعنوان</h3>
           </div>
           <div className="">
             <h3 className="text-3xl">address</h3>
           </div>
           <div className="">
-            <h3 className="text-3xl">Contacts & Address</h3>
+            <h3 className="text-3xl">الاتصال والعنوان</h3>
             <ul>
               <li className="flex items-center my-2">
                 <span className="border p-2 rounded-full mr-2">

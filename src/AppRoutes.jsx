@@ -57,14 +57,14 @@ export function LoginRoutes() {
 export function UsersRoutes() {
   const { sendMessage, showForm } = useGlobalApi();
   return (
-    <div className="">
+    <div className="relative min-h-screen">
       {showForm !== null && <Forms />}
       {/* <Navbar /> */}
       <Appbar />
       <Outlet />
       <Footer />
       <div
-        className="bg-green-400 p-3 fixed right-2 bottom-5 rounded-full text-white text-3xl z-50"
+        className="bg-green-400 p-3 fixed right-2 bottom-5 rounded-full text-white text-3xl z-40"
         onClick={sendMessage}
       >
         <FaWhatsapp />

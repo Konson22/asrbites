@@ -7,7 +7,7 @@ export default function PriceSection() {
       <div className="pinksvg md:h-[7rem] h-[5rem]"></div>
       <div className="bg-cl1 text-white px-[8%] py-[2rem]">
         <h3 className="title md:text-5xl text-3xl font-semibold text-center px-8 py-2">
-          OUR PRICING
+          أسعارنا
         </h3>
         <div className="grid md:grid-cols-4 grid-cols-1 gap-10">
           {prices.map((item, index) => (
@@ -78,7 +78,7 @@ const PriceCard = ({ item }) => {
 };
 const prices = [
   {
-    title: "Just Cupcakes + Free Order",
+    title: "تشكيلة واسعة من الكعك",
     image:
       process.env.PUBLIC_URL +
       "/images/—Pngtree—ordinary colorful candy feast_5516292.png",
@@ -89,7 +89,7 @@ const prices = [
     price: "13",
   },
   {
-    title: "Just Cupcakes + Free Order",
+    title: "تصميم خاص للمناسبات",
     image:
       process.env.PUBLIC_URL +
       "/images/—Pngtree—ordinary colorful candy feast_5516292.png",
@@ -100,7 +100,7 @@ const prices = [
     price: "13",
   },
   {
-    title: "Just Cupcakes + Free Order",
+    title: "جودة عالية وتفاصيل دقيقة",
     image:
       process.env.PUBLIC_URL +
       "/images/—Pngtree—ordinary colorful candy feast_5516292.png",

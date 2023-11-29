@@ -13,13 +13,14 @@ import Products from "./admin/Products";
 import EditProduct from "./admin/EditProduct";
 import { CheckoutPage } from "./admin/Checkout";
 import Upload from "./admin/Upload";
+import ShoppingCard from "./pages/shoppingCard";
 
 const HomePage = lazy(() => import("./pages/home"));
 
 function App() {
   return (
     <Suspense fallback={<Loader />}>
-      <div className="text-gray-500">
+      <div className="bg-gray-200 text-gray-500">
         <ScrollToTop />
         <Routes>
           {/* PROTECTED ROUTES */}
@@ -37,6 +38,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="store" element={<StorePage />} />
             <Route path="my-reservation" element={<ReservationPage />} />
+            {/* <Route path="shopping-cart" element={<ShoppingCard />} /> */}
             <Route path="shopping-cart" element={<ShoppingCardPage />} />
           </Route>
           <Route path="admin/login" element={<LoginRoutes />}>

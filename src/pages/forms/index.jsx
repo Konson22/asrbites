@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 import { useRef, useState } from "react";
 import { auth } from "../../config";
@@ -44,11 +45,12 @@ function LoginForm() {
       )
         .then((userCredential) => {
           setProfile({
-            name: "",
-            email: userCredential.email,
-            uid: userCredential.uid,
-            avatar: userCredential.photoURL,
+            name: userCredential.user.displayName,
+            email: userCredential.user.email,
+            uid: userCredential.user.uid,
+            avatar: userCredential.user.photoURL,
           });
+          console.log(userCredential.user.uid);
           setIsLoading(false);
           setShowForm(null);
         })
@@ -120,34 +122,51 @@ function RegisterForm() {
   const { setShowForm, setProfile } = useGlobalApi();
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
     setIsLoading(true);
     if (passwordRef.current.value && emailRef.current.value) {
-      createUserWithEmailAndPassword(
-        auth,
-        emailRef.current.value,
-        passwordRef.current.value
-      )
-        .then((userCredential) => {
-          setProfile({
-            name: "",
-            email: userCredential.email,
-            uid: userCredential.uid,
-            avatar: userCredential.photoURL,
-          });
-          setIsLoading(false);
-          setShowForm(null);
-        })
-        .catch((err) => {
-          const msg = mapAuthCodeToMessage(err.code);
-          setMessage(msg);
-          setIsLoading(false);
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          emailRef.current.value,
+          passwordRef.current.value
+        );
+        await userCredential.user.updateProfile({
+          displayName: nameRef.current.value,
         });
+        console.log("User signed up successfully:", userCredential.user);
+      } catch (error) {
+        const msg = mapAuthCodeToMessage(error.code);
+        setMessage(msg);
+        setIsLoading(false);
+      }
+      // createUserWithEmailAndPassword(
+      //   auth,
+      //   emailRef.current.value,
+      //   passwordRef.current.value
+      // )
+      // .then((userCredential) => {
+      //   userCredential.updateProfile({ displayName: nameRef.current.value });
+      //   setProfile({
+      //     name: "",
+      //     email: userCredential.email,
+      //     uid: userCredential.uid,
+      //     avatar: userCredential.photoURL,
+      //   });
+      //   setIsLoading(false);
+      //   setShowForm(null);
+      // })
+      // .catch((err) => {
+      //   const msg = mapAuthCodeToMessage(err.code);
+      //   setMessage(msg);
+      //   setIsLoading(false);
+      // });
     }
   };
   return (
@@ -166,8 +185,8 @@ function RegisterForm() {
                 type="text"
                 placeholder="Your name"
                 disabled={isLoading}
-                // ref={passwordRef}
-                // required
+                ref={nameRef}
+                required
               />
             </div>
             <div className="flex rounded overflow-hidden border border-cl1 mb-6">

@@ -23,33 +23,34 @@ export default function ShoppingCardPage() {
   const handleReserve = async () => {
     if (!profile) {
       setShowForm("login");
-    }
-    if (selectedTime) {
-      try {
-        setIsLoading(true);
-        const data = {
-          cartData,
-          collectionTime: selectedTime,
-          collectionMethod: deliveryMethod,
-        };
-        const results = await axiosInstance
-          .post("/products/reservation", data)
-          .then((res) => res);
-        if (results.data.done) {
-          setBookingCodes((prev) => {
-            localStorage.setItem(
-              "booking-codes",
-              JSON.stringify([...prev, results.data.cart])
-            );
-            return [...prev, results.data.cart];
-          });
-          clearSavedCartItem();
-          setOpenCard(false);
+    } else {
+      if (selectedTime) {
+        try {
+          setIsLoading(true);
+          const data = {
+            cartData,
+            collectionTime: selectedTime,
+            collectionMethod: deliveryMethod,
+          };
+          const results = await axiosInstance
+            .post("/products/reservation", data)
+            .then((res) => res);
+          if (results.data.done) {
+            setBookingCodes((prev) => {
+              localStorage.setItem(
+                "booking-codes",
+                JSON.stringify([...prev, results.data.cart])
+              );
+              return [...prev, results.data.cart];
+            });
+            clearSavedCartItem();
+            setOpenCard(false);
+          }
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
         }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
       }
     }
   };
@@ -123,7 +124,7 @@ export default function ShoppingCardPage() {
               </tbody>
             </table>
           </div>
-          <div className="md:w-[40%] bg-white overflow-hidden rounded-md shadow md:ml-4 md:mt-0 mt-5">
+          <div className="md:w-[45%] bg-white overflow-hidden rounded-md shadow md:ml-4 md:mt-0 mt-5">
             <div className="px-5 py-2">
               <h3 className="md:text-xl text-xl text-right">المنتجات</h3>
             </div>
@@ -242,13 +243,13 @@ function ReserveDilog({
               </select>
             </div>
             <div className="ml-2">
-              <h4 className="text-right mb-2">delivery method</h4>
+              <h4 className="text-right mb-2">طريقة التسليم المفضلة</h4>
               <select
                 className="bg-gray-100 text-gray-600 w-full border text-right px-4 py-2"
                 onChange={(e) => setDeliveryMethod(e.target.value)}
               >
                 <option value="picking">picking</option>
-                <option value="delivery">delivery</option>
+                <option value="delivery">توصيل</option>
               </select>
             </div>
           </div>
