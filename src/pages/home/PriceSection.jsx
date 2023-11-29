@@ -41,7 +41,7 @@ const PriceCard = ({ item }) => {
 
   return (
     <motion.div
-      className="bg-white md:w-[250px] md:rounded-t-[125px] rounded-md mx-auto relative mt-[80px]"
+      className="bg-white md:w-[250px] w-full md:rounded-t-[125px] rounded-md mx-auto relative mt-[80px]"
       variants={variants}
       initial="hidden"
       animate={mainControlls}
