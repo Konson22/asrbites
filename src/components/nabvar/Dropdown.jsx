@@ -3,7 +3,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { FiShoppingCart, FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-const Dropdown = ({ isOpen, toggle, signOutUser }) => {
+const Dropdown = ({ isOpen, signOutUser }) => {
   const variants = {
     initial: {
       scaleY: 0,
@@ -11,14 +11,14 @@ const Dropdown = ({ isOpen, toggle, signOutUser }) => {
     animate: {
       scaleY: 1,
       transition: {
-        duration: 0.3,
+        duration: 0.2,
         ease: [0.12, 0, 0.39, 0],
       },
     },
     exit: {
       scaleY: 0,
       transition: {
-        duration: 0.4,
+        duration: 0.2,
         ease: [0.22, 1, 0.36, 1],
       },
     },

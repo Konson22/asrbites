@@ -121,7 +121,7 @@ export default function Navbar() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed z-50 left-0 top-0 w-full h-screen origin-top bg-white p-5"
+            className="fixed z-50 left-0 top-0 w-full h-screen origin-top bg-cl1 text-white p-5"
           >
             <div className="flex h-full flex-col">
               <div className="flex items-center justify-between mb-5">
