@@ -11,6 +11,7 @@ import { useRef, useState } from "react";
 import { auth } from "../../config";
 import { FiX } from "react-icons/fi";
 import { LoadingButton } from "../../components/Buttons";
+import axiosInstance from "../../hooks/useAxios";
 
 export default function Forms() {
   const { showForm, setShowForm } = useGlobalApi();
@@ -33,59 +34,60 @@ function LoginForm() {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+    setIsLoading(true);
+    const fields = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
     if (passwordRef.current.value && emailRef.current.value) {
-      setMessage("");
-      setIsLoading(true);
-      signInWithEmailAndPassword(
-        auth,
-        emailRef.current.value,
-        passwordRef.current.value
-      )
-        .then((userCredential) => {
-          setProfile({
-            name: userCredential.user.displayName,
-            email: userCredential.user.email,
-            uid: userCredential.user.uid,
-            avatar: userCredential.user.photoURL,
-          });
-          console.log(userCredential.user.uid);
-          setIsLoading(false);
-          setShowForm(null);
-        })
-        .catch((err) => {
-          const msg = mapAuthCodeToMessage(err.code);
-          setMessage(msg);
-          setIsLoading(false);
-        });
+      try {
+        const userCredential = await axiosInstance
+          .post("/auth/login", fields)
+          .then((res) => res);
+        setProfile(userCredential.data);
+        setShowForm(null);
+      } catch (error) {
+        if (error.response) {
+          setMessage(error?.response?.data);
+        } else {
+          setMessage("Error");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      setMessage("Please fill all fields");
     }
   };
   return (
     <div className="flex h-[max-content] md:w-[60%] w-[85%] bg-white rounded-md overflow-hidden shadow-lg relative">
       <CloseForm setShowForm={setShowForm} />
-      <div className="flex-1 px-8 py-5">
-        <h3 className="text-2xl text-center">Login</h3>
+      <div className="flex-1 px-8 py-5 md:mt-0 mt-6">
+        <h3 className="text-2xl text-center">تسجيل الدخول</h3>
         {message && (
           <span className="text-center text-red-600 block mt-3">{message}</span>
         )}
         <div className="my-5">
           <form onSubmit={handleSubmit}>
-            <div className="flex rounded overflow-hidden border border-cl1 mb-6">
+            <div className="flex rounded overflow-hidden mb-6">
               <input
-                className="md:h-[2.5rem] h-[2.5rem] bg-gray-50 w-full focus:outline-none focus:border-none px-3"
+                className="md:h-[2.5rem] h-[2.5rem] text-right bg-gray-100 drop-shadow-md w-full border-none focus:outline-none focus:border-none px-3"
                 type="text"
                 ref={emailRef}
                 disabled={isLoading}
-                placeholder="Email Address"
+                placeholder="أدخل عنوان البريد الإلكتروني"
                 required
               />
             </div>
-            <div className="flex rounded overflow-hidden border border-cl1 mb-6">
+            <div className="flex rounded overflow-hidden mb-6">
               <input
-                className="md:h-[2.5rem] h-[2.5rem] bg-gray-50 w-full focus:outline-none focus:border-none px-3"
+                className="md:h-[2.5rem] h-[2.5rem] text-right bg-gray-100 drop-shadow w-full border-none focus:outline-none focus:border-none px-3"
                 type="text"
-                placeholder="Enter password"
+                placeholder="أدخل كلمة المرور"
                 required
                 disabled={isLoading}
                 ref={passwordRef}
@@ -99,7 +101,7 @@ function LoginForm() {
                 type="submit"
                 disabled={isLoading}
               >
-                Login
+                تسجيل الدخول
               </button>
             )}
           </form>
@@ -130,80 +132,71 @@ function RegisterForm() {
     e.preventDefault();
     setMessage("");
     setIsLoading(true);
-    if (passwordRef.current.value && emailRef.current.value) {
+    const fields = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    if (
+      nameRef.current.value &&
+      passwordRef.current.value &&
+      emailRef.current.value
+    ) {
       try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          emailRef.current.value,
-          passwordRef.current.value
-        );
-        await userCredential.user.updateProfile({
-          displayName: nameRef.current.value,
-        });
-        console.log("User signed up successfully:", userCredential.user);
+        const userCredential = await axiosInstance
+          .post("/auth/register", fields)
+          .then((res) => res);
+        setProfile(userCredential.data);
+        console.log("User signed up successfully:", userCredential.data);
       } catch (error) {
-        const msg = mapAuthCodeToMessage(error.code);
-        setMessage(msg);
+        if (error.response) {
+          setMessage(error.response.data);
+        } else {
+          setMessage("Opps something went wrong try again");
+        }
+      } finally {
         setIsLoading(false);
       }
-      // createUserWithEmailAndPassword(
-      //   auth,
-      //   emailRef.current.value,
-      //   passwordRef.current.value
-      // )
-      // .then((userCredential) => {
-      //   userCredential.updateProfile({ displayName: nameRef.current.value });
-      //   setProfile({
-      //     name: "",
-      //     email: userCredential.email,
-      //     uid: userCredential.uid,
-      //     avatar: userCredential.photoURL,
-      //   });
-      //   setIsLoading(false);
-      //   setShowForm(null);
-      // })
-      // .catch((err) => {
-      //   const msg = mapAuthCodeToMessage(err.code);
-      //   setMessage(msg);
-      //   setIsLoading(false);
-      // });
+    } else {
+      setMessage("Please fill all fields");
     }
   };
   return (
     <div className="flex items-cente h-[max-content] md:w-[60%] w-[85%] bg-white rounded-md overflow-hidden shadow-lg relative">
       <CloseForm setShowForm={setShowForm} />
-      <div className="flex-1 px-8 py-5">
-        <h3 className="text-2xl font-thin">Register</h3>
+      <div className="flex-1 px-8 py-5 md:mt-0 mt-6">
+        <h3 className="text-2xl font-thin text-right">التسجيل</h3>
         {message && (
           <span className="text-center text-red-600 block mt-3">{message}</span>
         )}
         <div className="my-5">
           <form onSubmit={handleSubmit}>
-            <div className="flex rounded overflow-hidden border border-cl1 mb-6">
+            <div className="flex rounded overflow-hidden mb-6">
               <input
-                className="md:h-[2.5rem] h-[2.5rem] bg-gray-50 w-full focus:outline-none focus:border-none px-3"
+                className="md:h-[2.5rem] h-[2.5rem] bg-gray-100 text-right w-full focus:outline-none border-none focus:border-none px-3"
                 type="text"
-                placeholder="Your name"
+                placeholder="أدخل اسمك"
                 disabled={isLoading}
                 ref={nameRef}
                 required
               />
             </div>
-            <div className="flex rounded overflow-hidden border border-cl1 mb-6">
+            <div className="flex rounded overflow-hidden mb-6">
               <input
-                className="md:h-[2.5rem] h-[2.5rem] bg-gray-50 w-full focus:outline-none focus:border-none px-3"
+                className="md:h-[2.5rem] h-[2.5rem] bg-gray-100 text-right w-full focus:outline-none border-none focus:border-none px-3"
                 type="text"
-                placeholder="Enter E-mail"
+                placeholder="إضافة البريد الإلكتروني"
                 ref={emailRef}
                 disabled={isLoading}
                 required
               />
             </div>
-            <div className="flex rounded overflow-hidden border border-cl1 mb-6">
+            <div className="flex rounded overflow-hidden mb-6">
               <input
-                className="md:h-[2.5rem] h-[2.5rem] bg-gray-50 w-full focus:outline-none focus:border-none px-3"
+                className="md:h-[2.5rem] h-[2.5rem] bg-gray-100 text-right w-full focus:outline-none border-none focus:border-none px-3"
                 type="text"
-                placeholder="Enter password"
+                placeholder="إنشاء كلمة مرور"
                 required
                 disabled={isLoading}
                 ref={passwordRef}
@@ -217,7 +210,7 @@ function RegisterForm() {
                 type="submit"
                 disabled={isLoading}
               >
-                Register
+                إنشاء حساب
               </button>
             )}
           </form>
@@ -245,7 +238,7 @@ function SocilaMediaAuth({ cName = "" }) {
         const user = {
           name: credential.user.displayName,
           email: credential.user.email,
-          uid: credential.user.uid,
+          userID: credential.user.uid,
           avatar: credential.user.photoURL,
         };
         setProfile(user);
@@ -260,7 +253,7 @@ function SocilaMediaAuth({ cName = "" }) {
 
   return (
     <div className={`text-center ${cName}`}>
-      <h3 className="mb-3 font-thin text-xl">Or Login with</h3>
+      <h3 className="mb-3 font-thin text-xl">أو تسجيل الدخول باستخدام</h3>
       {message && message}
       <div className="flex justify-evenly">
         <button className="w-[40px] h-[40px] rounded-full flex items-center justify-center border bg-sky-600 text-white">

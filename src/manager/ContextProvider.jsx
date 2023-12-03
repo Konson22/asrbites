@@ -1,6 +1,6 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import axiosInstance from "../hooks/useAxios";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../config";
 
 const contextApi = createContext();
@@ -15,9 +15,6 @@ export default function GlobalContextProvider({ children }) {
   const [bookingCodes, setBookingCodes] = useState([]);
 
   const savedCartItem = JSON.parse(localStorage.getItem("candy-cart"));
-  const savedBookingCodesJson = JSON.parse(
-    localStorage.getItem("booking-codes")
-  );
 
   const signOutUser = () => {
     signOut(auth)
@@ -25,6 +22,14 @@ export default function GlobalContextProvider({ children }) {
         setProfile(null);
       })
       .catch((err) => console.log(err));
+    logOut();
+  };
+
+  const logOut = async () => {
+    try {
+      const response = await axiosInstance("/auth/logout").then((res) => res);
+      console.log(response.data);
+    } catch (error) {}
   };
   useEffect(() => {
     const controller = new AbortController();
@@ -50,24 +55,83 @@ export default function GlobalContextProvider({ children }) {
       }
     }
     savedCartItem && setCartData(savedCartItem);
-    savedBookingCodesJson && setBookingCodes(savedBookingCodesJson);
     fetchResumies();
-    const listen = onAuthStateChanged(auth, (user) => {
-      user &&
-        setProfile({
-          name: user.displayName,
-          email: user.email,
-          uid: user.uid,
-          avatar: user.photoURL,
-        });
-    });
+    // const listen = onAuthStateChanged(auth, (user) => {
+    //   // if (user) {
+    //   //   setProfile({
+    //   //     name: user.displayName,
+    //   //     email: user.email,
+    //   //     userID: user.uid,
+    //   //     avatar: user.photoURL,
+    //   //   });
+    //   // }
+    // });
+    verifyAuth();
     return () => {
-      listen();
+      // listen();
       controller.abort();
       isMuted = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    let isMuted = true;
+    // GET CURRENT USER ORDERS
+    const myOrders = async () => {
+      try {
+        const results = await axiosInstance
+          .get("/orders/single")
+          .then(async (res) => res);
+
+        const rawData = results.data.map((item) => item.code);
+        const ids = [...new Set(rawData)];
+        const dt = ids.map((id) => {
+          const res = results.data.filter((order) => order.code === id);
+          const totalPrice = res
+            .map((i) => i.price * i.quantity)
+            .reduce((a, b) => +a + +b, 0);
+          return {
+            totalPrice,
+            userID: res[0].userID,
+            items: res.length,
+            code: res[0].code,
+            served: res[0].served,
+            collectionTime: res[0].collectionTime,
+            collectionMethod: res[0].collectionMethod,
+          };
+        });
+        isMuted && setBookingCodes(dt);
+      } catch (error) {
+        if (error.response) {
+          console.log(error.response?.data);
+        } else {
+          console.log(error.message);
+        }
+      }
+    };
+    profile && myOrders();
+    return () => {
+      controller.abort();
+      isMuted = false;
+    };
+  }, [profile]);
+
+  const verifyAuth = async () => {
+    try {
+      const results = await axiosInstance.get("/auth").then(async (res) => res);
+      setProfile(results.data);
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response?.data);
+      } else {
+        console.log(error.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   //  ADD NEW ITEM INTGO CART
   const addItemToCart = (item) => {
@@ -88,18 +152,6 @@ export default function GlobalContextProvider({ children }) {
     return respose;
   };
 
-  //  ADD NEW ITEM INTGO CART
-  const addBookingCode = (cart) => {
-    if (bookingCodes.length > 0) {
-      const newCodes = [...bookingCodes, cart];
-      console.log(newCodes);
-      localStorage.setItem("booking-codes", JSON.stringify(newCodes));
-    } else {
-      console.log(cart);
-      localStorage.setItem("booking-codes", JSON.stringify([cart]));
-    }
-  };
-
   // REMOVE ITEM FROM CART
   const removeItem = (id) => {
     const result = savedCartItem.filter((item) => item.productID !== id);
@@ -109,13 +161,6 @@ export default function GlobalContextProvider({ children }) {
     } else {
       localStorage.clear("candy-cart");
     }
-  };
-
-  // REMOVE ITEM FROM CART
-  const removeReservation = (code) => {
-    const result = savedBookingCodesJson.filter((item) => item.code !== code);
-    setBookingCodes(result);
-    result.length > 0 && saveToLocalStorage("booking-codes", result);
   };
 
   const clearSavedCartItem = () => {
@@ -143,10 +188,8 @@ export default function GlobalContextProvider({ children }) {
     showForm,
     setShowForm,
     signOutUser,
-    removeReservation,
     sendMessage,
     setBookingCodes,
-    addBookingCode,
     setCandy,
     setCartData,
     setProfile,

@@ -40,7 +40,7 @@ export default function StorePage() {
   }, [candy, query]);
 
   return (
-    <div className="md:px-[5%] px-2 md:mt-6 mt-5">
+    <div className="md:px-[5%] px-2 md:mt-14 mt-5">
       <div className="flex items-center justify-between">
         {categories.map((category) => (
           <div

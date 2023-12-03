@@ -15,7 +15,7 @@ export default function Upload() {
     try {
       const formData = new FormData(ev.target);
       const result = await axiosInstance
-        .post("/products/upload", formData, postOptions)
+        .post("/products", formData, postOptions)
         .then((res) => res);
       setCandy((prevItems) => {
         return [...prevItems, result.data];
@@ -63,21 +63,12 @@ export default function Upload() {
               placeholder="category"
             />
           </div>
-          <div className="flex mb-6">
-            <div className="flex-1 mr-2">
-              <input
-                className="h-[3rem] w-full border rounded text-right border-cl1 focus:border-none px-3"
-                name="qty"
-                placeholder="الكمية"
-              />
-            </div>
-            <div className="flex-1 ml-2">
-              <input
-                className="h-[3rem] w-full border rounded text-right border-cl1 focus:border-none px-3"
-                name="price"
-                placeholder="السعر"
-              />
-            </div>
+          <div className="flex-1 mb-6">
+            <input
+              className="h-[3rem] w-full border rounded text-right border-cl1 focus:border-none px-3"
+              name="price"
+              placeholder="السعر"
+            />
           </div>
           <div className="mb-5">
             <textarea

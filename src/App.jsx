@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import ScrollToTop from "./hooks/ScrollToTop";
 import ShoppingCardPage from "./pages/ShoppingCardPage";
 import ReservationPage from "./pages/ReservationPage";
-import StorePage from "./pages/StorePage";
 import Notfound from "./pages/Notfound";
 import { AdminRoutes, LoginRoutes, UsersRoutes } from "./AppRoutes";
 import Dashboard from "./admin/Dashboard";
@@ -14,13 +13,14 @@ import EditProduct from "./admin/EditProduct";
 import { CheckoutPage } from "./admin/Checkout";
 import Upload from "./admin/Upload";
 import ShoppingCard from "./pages/shoppingCard";
+import ShopPage from "./pages/ShopPage";
 
 const HomePage = lazy(() => import("./pages/home"));
 
 function App() {
   return (
     <Suspense fallback={<Loader />}>
-      <div className="bg-gray-200 text-gray-500">
+      <div className="bg-gray-100 text-gray-500">
         <ScrollToTop />
         <Routes>
           {/* PROTECTED ROUTES */}
@@ -36,10 +36,10 @@ function App() {
           {/* UNPROTECTED ROUTES */}
           <Route path="/" element={<UsersRoutes />}>
             <Route index element={<HomePage />} />
-            <Route path="store" element={<StorePage />} />
-            <Route path="my-reservation" element={<ReservationPage />} />
-            {/* <Route path="shopping-cart" element={<ShoppingCard />} /> */}
-            <Route path="shopping-cart" element={<ShoppingCardPage />} />
+            <Route path="store" element={<ShopPage />} />
+            <Route path="reservation" element={<ReservationPage />} />
+            <Route path="shopping-cart" element={<ShoppingCard />} />
+            {/* <Route path="shopping-cart" element={<ShoppingCardPage />} /> */}
           </Route>
           <Route path="admin/login" element={<LoginRoutes />}>
             <Route path="" element={<Login />} />

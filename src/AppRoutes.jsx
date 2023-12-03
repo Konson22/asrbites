@@ -1,5 +1,5 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/nabvar";
 import Footer from "./components/Footer";
 import { useGlobalApi } from "./manager/ContextProvider";
 import Sidebar from "./admin/Sidebar";
@@ -16,7 +16,7 @@ export function AdminRoutes() {
   const { profile } = useGlobalApi();
   const location = useLocation();
 
-  return profile ? (
+  return !profile ? (
     <AdminCotextProvider>
       <div className="h-screen flex">
         <Sidebar />
@@ -59,8 +59,8 @@ export function UsersRoutes() {
   return (
     <div className="relative min-h-screen">
       {showForm !== null && <Forms />}
-      {/* <Navbar /> */}
-      <Appbar />
+      <Navbar />
+      {/* <Appbar /> */}
       <Outlet />
       <Footer />
       <div

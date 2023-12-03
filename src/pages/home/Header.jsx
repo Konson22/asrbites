@@ -29,7 +29,7 @@ export default function Header() {
             to="/store"
           >
             <FaArrowLeft className="mr-2" />
-            <span className="text-base">إبدأ التسوق</span>
+            <span className="text-base">تصفح منتجاتنا</span>
           </Link>
         </motion.div>
       </motion.div>
