@@ -40,7 +40,8 @@ const OrderCard = ({ reservation }) => {
       const newOrders = bookingCodes.filter(
         (order) => order.code !== response.data.code
       );
-      setBookingCodes(newOrders);
+      console.log(newOrders);
+      // setBookingCodes([]);
     } catch (error) {
       console.log(error);
     } finally {

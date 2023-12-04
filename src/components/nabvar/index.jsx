@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FiChevronDown, FiShoppingCart, FiX } from "react-icons/fi";
+import { FiChevronDown, FiSearch, FiShoppingCart, FiX } from "react-icons/fi";
 import { FaBars, FaTicketAlt } from "react-icons/fa";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -53,9 +53,9 @@ export default function Navbar() {
   const logo = (
     <div className="flex items-center justify-start flex-1">
       <img
-        className="md:h-10 w-10 h-8"
-        src={process.env.PUBLIC_URL + "/images/logo.png"}
-        alt=""
+        className="md:h-20 md:w-20 h-10 w-10"
+        src={process.env.PUBLIC_URL + "/images/cupcake.png"}
+        alt="Leee3"
       />
       <p className="md:block hidden logo-text text-2xl font-bold w-full">
         لي ثري
@@ -63,16 +63,21 @@ export default function Navbar() {
     </div>
   );
   return (
-    <div className="bg-white relative">
-      <div className="flex justify-between items-center md:pt-8 md:pb-14 md:px-[8%] px-3 py-4">
+    <div className="bg-white sticky w-full top-0 z-40">
+      <div className="flex justify-between items-center py-3 md:px-[8%] px-3">
         <div
-          className="md:hidden block border border-cl1 p-1 mr-4"
+          className="md:hidden block border border-cl1 rounded p-1 mr-4"
           onClick={toggleMenu}
         >
           <FaBars className="md:text-3xl text-2xl text-cl1" />
         </div>
         {logo}
         <div className="flex items-center">
+          <Link to="/search">
+            <IconBox
+              icon={<FiSearch className="md:text-2xl text-2xl text-cl1" />}
+            />
+          </Link>
           <Link to="/shopping-cart">
             <IconBox
               count={cartData.length}
@@ -103,7 +108,7 @@ export default function Navbar() {
           )}
         </div>
       </div>
-      <div className="md:block hidden absolute -bottom-5 left-0 right-0 bg-cl1 text-white px-[10%] mx-[10%] rounded-md ">
+      <div className="md:block hidden bg-cl1 text-white px-[21%]">
         <ul className="flex justify-evenly">
           {navigationLinks.map((link, index) => (
             <li key={index}>
@@ -127,7 +132,7 @@ export default function Navbar() {
               <div className="flex items-center justify-between mb-5">
                 {logo}
                 <p
-                  className="cursor-pointer text-md border border-cl1 p-1 rounded text-slate-600"
+                  className="cursor-pointer text-md text-white text-2xl border p-1 rounded"
                   onClick={toggleMenu}
                 >
                   <FiX />
@@ -200,8 +205,7 @@ const ProfileCard = ({ profile, signOutUser }) => {
     setIsOpen(!isOpen);
   };
 
-  const staticProfileImage =
-    "https://th.bing.com/th?id=OIP.Gfp0lwE6h7139625a-r3aAHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2";
+  const staticProfileImage = process.env + "/images/user.png";
   return (
     <div
       className="flex items-center ml-4 relative cursor-pointer"
@@ -230,7 +234,7 @@ const ProfileCard = ({ profile, signOutUser }) => {
 function IconBox({ icon, count = 0, cName = "" }) {
   return (
     <span
-      className={`h-8 w-8 flex items-center justify-center relative bg-gray-200 p-[0.4rem] rounded-full ml-5 ${cName}`}
+      className={`h-8 w-8 flex items-center justify-center relative md:bg-gray-200 md:p-[0.5rem] rounded-full md:ml-5 ml-3 ${cName}`}
     >
       {count > 0 && (
         <span

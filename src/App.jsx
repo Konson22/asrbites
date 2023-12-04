@@ -1,7 +1,6 @@
 import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import ScrollToTop from "./hooks/ScrollToTop";
-import ShoppingCardPage from "./pages/ShoppingCardPage";
 import ReservationPage from "./pages/ReservationPage";
 import Notfound from "./pages/Notfound";
 import { AdminRoutes, LoginRoutes, UsersRoutes } from "./AppRoutes";
@@ -39,7 +38,6 @@ function App() {
             <Route path="store" element={<ShopPage />} />
             <Route path="reservation" element={<ReservationPage />} />
             <Route path="shopping-cart" element={<ShoppingCard />} />
-            {/* <Route path="shopping-cart" element={<ShoppingCardPage />} /> */}
           </Route>
           <Route path="admin/login" element={<LoginRoutes />}>
             <Route path="" element={<Login />} />

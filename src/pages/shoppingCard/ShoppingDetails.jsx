@@ -17,7 +17,6 @@ export default function ShoppingDetails() {
         .map((i) => i.price * i.qty)
         .reduce((a, t) => +a + +t);
       setPrice(tPrice);
-      console.log(tPrice);
     }
   }, [cartData]);
 
@@ -27,6 +26,7 @@ export default function ShoppingDetails() {
     setSelectedTime(time);
     setMessage({ time: "" });
   };
+
   const handleCheckout = async () => {
     if (!profile) {
       return setShowForm("login");
@@ -47,25 +47,33 @@ export default function ShoppingDetails() {
         console.log(results.data);
         setSuccessCode(results.data.code);
         setBookingCodes((prev) => [...prev, results.data]);
-      } catch (error) {
-      } finally {
-        setIsLoading(false);
-      }
+      } catch (error) {}
     }
+  };
+
+  const clearOrderCard = () => {
+    setIsLoading(false);
   };
 
   const loader = () => {
     return (
       <div className="h-screen fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center z-50">
-        <div className="bg-white p-8">
+        <div className="bg-white rounded p-8">
           {successCode ? (
             <div className="">
-              <div className="flex items-center">
-                <span>رمز الطلب</span>-
-                <span className="text-xl">{successCode}</span>
+              <div className="flex items-center justify-end">
+                <span className="text-xl font-bold mr-2">{successCode}</span>-
+                <span>رمز الطلب</span>
               </div>
-              <p>شكرا طلبك سيكون جاهزا الساعة 5 مساء</p>
-              <button className="">حسنًا</button>
+              <p className="text-right">شكرا طلبك سيكون جاهزا الساعة 5 مساء</p>
+              <div className="flex justify-end mt-4">
+                <button
+                  className="px-5 py-2 rounded bg-cl1 text-white"
+                  onClick={clearOrderCard}
+                >
+                  حسنًا
+                </button>
+              </div>
             </div>
           ) : (
             <div className="">Loading...</div>
@@ -76,7 +84,7 @@ export default function ShoppingDetails() {
   };
   return (
     <div className="md:w-[40%] bg-white px-6 py-4 rounded">
-      {/* {loader()} */}
+      {isLoading && loader()}
       <h3 className="md:text-xl text-xl text-right mb-4">المنتجات</h3>
       {message.error && (
         <span className="text-red-500 text-center my-2">

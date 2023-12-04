@@ -16,7 +16,7 @@ export function AdminRoutes() {
   const { profile } = useGlobalApi();
   const location = useLocation();
 
-  return !profile ? (
+  return profile ? (
     <AdminCotextProvider>
       <div className="h-screen flex">
         <Sidebar />

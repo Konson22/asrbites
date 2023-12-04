@@ -2,9 +2,9 @@ export default function WhatWeCanDo() {
   return (
     <div className="px-[8%] md:py-[4rem]">
       <h2 className="title md:text-5xl text-3xl font-semibold text-lightpink text-center mb-8">
-        What We Can Do
+        خدماتنا
       </h2>
-      <div className="grid md:grid-cols-4 grid-cols-1 gap-5">
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
         {data.map((cake, index) => (
           <div className="md:mb-5" key={index}>
             <div
@@ -27,30 +27,25 @@ export default function WhatWeCanDo() {
 
 const data = [
   {
-    title: "Make Cake one",
-    text: "Cookie apple pie donut gingerbread sweet roll pudding topping marshmallow.",
+    title: "تشكيلة واسعة من الكعك",
+    text: `نقدم مجموعة متنوعة من الكعك الطازجة، بدءًا من الكعك الكلاسيكي إلى الابتكارات الفريدة. يتم اختيار المكونات بعناية لضمان الجودة والطعم الرائع.
+    `,
     image: process.env.PUBLIC_URL + "/images/green.jpeg",
     color: "text-cl2",
     border: "border-cl2",
   },
   {
-    title: "Make Cake one",
-    text: "Cookie apple pie donut gingerbread sweet roll pudding topping marshmallow.",
-    image: process.env.PUBLIC_URL + "/images/cake-3.jpg",
-    border: "border-cl1",
-    color: "text-cl1",
-  },
-  {
-    title: "Make Cake one",
-    text: "Cookie apple pie donut gingerbread sweet roll pudding topping marshmallow.",
+    title: "تصميم خاص للمناسبات",
+    text: ` يمكننا تقديم خدمة تصميم خاصة لمناسباتك، سواء كانت أعياد ميلاد، حفلات زفاف، أو أي مناسبة خاصة. نحرص على تلبية توقعاتك وجعل كل حدث فريدًا.`,
     image:
       process.env.PUBLIC_URL + "/images/cream-forest-white-background-red.jpg",
-    color: "text-cl2",
+    color: "text-cl3",
     border: "border-cl2",
   },
   {
-    title: "Make Cake one",
-    text: "Cookie apple pie donut gingerbread sweet roll pudding topping marshmallow.",
+    title: "خدمة توصيل",
+    text: ` لجعل تجربة التسوق أكثر راحة، نقدم خدمة التوصيل لطلباتك. سيتم توصيل الحلويات الطازجة مباشرة إلى باب منزلك.
+    `,
     image:
       process.env.PUBLIC_URL + "/images/cream-forest-white-background-red.jpg",
     border: "border-cl5",
