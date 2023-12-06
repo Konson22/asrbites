@@ -75,7 +75,7 @@ export default function NavCart() {
                   </div>
                   <img
                     className="h-10 w-10 ml-3"
-                    src={"http://localhost:3001/" + item.product_image}
+                    src={process.env.PUBLIC_URL + item.product_image}
                     alt=""
                   />
                 </div>
