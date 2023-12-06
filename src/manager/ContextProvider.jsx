@@ -1,6 +1,6 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import axiosInstance from "../hooks/useAxios";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../config";
 
 const contextApi = createContext();
@@ -56,19 +56,19 @@ export default function GlobalContextProvider({ children }) {
     }
     savedCartItem && setCartData(savedCartItem);
     fetchResumies();
-    // const listen = onAuthStateChanged(auth, (user) => {
-    //   // if (user) {
-    //   //   setProfile({
-    //   //     name: user.displayName,
-    //   //     email: user.email,
-    //   //     userID: user.uid,
-    //   //     avatar: user.photoURL,
-    //   //   });
-    //   // }
-    // });
+    const listen = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setProfile({
+          name: user.displayName,
+          email: user.email,
+          userID: user.uid,
+          avatar: user.photoURL,
+        });
+      }
+    });
     verifyAuth();
     return () => {
-      // listen();
+      listen();
       controller.abort();
       isMuted = false;
     };
