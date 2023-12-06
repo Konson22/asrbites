@@ -1,5 +1,6 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import Navbar from "./components/nabvar";
+import Navbar from "./components/navigation";
+// import Navbar from "./components/nabvar";
 import Footer from "./components/Footer";
 import { useGlobalApi } from "./manager/ContextProvider";
 import Sidebar from "./admin/Sidebar";
@@ -7,7 +8,7 @@ import DashNav from "./admin/DashNav";
 import AdminCotextProvider from "./manager/AdminCotextProvider";
 import { FaWhatsapp } from "react-icons/fa";
 import Forms from "./pages/forms";
-import Appbar from "./components/appbar";
+import Checkout from "./pages/Checkout";
 
 /***********************************************************************
  THIS IS PROTECTED ROUTE ONLY AUTHENTICATED USER WHO CAN ACCESS IT 
@@ -55,12 +56,12 @@ export function LoginRoutes() {
   THIS ROUTES ARE PUBLIC ANY ONCE CAN ACCESS
 ***********************************************************************/
 export function UsersRoutes() {
-  const { sendMessage, showForm } = useGlobalApi();
+  const { sendMessage, showForm, isCheckingOut } = useGlobalApi();
   return (
     <div className="relative min-h-screen">
       {showForm !== null && <Forms />}
+      {isCheckingOut && <Checkout />}
       <Navbar />
-      {/* <Appbar /> */}
       <Outlet />
       <Footer />
       <div

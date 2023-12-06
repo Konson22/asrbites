@@ -1,7 +1,6 @@
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import ScrollToTop from "./hooks/ScrollToTop";
-import ReservationPage from "./pages/ReservationPage";
 import Notfound from "./pages/Notfound";
 import { AdminRoutes, LoginRoutes, UsersRoutes } from "./AppRoutes";
 import Dashboard from "./admin/Dashboard";
@@ -11,10 +10,12 @@ import Products from "./admin/Products";
 import EditProduct from "./admin/EditProduct";
 import { CheckoutPage } from "./admin/Checkout";
 import Upload from "./admin/Upload";
-import ShoppingCard from "./pages/shoppingCard";
+import ShoppingCard from "./pages/ShoppingCard";
 import ShopPage from "./pages/ShopPage";
-
-const HomePage = lazy(() => import("./pages/home"));
+// import Checkout from "./pages/Checkout";
+import HomePage from "./pages/home";
+import UserOrders from "./pages/userOrders";
+import OrderDetails from "./pages/userOrders/OrderDetails";
 
 function App() {
   return (
@@ -36,7 +37,8 @@ function App() {
           <Route path="/" element={<UsersRoutes />}>
             <Route index element={<HomePage />} />
             <Route path="store" element={<ShopPage />} />
-            <Route path="reservation" element={<ReservationPage />} />
+            <Route path="my-orders" element={<UserOrders />} />
+            <Route path="view-order/:orderCode" element={<OrderDetails />} />
             <Route path="shopping-cart" element={<ShoppingCard />} />
           </Route>
           <Route path="admin/login" element={<LoginRoutes />}>

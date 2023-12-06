@@ -9,13 +9,13 @@ export default function GlobalContextProvider({ children }) {
   const [cartData, setCartData] = useState([]);
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [showForm, setShowForm] = useState(null);
   const [message, setMessage] = useState("");
   const [candy, setCandy] = useState([]);
-  const [bookingCodes, setBookingCodes] = useState([]);
+  const [userOrders, setUserOrders] = useState([]);
 
   const savedCartItem = JSON.parse(localStorage.getItem("candy-cart"));
-
   const signOutUser = () => {
     signOut(auth)
       .then(() => {
@@ -78,11 +78,12 @@ export default function GlobalContextProvider({ children }) {
   useEffect(() => {
     const controller = new AbortController();
     let isMuted = true;
+
     // GET CURRENT USER ORDERS
     const myOrders = async () => {
       try {
         const results = await axiosInstance
-          .get("/orders/single")
+          .post("/orders/single", { userID: profile.userID })
           .then(async (res) => res);
 
         const rawData = results.data.map((item) => item.code);
@@ -102,7 +103,7 @@ export default function GlobalContextProvider({ children }) {
             collectionMethod: res[0].collectionMethod,
           };
         });
-        isMuted && setBookingCodes(dt);
+        isMuted && setUserOrders(dt);
       } catch (error) {
         if (error.response) {
           console.log(error.response?.data);
@@ -139,7 +140,7 @@ export default function GlobalContextProvider({ children }) {
     if (cartData.length > 0) {
       const result = cartData.find((i) => i.productID === item.productID);
       if (result) {
-        respose = "Already Added to cart";
+        respose = "Already Added";
       } else {
         const newCart = [...cartData, item];
         setCartData(newCart);
@@ -169,7 +170,7 @@ export default function GlobalContextProvider({ children }) {
   };
 
   const sendMessage = () => {
-    const encodedMessage = encodeURIComponent("Who Can we help you?");
+    const encodedMessage = encodeURIComponent("Hii");
     const confirmationMessage =
       "سيتم توجيهك إلى واتساب. يرجى مشاركة موقعك للتوصيل. هل ترغب في المتابعة؟";
     if (window.confirm(confirmationMessage)) {
@@ -184,12 +185,14 @@ export default function GlobalContextProvider({ children }) {
     candy,
     isLoading,
     message,
-    bookingCodes,
+    userOrders,
     showForm,
+    isCheckingOut,
+    setIsCheckingOut,
     setShowForm,
     signOutUser,
     sendMessage,
-    setBookingCodes,
+    setUserOrders,
     setCandy,
     setCartData,
     setProfile,

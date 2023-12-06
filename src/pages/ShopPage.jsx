@@ -4,10 +4,10 @@ import { useSearchParams } from "react-router-dom";
 import ProductCart from "../components/ProductCart";
 import { categories } from "../assets/staticData";
 import { FiSearch } from "react-icons/fi";
+import ItemCard from "../components/ItemCard";
 
 export default function ShopPage() {
   const { isLoading, candy } = useGlobalApi();
-  const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
   const [message, setMessage] = useState("");
   const [param, setQuery] = useSearchParams(false);
@@ -39,7 +39,7 @@ export default function ShopPage() {
   }, [candy, query]);
 
   return (
-    <div className="md:px-[5%] px-2 md:mt-14 mt-3 flex">
+    <div className="md:px-[2%] px-2 md:mt-14 mt-3 flex">
       <div className="flex-1 md:mr-6">
         <div className="md:hidden flex items-center justify-between">
           {categories.map((category) => (
@@ -59,13 +59,11 @@ export default function ShopPage() {
           <span>فرز حسب</span>
           <h3 className="text-3xl text-right">منتجاتنا</h3>
         </div>
-        <div className="grid md:grid-cols-3 grid-cols-2 md:gap-5 gap-2">
+        <div className="grid md:grid-cols-4 grid-cols-2 md:gap-5 gap-2">
           {isLoading && <div className="">Loading...</div>}
           {data.length > 0 &&
             !message &&
-            data.map((item) => (
-              <ProductCart item={item} key={item.productID} />
-            ))}
+            data.map((item) => <ItemCard item={item} key={item.productID} />)}
         </div>
       </div>
       <div className="md:block hidden w-[25%]">
