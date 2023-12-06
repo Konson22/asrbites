@@ -51,7 +51,7 @@ export default function MobileNav() {
   };
 
   return (
-    <div className="md:hidden flex justify-between items-center py-3 bg-white px-4">
+    <div className="md:hidden flex justify-between items-center md:py-3 py-2 bg-white px-4">
       <div className="flex items-center">
         <div className="mr-4" onClick={toggleMenu}>
           <IconBox icon={<FaBars />} />

@@ -1,7 +1,7 @@
 export default function IconBox({
   icon,
   count = 0,
-  cName = "text-cl1 text-3xl",
+  cName = "text-cl1 md:text-3xl text-2xl",
 }) {
   return (
     <span
