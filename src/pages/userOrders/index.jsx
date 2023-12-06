@@ -68,28 +68,28 @@ function OrderCard({ order, deleteOrder }) {
         </span>
         <div className="flex">
           <span>{order.code}</span>
-          <span>Order Code</span>
+          <span>رمز الطلب</span>
         </div>
       </div>
       <div className="flex items-center mb-3">
         <span>{order.items}</span>
         <span className="border border-dotted flex-1 mx-3"></span>
-        <span>Items</span>
+        <span>عدد المنتجات</span>
       </div>
       <div className="flex items-center mb-3">
         <span>{order.totalPrice}</span>
         <span className="border border-dotted flex-1 mx-3"></span>
-        <span>Total Price</span>
+        <span>السعر الإجمالي</span>
       </div>
       <div className="flex items-center mb-3">
         <span>{formateTime(order.collectionTime).text}</span>
         <span className="border border-dotted flex-1 mx-3"></span>
-        <span>Time</span>
+        <span>وقت الاستلام</span>
       </div>
       <div className="flex items-center mb-3">
         <span>{order.collectionMethod}</span>
         <span className="border border-dotted flex-1 mx-3"></span>
-        <span>Method</span>
+        <span>طريقة الاستلام</span>
       </div>
       <div className="flex items-center justify-end mt-3">
         <Link

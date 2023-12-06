@@ -42,7 +42,7 @@ export default function ItemCard({ item }) {
             className="h-full flex-3 border border-rd px-3 rounded mr-3"
             onClick={handleAddItem}
           >
-            add to cart
+            إضافة
           </div>
           <div className="h-full flex-1">
             <input

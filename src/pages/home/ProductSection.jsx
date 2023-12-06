@@ -7,7 +7,7 @@ export default function ProductSection() {
 
   return (
     <div className="px-[8%] py-14">
-      <h2 className="text-3xl font-bold text-center mb-7">Our Products</h2>
+      <h2 className="text-3xl font-bold text-center mb-7">منتجاتنا</h2>
       <div className="grid md:grid-cols-4 grid-cols-2 md:gap-5 gap-2">
         {isLoading && <div className="">Loading...</div>}
         {candy.length > 0 &&

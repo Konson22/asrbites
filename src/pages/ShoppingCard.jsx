@@ -55,13 +55,13 @@ function ItemsInCart({ cartData, removeItem, cName = "md:block hidden" }) {
         <table className="w-full table-fixed text-right">
           <thead>
             <tr className="border-b">
-              <th className="py-3 px-5 md:w-[max-content]">remove</th>
+              <th className="py-3 px-5 md:w-[max-content]">حذف</th>
               <th className="md:block hidden md:w-[max-content] py-3 px-5">
-                total price
+                السعر الإجمالي
               </th>
-              <th className="md:w-[max-content] py-3 px-5">price</th>
-              <th className="md:w-[max-content] py-3 px-5">qty</th>
-              <th className="py-3 px-5">product</th>
+              <th className="md:w-[max-content] py-3 px-5">السعر </th>
+              <th className="md:w-[max-content] py-3 px-5">الكمية</th>
+              <th className="py-3 px-5">منتجات</th>
             </tr>
           </thead>
           <tbody>
@@ -85,7 +85,7 @@ function ItemsInCart({ cartData, removeItem, cName = "md:block hidden" }) {
                     <span className="md:block hidden">{item.name}</span>
                     <img
                       className="h-10 w-10 ml-3"
-                      src={"http://localhost:3001/" + item.product_image}
+                      src={process.env.PUBLIC_URL + item.product_image}
                       alt=""
                     />
                   </div>
@@ -95,7 +95,9 @@ function ItemsInCart({ cartData, removeItem, cName = "md:block hidden" }) {
           </tbody>
         </table>
       ) : (
-        <div className="">No items</div>
+        <div className="text-right">
+          ليس لديك منتجات في عربة التسوق الخاصة بك
+        </div>
       )}
     </div>
   );
