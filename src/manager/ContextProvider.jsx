@@ -57,16 +57,17 @@ export default function GlobalContextProvider({ children }) {
     savedCartItem && setCartData(savedCartItem);
     fetchResumies();
     const listen = onAuthStateChanged(auth, (user) => {
-      if (user && !profile) {
+      if (user) {
         setProfile({
           name: user.displayName,
           email: user.email,
           userID: user.uid,
           avatar: user.photoURL,
         });
+      }else{
+      verifyAuth();
       }
     });
-    verifyAuth();
     return () => {
       listen();
       controller.abort();
@@ -122,7 +123,7 @@ export default function GlobalContextProvider({ children }) {
   const verifyAuth = async () => {
     try {
       const results = await axiosInstance.get("/auth").then(async (res) => res);
-      !profile && setProfile(results.data);
+      setProfile(results.data);
     } catch (error) {
       if (error.response) {
         console.log(error.response?.data);
