@@ -57,7 +57,7 @@ export default function GlobalContextProvider({ children }) {
     savedCartItem && setCartData(savedCartItem);
     fetchResumies();
     const listen = onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && !profile) {
         setProfile({
           name: user.displayName,
           email: user.email,
@@ -122,7 +122,7 @@ export default function GlobalContextProvider({ children }) {
   const verifyAuth = async () => {
     try {
       const results = await axiosInstance.get("/auth").then(async (res) => res);
-      setProfile(results.data);
+      !profile && setProfile(results.data);
     } catch (error) {
       if (error.response) {
         console.log(error.response?.data);
